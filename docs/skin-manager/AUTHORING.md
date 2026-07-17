@@ -165,6 +165,37 @@ open -a "$HOME/Applications/Codex 皮肤管理器.app" \
 
 同时在 `LICENSES/assets.txt` 记录每项素材来源、作者、许可和使用边界。
 
+## Git 提交与发布
+
+如果用户明确要求提交、push、创建 PR 或发布，新皮肤不能只把模板代码或文档上传到 GitHub。除非用户明确缩小范围，默认同时提交：
+
+- `skin.json`、被引用的 `assets/`、`LICENSES/` 和皮肤任务档案；
+- 对应皮肤的宽屏与窄屏截图；
+- 新增或修改的管理器模板、测试和上下文；
+- 获准重新分发的 `.codexskin` 与 SHA-256。仓库不跟踪发行二进制时，把它们上传到对应 GitHub Release，并在 PR 中提供链接。
+
+提交前先检查 `rights.redistributionAllowed` 和许可文本：
+
+- 为 `true` 时，才可以把对应源素材、截图和成品上传到公开 Git/Release；
+- 为 `false` 或权利不明时，不得公开上传。只有用户明确确认私有目标和权限时才通过私有仓库/私有渠道交付；
+- 私有素材被排除时，PR 和最终交接必须列出未上传文件与原因，不能让其他设备误以为仓库包含完整素材。
+
+建议截图路径：
+
+```text
+docs/screenshots/<skin-id>.png
+docs/screenshots/<skin-id>-narrow.png
+```
+
+提交前检查：
+
+```bash
+git status --short
+git diff --cached --name-status
+```
+
+只精确暂存当前皮肤相关文件，避免带入其他工作区改动。完成后报告分支、commit、PR/Release 链接、实际上传清单和任何权利排除项。
+
 ## 新增模板
 
 只有现有模板无法表达新布局时才新增模板。至少同步更新：
