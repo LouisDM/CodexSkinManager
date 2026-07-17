@@ -29,11 +29,37 @@ public enum SkinLibraryFilter: String, CaseIterable, Identifiable, Sendable {
     public func includes(_ skin: InstalledSkin, active activeRecord: ActiveSkinRecord?) -> Bool {
         switch self {
         case .all: true
-        case .active: activeRecord == ActiveSkinRecord(id: skin.id, version: skin.version)
+        case .active: activeRecord?.id == skin.id
         case .privateOnly: !skin.rights.canExportPublicly
         case .unverified:
             if case .verifiedPublisher = skin.trust { false } else { true }
         }
+    }
+}
+
+public enum SkinLibraryInventory {
+    public static func visibleSkins(from installedVersions: [InstalledSkin]) -> [InstalledSkin] {
+        var latestByID: [String: InstalledSkin] = [:]
+        for skin in installedVersions {
+            guard let current = latestByID[skin.id] else {
+                latestByID[skin.id] = skin
+                continue
+            }
+            if isVersion(skin.version, newerThan: current.version) {
+                latestByID[skin.id] = skin
+            }
+        }
+        return latestByID.values.sorted {
+            let nameComparison = $0.name.localizedStandardCompare($1.name)
+            if nameComparison == .orderedSame { return $0.id < $1.id }
+            return nameComparison == .orderedAscending
+        }
+    }
+
+    private static func isVersion(_ candidate: String, newerThan current: String) -> Bool {
+        let candidateComponents = candidate.split(separator: ".").compactMap { Int($0) }
+        let currentComponents = current.split(separator: ".").compactMap { Int($0) }
+        return currentComponents.lexicographicallyPrecedes(candidateComponents)
     }
 }
 

@@ -101,7 +101,11 @@ final class AppModel: ObservableObject {
         default: record = active
         }
         let displayName = record.flatMap { activeRecord in
-            skins.first { $0.id == activeRecord.id && $0.version == activeRecord.version }?.name
+            skins.first {
+                $0.id == activeRecord.id && $0.version == activeRecord.version
+            }?.name ?? skins.first {
+                $0.id == activeRecord.id
+            }?.name
         }
         return SkinStatePresentation(state, activeDisplayName: displayName)
     }
@@ -109,7 +113,9 @@ final class AppModel: ObservableObject {
     func activityLabel(for skin: InstalledSkin) -> String? {
         let record = ActiveSkinRecord(id: skin.id, version: skin.version)
         if verifiedActive == record { return "已验证生效" }
+        if verifiedActive?.id == skin.id { return "已有新版本" }
         if active == record { return "上次使用" }
+        if active?.id == skin.id { return "上次使用旧版" }
         return nil
     }
 
@@ -141,7 +147,8 @@ final class AppModel: ObservableObject {
     }
 
     func refreshLibrary() async throws {
-        skins = try await repository.listInstalled()
+        let installedVersions = try await repository.listInstalled()
+        skins = SkinLibraryInventory.visibleSkins(from: installedVersions)
         active = try await repository.activeSkin()
         if let selection,
            !skins.contains(where: { $0.id == selection.id && $0.version == selection.version })
@@ -150,7 +157,7 @@ final class AppModel: ObservableObject {
         }
         if selection == nil {
             if let active,
-               let match = skins.first(where: { $0.id == active.id && $0.version == active.version })
+               let match = skins.first(where: { $0.id == active.id })
             {
                 selection = SkinSelection(match)
             } else if let first = skins.first {
@@ -179,7 +186,7 @@ final class AppModel: ObservableObject {
             case let .installed(value), let .alreadyInstalled(value): installed = value
             }
             try await refreshLibrary()
-            selection = SkinSelection(installed)
+            selection = skins.first(where: { $0.id == installed.id }).map(SkinSelection.init)
         } catch {
             alertMessage = "导入失败：\(error.localizedDescription)"
         }

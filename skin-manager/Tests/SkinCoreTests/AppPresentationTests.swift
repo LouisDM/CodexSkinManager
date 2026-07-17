@@ -10,6 +10,40 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertEqual(SkinLibraryFilter.privateOnly.systemImage, "lock.shield")
     }
 
+    func testLibraryShowsOnlyTheLatestInstalledVersionForEachSkinIdentity() {
+        let distributable = rights(redistributionAllowed: true)
+        let installedVersions = [
+            installed(id: "meng-chuan-red-lotus", name: "孟川 · 红莲业火", version: "1.0.0", rights: distributable),
+            installed(id: "meng-chuan-red-lotus", name: "孟川 · 红莲业火", version: "1.0.1", rights: distributable),
+            installed(id: "meng-chuan-nightblade", name: "孟川 · 玄刃夜行", version: "1.9.0", rights: distributable),
+            installed(id: "meng-chuan-nightblade", name: "孟川 · 玄刃夜行", version: "1.10.0", rights: distributable),
+            installed(id: "liu-qiyue-undying-phoenix", name: "柳七月 · 不死凰焰", version: "1.0.0", rights: distributable),
+        ]
+
+        let visible = SkinLibraryInventory.visibleSkins(from: installedVersions)
+
+        XCTAssertEqual(visible.count, 3)
+        XCTAssertEqual(
+            Dictionary(uniqueKeysWithValues: visible.map { ($0.id, $0.version) }),
+            [
+                "liu-qiyue-undying-phoenix": "1.0.0",
+                "meng-chuan-nightblade": "1.10.0",
+                "meng-chuan-red-lotus": "1.0.1",
+            ]
+        )
+    }
+
+    func testRecentlyUsedFilterMatchesSkinIdentityAfterAStoredVersionUpgrade() {
+        let latest = installed(
+            id: "meng-chuan-red-lotus",
+            version: "1.0.1",
+            rights: rights(redistributionAllowed: true)
+        )
+        let previouslyUsed = ActiveSkinRecord(id: latest.id, version: "1.0.0")
+
+        XCTAssertTrue(SkinLibraryFilter.active.includes(latest, active: previouslyUsed))
+    }
+
     func testTrustAndRightsBadgesAreExplicit() {
         XCTAssertEqual(SkinTrustPresentation(.verifiedPublisher(fingerprint: "abc")).label, "发布者已验证")
         XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "签名未知")
@@ -152,13 +186,14 @@ final class AppPresentationTests: XCTestCase {
         id: String,
         name: String = "Skin",
         author: String = "Author",
+        version: String = "1.0.0",
         rights: SkinRights
     ) -> InstalledSkin {
         let manifest = SkinManifest(
             schemaVersion: 1,
             id: id,
             name: name,
-            version: "1.0.0",
+            version: version,
             template: "nightblade-v1",
             minManagerVersion: "1.0.0",
             preview: "preview.png",
