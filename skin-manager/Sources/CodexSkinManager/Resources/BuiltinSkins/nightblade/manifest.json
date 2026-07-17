@@ -1,0 +1,52 @@
+{
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "files": [
+    {
+      "byteCount": 471,
+      "mime": "text/plain",
+      "path": "LICENSES/assets.txt",
+      "sha256": "93b4f2380ca79e92c71e2b12487ee3066580296957f0e2054d7371fe79ba17e0"
+    },
+    {
+      "byteCount": 1687897,
+      "mime": "image/png",
+      "path": "assets/background.png",
+      "sha256": "061cd9c28087a892eb6054b49e830eca234237d01ca92f71baf0c87c32ecd1e0"
+    },
+    {
+      "byteCount": 1669428,
+      "mime": "image/png",
+      "path": "assets/hero.png",
+      "sha256": "92ef2cefb021dceafafde48833bc812cabbf7d3694c492895856119294617b26"
+    },
+    {
+      "byteCount": 638096,
+      "mime": "image/png",
+      "path": "preview.png",
+      "sha256": "659ef65d2628a2382986849fa056afb064c90e3c96e932d6eee180ac713451aa"
+    },
+    {
+      "byteCount": 237,
+      "mime": "application/json",
+      "path": "rights.json",
+      "sha256": "9efacdd03112dda06f0830ca654f3290c89359bb470a00057c57e59d0ba15ec6"
+    },
+    {
+      "byteCount": 566,
+      "mime": "application/json",
+      "path": "theme.json",
+      "sha256": "c22915ce301b515f3cc9f34a66ccfabd9ec140015d3d6ff1f8e16b38369f3262"
+    }
+  ],
+  "id": "meng-chuan-nightblade",
+  "minManagerVersion": "1.0.0",
+  "name": "孟川 · 玄刃夜行",
+  "preview": "preview.png",
+  "publisherPublicKey": null,
+  "schemaVersion": 1,
+  "template": "nightblade-v1",
+  "version": "1.0.0"
+}

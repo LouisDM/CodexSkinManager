@@ -1,0 +1,52 @@
+{
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "files": [
+    {
+      "byteCount": 505,
+      "mime": "text/plain",
+      "path": "LICENSES/assets.txt",
+      "sha256": "b64baae1b265c18cd1f80ae5acfe6829ac92d042e781b63424f874e1a0aced47"
+    },
+    {
+      "byteCount": 2223425,
+      "mime": "image/png",
+      "path": "assets/background.png",
+      "sha256": "aea74d5428e1421ee783672bda724eb0012e76aab2f28fb7e29da6ab309011ef"
+    },
+    {
+      "byteCount": 2100452,
+      "mime": "image/png",
+      "path": "assets/hero.png",
+      "sha256": "2214c3ecd8451797e95ce78994ea3294a303372fa742f9d0186b55402bd2af42"
+    },
+    {
+      "byteCount": 833915,
+      "mime": "image/png",
+      "path": "preview.png",
+      "sha256": "a5ca4db8b00d5f0773cc2b9441c32ce92a453493a64f80c7ece32baa49d08364"
+    },
+    {
+      "byteCount": 249,
+      "mime": "application/json",
+      "path": "rights.json",
+      "sha256": "b5c0f845fbf3ec352093bf6b3d0e9ee3e6eb9f3756cff442a87b3c342115e808"
+    },
+    {
+      "byteCount": 562,
+      "mime": "application/json",
+      "path": "theme.json",
+      "sha256": "f958d68dd8ae8ce2bb070ef94bfb8394191d5d58110b2b841fb649810a721210"
+    }
+  ],
+  "id": "meng-chuan-red-lotus",
+  "minManagerVersion": "1.0.0",
+  "name": "孟川 · 红莲业火",
+  "preview": "preview.png",
+  "publisherPublicKey": null,
+  "schemaVersion": 1,
+  "template": "red-lotus-v1",
+  "version": "1.0.0"
+}
