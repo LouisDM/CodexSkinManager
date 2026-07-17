@@ -40,6 +40,7 @@ GitHub Release 只公开前两套。柳七月素材授权不允许公开再分�
 - macOS 13 或更高版本
 - Swift 6 工具链
 - Node.js 与 npm
+- Python Pillow 10 或更高版本（柳七月私有迁移预览与对应测试需要）
 - Google Chrome，或通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` 指定 Chromium（仅浏览器自动化测试需要）
 
 ## 直接下载
@@ -58,12 +59,13 @@ GitHub Release 只公开前两套。柳七月素材授权不允许公开再分�
 `.command` 是启动脚本，不能直接导入管理器。若本机已有“柳七月 · 不死凰焰”旧启动器资源，可先构建安全的数据包：
 
 ```bash
+python3 -m pip install "Pillow>=10"
 python3 scripts/build_private_liu_qiyue_skin.py \
   --runtime "$HOME/Library/Application Support/CodexLiuQiyueUndyingPhoenixSkin/runtime" \
-  --output "$HOME/Applications/Liu-Qiyue-Undying-Phoenix-1.0.0.codexskin"
+  --output "$HOME/Applications/Liu-Qiyue-Undying-Phoenix-1.0.1.codexskin"
 ```
 
-然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器只打包两张 PNG、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。输出包是本机私用版本，管理器会禁用公开导出。
+然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器会用原始背景与透明人物层生成一张 16:10 `preview.png`，确保管理器主图与实际皮肤一致；包内仍只有声明式图片、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。输出包是本机私用版本，管理器会禁用公开导出。
 
 ## 用 Codex 制作新皮肤
 

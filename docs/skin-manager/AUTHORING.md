@@ -23,6 +23,7 @@ build_codexskin.py 校验并生成确定性包
 ```text
 my-skin/
 ├── skin.json
+├── preview.png
 ├── assets/
 │   ├── background.png
 │   ├── hero.png
@@ -43,7 +44,7 @@ my-skin/
   "version": "1.0.0",
   "template": "nightblade-v1",
   "minManagerVersion": "1.1.0",
-  "preview": "assets/background.png",
+  "preview": "preview.png",
   "author": {
     "name": "Skin Author",
     "website": null
@@ -79,6 +80,8 @@ my-skin/
   }
 }
 ```
+
+`preview` 是管理器资料库和详情页直接展示的最终主图，不会自动套用模板或叠加 `theme.assets`。它必须是与实际皮肤一致的 16:10 合成图或真实界面截图；当皮肤使用独立的 `background` 与透明 `hero` 时，不能只把背景图填入 `preview`。
 
 当前模板：
 
@@ -132,7 +135,7 @@ python3 scripts/build_codexskin.py \
 
 - 严格校验 `skin.json` 字段、模板、令牌、相对路径和权利声明；
 - 验证引用的 PNG/JPEG 文件头、大小和符号链接边界；
-- 只收集引用图片与 `LICENSES/**/*.txt`；
+- 只收集最终预览、主题引用图片与 `LICENSES/**/*.txt`；
 - 自动生成 `theme.json`、`rights.json`、`manifest.json`、字节数与 SHA-256；
 - 生成固定顺序、固定时间戳、无压缩的确定性 ZIP；
 - 忽略源目录中的 `.command`、CSS、JS 和其他未声明内容。

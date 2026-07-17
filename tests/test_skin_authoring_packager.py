@@ -28,7 +28,7 @@ def authoring_config() -> dict:
         "version": "1.0.0",
         "template": "nightblade-v1",
         "minManagerVersion": "1.1.0",
-        "preview": "assets/background.png",
+        "preview": "preview.png",
         "author": {"name": "Skin Author", "website": None},
         "theme": {
             "tokens": {
@@ -65,6 +65,7 @@ class SkinAuthoringPackagerTests(unittest.TestCase):
             json.dumps(config or authoring_config(), ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
+        (source / "preview.png").write_bytes(TINY_PNG)
         (source / "assets/background.png").write_bytes(TINY_PNG)
         (source / "assets/hero.png").write_bytes(TINY_PNG)
         (source / "LICENSES/assets.txt").write_text(
@@ -103,6 +104,7 @@ class SkinAuthoringPackagerTests(unittest.TestCase):
                     "LICENSES/assets.txt",
                     "assets/background.png",
                     "assets/hero.png",
+                    "preview.png",
                     "rights.json",
                     "theme.json",
                 ])

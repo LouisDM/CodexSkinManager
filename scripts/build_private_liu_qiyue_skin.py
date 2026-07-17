@@ -9,15 +9,22 @@ import json
 import os
 import tempfile
 import zipfile
+from io import BytesIO
 from pathlib import Path
+
+try:
+    from PIL import Image, ImageFilter, ImageOps
+except ImportError:
+    Image = ImageFilter = ImageOps = None
 
 
 SKIN_ID = "liu-qiyue-undying-phoenix"
 SKIN_NAME = "柳七月 · 不死凰焰"
-SKIN_VERSION = "1.0.0"
+SKIN_VERSION = "1.0.1"
 TEMPLATE = "undying-phoenix-v1"
 MAX_SOURCE_BYTES = 32 * 1024 * 1024
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+PREVIEW_SIZE = (1_600, 1_000)
 
 
 def json_bytes(value: object) -> bytes:
@@ -48,6 +55,44 @@ def zip_info(name: str) -> zipfile.ZipInfo:
     return info
 
 
+def build_preview(background: bytes, hero: bytes) -> bytes:
+    if Image is None or ImageFilter is None or ImageOps is None:
+        raise ValueError("生成柳七月预览图需要 Pillow：python3 -m pip install Pillow")
+    try:
+        with Image.open(BytesIO(background)) as source_background:
+            canvas = ImageOps.fit(
+                source_background.convert("RGBA"),
+                PREVIEW_SIZE,
+                method=Image.Resampling.LANCZOS,
+                centering=(0.68, 0.5),
+            )
+        with Image.open(BytesIO(hero)) as source_hero:
+            hero_layer = source_hero.convert("RGBA")
+    except (OSError, ValueError) as error:
+        raise ValueError(f"无法生成柳七月预览图：{error}") from error
+
+    scale = min(610 / hero_layer.width, 980 / hero_layer.height)
+    hero_size = (
+        max(1, round(hero_layer.width * scale)),
+        max(1, round(hero_layer.height * scale)),
+    )
+    hero_layer = hero_layer.resize(hero_size, Image.Resampling.LANCZOS)
+    hero_alpha = hero_layer.getchannel("A")
+    x = PREVIEW_SIZE[0] - hero_layer.width
+    y = (PREVIEW_SIZE[1] - hero_layer.height) // 2
+
+    shadow = Image.new("RGBA", hero_layer.size, (0, 0, 0, 0))
+    shadow.putalpha(hero_alpha.filter(ImageFilter.GaussianBlur(22)).point(lambda value: round(value * 0.62)))
+    canvas.alpha_composite(shadow, (x - 20, y + 18))
+
+    hero_layer.putalpha(hero_alpha.point(lambda value: round(value * 0.94)))
+    canvas.alpha_composite(hero_layer, (x, y))
+
+    output = BytesIO()
+    canvas.convert("RGB").save(output, format="PNG", compress_level=9)
+    return output.getvalue()
+
+
 def build_package(runtime: Path, output: Path) -> Path:
     runtime = runtime.expanduser()
     if runtime.is_symlink():
@@ -60,6 +105,7 @@ def build_package(runtime: Path, output: Path) -> Path:
 
     background = read_plain_file(runtime / "hero-background.png", png=True)
     hero = read_plain_file(runtime / "hero-character.png", png=True)
+    preview = build_preview(background, hero)
     license_bytes = read_plain_file(runtime / "ASSET-LICENSE.md")
     license_text = license_bytes.decode("utf-8")
     if "private" not in license_text.lower():
@@ -104,6 +150,7 @@ def build_package(runtime: Path, output: Path) -> Path:
         "LICENSES/assets.txt": license_bytes,
         "assets/background.png": background,
         "assets/hero.png": hero,
+        "preview.png": preview,
         "rights.json": rights,
         "theme.json": theme,
     }
@@ -127,7 +174,7 @@ def build_package(runtime: Path, output: Path) -> Path:
         "id": SKIN_ID,
         "minManagerVersion": "1.1.0",
         "name": SKIN_NAME,
-        "preview": "assets/background.png",
+        "preview": "preview.png",
         "publisherPublicKey": None,
         "schemaVersion": 1,
         "template": TEMPLATE,
