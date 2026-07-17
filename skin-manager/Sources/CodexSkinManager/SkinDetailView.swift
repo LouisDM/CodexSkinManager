@@ -32,7 +32,7 @@ struct SkinDetailView: View {
         let card = SkinCardPresentation(skin)
         let trust = SkinTrustPresentation(skin.trust)
         let rights = SkinRightsPresentation(skin.rights)
-        return ScrollView {
+        return ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 22) {
                 if let banner = model.inspectionPresentation.blockingBanner {
                     SafetyBanner(
@@ -43,26 +43,30 @@ struct SkinDetailView: View {
                     )
                 }
 
-                SkinPreviewImage(url: skin.previewURL)
-                    .aspectRatio(16 / 10, contentMode: .fill)
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(Color.primary.opacity(0.12), lineWidth: 1)
-                    }
+                SkinDetailPreview(url: skin.previewURL)
 
                 VStack(alignment: .leading, spacing: 7) {
                     Text(card.name)
                         .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .textSelection(.enabled)
+                        .lineLimit(3)
                     Text("作者：\(card.author)  ·  版本 \(card.version)")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                        .textSelection(.enabled)
+                        .lineLimit(3)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-                HStack(spacing: 10) {
+                LazyVGrid(
+                    columns: [
+                        GridItem(
+                            .adaptive(minimum: SkinDetailLayout.badgeMinimumWidth),
+                            spacing: 10,
+                            alignment: .top
+                        ),
+                    ],
+                    alignment: .leading,
+                    spacing: 10
+                ) {
                     DetailBadge(title: trust.label, detail: trust.detail, image: trust.systemImage)
                     DetailBadge(title: rights.label, detail: rights.detail, image: rights.systemImage)
                 }
@@ -75,83 +79,129 @@ struct SkinDetailView: View {
                 actionBar
 
                 Divider()
-                LabeledContent("皮肤 ID", value: skin.id)
-                    .textSelection(.enabled)
-                LabeledContent("模板", value: skin.template)
-                LabeledContent("安装位置", value: skin.directoryURL.path)
-                    .textSelection(.enabled)
-                    .lineLimit(3)
+                VStack(alignment: .leading, spacing: 14) {
+                    DetailMetadataRow(title: "皮肤 ID", value: skin.id)
+                    DetailMetadataRow(title: "模板", value: skin.template)
+                    DetailMetadataRow(title: "安装位置", value: skin.directoryURL.path)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(24)
         }
     }
 
     private var statusPanel: some View {
-        HStack(alignment: .top, spacing: 12) {
-            if model.statePresentation.showsProgress {
-                ProgressView().controlSize(.small).padding(.top, 2)
-            } else {
-                Image(systemName: model.statePresentation.systemImage)
-                    .foregroundStyle(model.statePresentation.isError ? Color.red : Color.secondary)
-            }
-            VStack(alignment: .leading, spacing: 3) {
-                Text(model.statePresentation.title).font(.headline)
-                Text(model.statePresentation.detail)
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .textSelection(.enabled)
-            }
-            Spacer()
-            if model.actions.canCancelWaiting {
-                Button("取消") { Task { await model.cancelWaiting() } }
-            } else if model.statePresentation.isError {
-                Button("查看日志") { model.revealLog() }
-            }
+        VStack(alignment: .leading, spacing: 12) {
+            statusSummary
+            statusAction
+                .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.primary.opacity(0.055), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 
-    private var actionBar: some View {
-        HStack(spacing: 10) {
-            Button {
-                Task { await model.applySelected() }
-            } label: {
-                Label(model.actions.applyTitle, systemImage: "paintbrush.fill")
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            .disabled(!model.actions.canApply)
-            .help(model.actions.applyDisabledReason ?? "安全应用所选皮肤")
-
-            Button {
-                Task { await model.restoreDefault() }
-            } label: {
-                Label("恢复默认", systemImage: "arrow.uturn.backward")
-            }
-            .controlSize(.large)
-            .disabled(!model.actions.canRestore)
-
-            Spacer()
-
-            Menu {
-                Button("导出 .codexskin…") { presentExportPanel() }
-                    .disabled(!model.actions.canExport)
-                Button("在 Finder 中显示") {
-                    if let skin = model.selectedSkin {
-                        NSWorkspace.shared.activateFileViewerSelecting([skin.directoryURL])
-                    }
+    private var statusSummary: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 8) {
+                if model.statePresentation.showsProgress {
+                    ProgressView().controlSize(.small)
+                } else {
+                    Image(systemName: model.statePresentation.systemImage)
+                        .foregroundStyle(model.statePresentation.isError ? Color.red : Color.secondary)
                 }
-                Divider()
-                Button("删除皮肤…", role: .destructive) { confirmsDelete = true }
-                    .disabled(!model.actions.canDelete)
-            } label: {
-                Image(systemName: "ellipsis.circle")
+                Text(model.statePresentation.title)
+                    .font(.headline)
+                Spacer(minLength: 0)
             }
-            .menuStyle(.borderlessButton)
-            .fixedSize()
-            .accessibilityLabel("更多皮肤操作")
+            Text(model.statePresentation.detail)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .layoutPriority(1)
+    }
+
+    @ViewBuilder
+    private var statusAction: some View {
+        if model.actions.canCancelWaiting {
+            Button("取消") { Task { await model.cancelWaiting() } }
+        } else if model.statePresentation.isError {
+            Button("查看日志") { model.revealLog() }
+        }
+    }
+
+    private var actionBar: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 10) {
+                applyButton(expands: false)
+                restoreButton(expands: false)
+                Spacer(minLength: 8)
+                moreActionsMenu
+            }
+            .fixedSize(horizontal: true, vertical: false)
+
+            VStack(alignment: .leading, spacing: 10) {
+                applyButton(expands: true)
+                restoreButton(expands: true)
+                HStack {
+                    Text("更多操作")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                    Spacer()
+                    moreActionsMenu
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private func applyButton(expands: Bool) -> some View {
+        Button {
+            Task { await model.applySelected() }
+        } label: {
+            Label(model.actions.applyTitle, systemImage: "paintbrush.fill")
+                .frame(maxWidth: expands ? .infinity : nil)
+        }
+        .buttonStyle(.borderedProminent)
+        .controlSize(.large)
+        .disabled(!model.actions.canApply)
+        .help(model.actions.applyDisabledReason ?? "安全应用所选皮肤")
+    }
+
+    private func restoreButton(expands: Bool) -> some View {
+        Button {
+            Task { await model.restoreDefault() }
+        } label: {
+            Label("恢复默认", systemImage: "arrow.uturn.backward")
+                .frame(maxWidth: expands ? .infinity : nil)
+        }
+        .controlSize(.large)
+        .disabled(!model.actions.canRestore)
+    }
+
+    private var moreActionsMenu: some View {
+        Menu {
+            Button("导出 .codexskin…") { presentExportPanel() }
+                .disabled(!model.actions.canExport)
+            Button("在 Finder 中显示") {
+                if let skin = model.selectedSkin {
+                    NSWorkspace.shared.activateFileViewerSelecting([skin.directoryURL])
+                }
+            }
+            Divider()
+            Button("删除皮肤…", role: .destructive) { confirmsDelete = true }
+                .disabled(!model.actions.canDelete)
+        } label: {
+            Image(systemName: "ellipsis.circle")
+        }
+        .menuStyle(.borderlessButton)
+        .fixedSize()
+        .accessibilityLabel("更多皮肤操作")
     }
 
     private func presentExportPanel() {
@@ -166,23 +216,66 @@ struct SkinDetailView: View {
     }
 }
 
+private struct SkinDetailPreview: View {
+    let url: URL
+
+    var body: some View {
+        Color.clear
+            .aspectRatio(SkinDetailLayout.previewAspectRatio, contentMode: .fit)
+            .overlay {
+                SkinPreviewImage(url: url)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(Color.primary.opacity(0.12), lineWidth: 1)
+            }
+    }
+}
+
 private struct DetailBadge: View {
     let title: String
     let detail: String
     let image: String
 
     var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            Image(systemName: image).font(.title3)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title).font(.subheadline.weight(.semibold))
-                Text(detail).font(.caption).foregroundStyle(.secondary).lineLimit(3)
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 8) {
+                Image(systemName: image)
+                    .font(.title3)
+                Text(title)
+                    .font(.subheadline.weight(.semibold))
+                Spacer(minLength: 0)
             }
-            Spacer(minLength: 0)
+            Text(detail)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.primary.opacity(0.055), in: RoundedRectangle(cornerRadius: 12))
+    }
+}
+
+private struct DetailMetadataRow: View {
+    let title: String
+    let value: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            Text(value)
+                .font(.system(.callout, design: .monospaced))
+                .lineLimit(4)
+                .truncationMode(.middle)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -193,12 +286,20 @@ struct SafetyBanner: View {
     let color: Color
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: image).foregroundStyle(color).font(.title3)
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title).font(.headline)
-                Text(message).font(.callout).foregroundStyle(.secondary).textSelection(.enabled)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: image)
+                    .foregroundStyle(color)
+                    .font(.title3)
+                Text(title)
+                    .font(.headline)
+                Spacer(minLength: 0)
             }
+            Text(message)
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)

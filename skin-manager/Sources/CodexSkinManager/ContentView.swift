@@ -6,21 +6,27 @@ import UniformTypeIdentifiers
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
     @State private var dropTargeted = false
+    @State private var isDetailPresented = true
 
     var body: some View {
-        NavigationSplitView {
-            sidebar
-                .navigationSplitViewColumnWidth(min: 190, ideal: 220, max: 260)
-        } content: {
-            SkinLibraryView()
-                .navigationSplitViewColumnWidth(min: 360, ideal: 470)
-        } detail: {
-            SkinDetailView()
-                .navigationSplitViewColumnWidth(min: 440, ideal: 540)
-        }
+        workspace
         .navigationSplitViewStyle(.balanced)
         .frame(minWidth: 980, minHeight: 640)
         .background(Color(nsColor: .windowBackgroundColor))
+        .toolbar {
+            ToolbarItem {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isDetailPresented.toggle()
+                    }
+                } label: {
+                    Label(detailVisibility.title, systemImage: detailVisibility.systemImage)
+                }
+                .help(detailVisibility.title)
+                .keyboardShortcut("i", modifiers: [.command, .option])
+                .accessibilityIdentifier("toggle-skin-detail")
+            }
+        }
         .overlay {
             if model.isBootstrapping {
                 ZStack {
@@ -59,6 +65,31 @@ struct ContentView: View {
         } message: {
             Text(model.alertMessage ?? "")
         }
+    }
+
+    private var workspace: some View {
+        NavigationSplitView {
+            sidebar
+                .navigationSplitViewColumnWidth(min: 190, ideal: 220, max: 260)
+        } detail: {
+            HSplitView {
+                SkinLibraryView()
+                    .frame(minWidth: 420, maxWidth: .infinity, maxHeight: .infinity)
+                if isDetailPresented {
+                    SkinDetailView()
+                        .frame(
+                            minWidth: SkinDetailLayout.minimumPaneWidth,
+                            idealWidth: SkinDetailLayout.idealPaneWidth,
+                            maxWidth: SkinDetailLayout.maximumPaneWidth,
+                            maxHeight: .infinity
+                        )
+                }
+            }
+        }
+    }
+
+    private var detailVisibility: SkinDetailVisibilityPresentation {
+        SkinDetailVisibilityPresentation(isPresented: isDetailPresented)
     }
 
     private var sidebar: some View {

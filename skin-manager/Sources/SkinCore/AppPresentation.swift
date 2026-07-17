@@ -63,6 +63,24 @@ public enum SkinLibraryInventory {
     }
 }
 
+public enum SkinDetailLayout {
+    public static let previewAspectRatio: CGFloat = 16 / 10
+    public static let badgeMinimumWidth: CGFloat = 210
+    public static let minimumPaneWidth: CGFloat = 360
+    public static let idealPaneWidth: CGFloat = 500
+    public static let maximumPaneWidth: CGFloat = 720
+}
+
+public struct SkinDetailVisibilityPresentation: Equatable, Sendable {
+    public let title: String
+    public let systemImage: String
+
+    public init(isPresented: Bool) {
+        title = isPresented ? "收起详情" : "显示详情"
+        systemImage = "sidebar.trailing"
+    }
+}
+
 public struct SkinTrustPresentation: Equatable, Sendable {
     public let label: String
     public let detail: String
@@ -206,7 +224,7 @@ public struct SkinStatePresentation: Equatable, Sendable {
         case .idle:
             if let activeDisplayName {
                 title = "上次使用记录"
-                detail = "上次使用：\(activeDisplayName)。重新应用后会验证并确认当前 Codex 界面。"
+                detail = "上次使用：\(activeDisplayName)。\n重新应用后会验证当前 Codex 界面。"
                 systemImage = "clock.arrow.circlepath"
             } else {
                 title = "就绪"

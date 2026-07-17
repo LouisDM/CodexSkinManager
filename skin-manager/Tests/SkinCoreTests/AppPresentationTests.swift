@@ -44,6 +44,23 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertTrue(SkinLibraryFilter.active.includes(latest, active: previouslyUsed))
     }
 
+    func testDetailLayoutDefinesFlexiblePreviewAndResizablePaneBounds() {
+        XCTAssertEqual(SkinDetailLayout.previewAspectRatio, 1.6)
+        XCTAssertEqual(SkinDetailLayout.badgeMinimumWidth, 210)
+        XCTAssertLessThan(SkinDetailLayout.minimumPaneWidth, SkinDetailLayout.idealPaneWidth)
+        XCTAssertLessThan(SkinDetailLayout.idealPaneWidth, SkinDetailLayout.maximumPaneWidth)
+    }
+
+    func testDetailVisibilityButtonExplainsCollapseAndExpandStates() {
+        let shown = SkinDetailVisibilityPresentation(isPresented: true)
+        let hidden = SkinDetailVisibilityPresentation(isPresented: false)
+
+        XCTAssertEqual(shown.title, "收起详情")
+        XCTAssertEqual(hidden.title, "显示详情")
+        XCTAssertEqual(shown.systemImage, "sidebar.trailing")
+        XCTAssertEqual(hidden.systemImage, "sidebar.trailing")
+    }
+
     func testTrustAndRightsBadgesAreExplicit() {
         XCTAssertEqual(SkinTrustPresentation(.verifiedPublisher(fingerprint: "abc")).label, "发布者已验证")
         XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "签名未知")
@@ -142,6 +159,7 @@ final class AppPresentationTests: XCTestCase {
         let recorded = SkinStatePresentation(.idle, activeDisplayName: displayName)
         XCTAssertEqual(recorded.title, "上次使用记录")
         XCTAssertTrue(recorded.detail.contains(displayName))
+        XCTAssertTrue(recorded.detail.contains("\n"))
         XCTAssertFalse(recorded.title.contains("生效"))
 
         let verified = SkinStatePresentation(.active(record), activeDisplayName: displayName)
