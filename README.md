@@ -61,7 +61,31 @@ python3 scripts/build_private_liu_qiyue_skin.py \
 
 然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器只打包两张 PNG、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。输出包是本机私用版本，管理器会禁用公开导出。
 
-## 制作新皮肤
+## 用 Codex 制作新皮肤
+
+不熟悉包格式也可以直接开始。推荐在 [CodexUI](https://github.com/opcspace/CodexUI) 仓库中打开 Codex，然后发送：
+
+```text
+查看 codex-cdp-skin-launcher.md，制作《沧元图》柳七月的 Codex 皮肤，先给我 3 个风格差异明显的方案选择。
+```
+
+选择后继续回复：
+
+```text
+我选 A。参考官方造型特征，生成无水印原创同人素材，直接制作成可导入 Codex 皮肤管理器的 .codexskin，并完成宽窄屏和自动化测试。
+```
+
+如果只克隆了本仓库，也可以说：
+
+```text
+查看 docs/skin-manager/AUTHORING.md，为柳七月创建一套 .codexskin。先给我 3 个方案；我确认后再创建 skin.json、assets 和 LICENSES，打包并测试导入。
+```
+
+用户要求提交、push、PR 或 Release 时，Codex 应同时上传对应皮肤的源文件和宽窄屏截图；权利允许时再上传 `.codexskin` 与 SHA-256。受限素材或权利不明素材不能进入公开 GitHub。
+
+完整的角色研究、方案选择、素材制作和交付提示词见 [Codex macOS 皮肤制作与管理器导入指南](https://github.com/opcspace/CodexUI/blob/main/docs/codex-cdp-skin-launcher.md)。底层字段与安全契约见 [`.codexskin` 制作规范](docs/skin-manager/AUTHORING.md)。
+
+### 手动打包
 
 新皮肤不需要先创建 `.command`、独立端口或注入运行时。准备一个包含 `skin.json`、图片和 `LICENSES/*.txt` 的源目录，然后直接生成管理器格式：
 
