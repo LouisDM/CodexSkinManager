@@ -170,6 +170,7 @@ html.codex-skin-template-undying-phoenix-v1 nav.sidebar-foreground-muted::before
   content: "Codex";
   display: block;
   flex: 0 0 auto;
+  order: -2;
   margin: 3px 9px 8px;
   padding: 7px 8px 10px;
   border-bottom: 1px solid rgb(242 107 47 / 0.24);
@@ -187,6 +188,7 @@ html.codex-skin-template-undying-phoenix-v1 nav.sidebar-foreground-muted::after 
   content: "柳七月  ·  不死凰焰";
   display: block;
   flex: 0 0 auto;
+  order: -1;
   margin: 8px 12px 10px;
   color: #8498aa;
   font-size: 10px;

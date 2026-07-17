@@ -174,6 +174,7 @@ nav.sidebar-foreground-muted::before {
   content: "Codex";
   display: block;
   flex: 0 0 auto;
+  order: -2;
   margin: 3px 9px 8px;
   padding: 7px 8px 10px;
   border-bottom: 1px solid rgb(200 154 90 / 0.25);
@@ -190,6 +191,7 @@ nav.sidebar-foreground-muted::after {
   content: "孟川  ·  红莲业火";
   display: block;
   flex: 0 0 auto;
+  order: -1;
   margin: 8px 12px 10px;
   color: #9f8d84;
   font-family: "Songti SC", "STSong", Georgia, serif;

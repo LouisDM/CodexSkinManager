@@ -138,6 +138,61 @@ test("payload uses only an allowlisted manager template and local declared raste
   await assert.rejects(() => module.buildPayload(escaped, TEMPLATES), /asset|outside|unsafe/i);
 });
 
+test("all templates place sidebar identity before native sidebar content", {
+  skip: !existsSync(BROWSER_EXECUTABLE),
+}, async (context) => {
+  const temporary = await mkdtemp(join(tmpdir(), "skin-manager-sidebar-identity-"));
+  const module = await import(`${pathToFileURL(INJECTOR)}?sidebar=${Date.now()}`);
+  const source = await readFile(RENDERER, "utf8");
+  const browser = await chromium.launch({ headless: true, executablePath: BROWSER_EXECUTABLE });
+  context.after(() => browser.close().catch(() => {}));
+  const page = await browser.newPage({ viewport: { width: 1200, height: 700 } });
+  await page.setContent(`
+    <nav class="sidebar-foreground-muted" style="display:flex;flex-direction:column;height:700px">
+      <div data-native-header style="flex:0 0 70px">Native Codex header</div>
+      <div style="flex:1 1 0">Native task list</div>
+      <div style="position:absolute;inset-inline:0;bottom:0;height:46px">Native account</div>
+    </nav>
+  `);
+
+  const skins = [
+    await createSkin(temporary, {
+      id: "sidebar-nightblade",
+      template: "nightblade-v1",
+    }),
+    await createSkin(temporary, {
+      id: "sidebar-red-lotus",
+      template: "red-lotus-v1",
+    }),
+    await createSkin(temporary, {
+      id: "sidebar-undying-phoenix",
+      template: "undying-phoenix-v1",
+    }),
+  ];
+
+  for (const skin of skins) {
+    const payload = await module.buildPayload(skin, TEMPLATES);
+    await page.evaluate(
+      ({ source: code, payload: nextPayload }) => (0, eval)(code)(nextPayload),
+      { source, payload },
+    );
+    const layout = await page.locator("nav.sidebar-foreground-muted").evaluate((nav) => ({
+      beforeOrder: Number.parseInt(getComputedStyle(nav, "::before").order, 10),
+      themeOrder: Number.parseInt(getComputedStyle(nav, "::after").order, 10),
+      nativeOrder: Number.parseInt(getComputedStyle(nav.querySelector("[data-native-header]")).order, 10),
+    }));
+
+    assert.ok(
+      layout.beforeOrder < layout.themeOrder,
+      `${payload.template} must keep the Codex identity before the theme name`,
+    );
+    assert.ok(
+      layout.themeOrder < layout.nativeOrder,
+      `${payload.template} theme name must stay above native sidebar content and account controls`,
+    );
+  }
+});
+
 test("renderer is idempotent, switches template roots, repairs nodes, and cleans up", {
   skip: !existsSync(BROWSER_EXECUTABLE),
 }, async (context) => {

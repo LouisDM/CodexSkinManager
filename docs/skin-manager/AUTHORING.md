@@ -211,6 +211,8 @@ git diff --cached --name-status
 
 模板 CSS 由管理器持有，不能进入 `.codexskin`。Swift、Node 和打包器的模板允许列表必须一致。
 
+模板还必须保留 Codex 原生交互安全区：侧栏主题身份只能放在原生导航内容之前，不能占用左下角账户栏；现有模板使用装饰标题 `order: -2`、主题名 `order: -1`、原生内容 `order: 0`。修改侧栏装饰后必须运行引擎测试，并在真实 Codex 中检查用户名、任务列表和窄窗口。
+
 ## 非 `.codexskin` 皮肤转换
 
 CodexUI 仓库提供 `$convert-to-codexskin` Skill，可只读检查 `.command`、CSS+图片目录、ZIP、旧主题 JSON 和复制出来的运行时。
