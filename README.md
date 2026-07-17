@@ -2,12 +2,12 @@
 
 一款原生 macOS Codex 皮肤管理器，支持安全导入、预览、切换、重新应用、恢复和受权导出 `.codexskin` 包。
 
-当前内置两套仅限本机使用的同人原创素材：
+当前公开提供两套非商用同人皮肤：
 
 - 孟川 · 红莲业火
 - 孟川 · 玄刃夜行
 
-> 本项目为非官方本地工具，与 OpenAI 或《沧元图》官方无隶属或背书关系。内置角色素材的权利声明为不可重新分发，因此仓库必须保持私有，不得把素材公开发布。
+> 本项目为非官方本地工具，与 OpenAI 或《沧元图》官方无隶属或背书关系。内置素材只允许按各自 `LICENSES/assets.txt` 随皮肤包进行非商用公开分发；这不授予任何角色、作品名、商标或其他第三方权利。
 
 ![Codex 皮肤管理器](docs/screenshots/codex-skin-manager.png)
 
@@ -24,16 +24,33 @@
 
 ## 环境要求
 
+直接使用 Release：
+
 - macOS 13 或更高版本
 - 官方 Codex 桌面应用安装在 `/Applications/ChatGPT.app`
+
+从源码构建或运行自动化测试：
+
+- macOS 13 或更高版本
 - Swift 6 工具链
 - Node.js 与 npm
 - Google Chrome，或通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` 指定 Chromium（仅浏览器自动化测试需要）
 
+## 直接下载
+
+前往 [GitHub Releases](https://github.com/LouisDM/CodexSkinManager/releases) 下载：
+
+- `Codex-Skin-Manager-v1.0.1-macOS.zip`：管理器应用，已内置两套皮肤。
+- `Meng-Chuan-Nightblade-1.0.1.codexskin`：孟川 · 玄刃夜行。
+- `Meng-Chuan-Red-Lotus-1.0.1.codexskin`：孟川 · 红莲业火。
+- `SHA256SUMS.txt`：下载文件完整性校验。
+
+解压管理器并移动到 `~/Applications`。应用目前使用 ad-hoc 本地签名而非 Apple Developer ID 公证；首次打开如被 macOS 阻止，请在 Finder 中右键应用并选择“打开”。安装管理器后，双击下载的 `.codexskin` 即可导入，也可以直接使用应用内置版本。
+
 ## 构建与安装
 
 ```bash
-git clone git@github.com:LouisDM/CodexSkinManager.git
+git clone https://github.com/LouisDM/CodexSkinManager.git
 cd CodexSkinManager
 npm install
 python3 scripts/build_codex_skin_manager_app.py --install
@@ -59,6 +76,7 @@ python3 scripts/build_codex_skin_manager_app.py --install
 npm test
 npm run test:bundle
 npm run test:e2e
+npm run build:release
 ```
 
 完整测试覆盖 Swift 核心、皮肤包安全策略、真实 Chrome CDP 注入、模板切换、恢复后重新应用、应用包签名和隔离启动。`test:e2e` 使用已经安装的应用，但使用临时资料库，不会修改真实皮肤状态。
@@ -67,6 +85,7 @@ npm run test:e2e
 
 - `skin-manager/`：Swift Package、SwiftUI 应用、核心库与单元测试。
 - `scripts/`：应用构建、签名和原子安装脚本。
+- `scripts/build_release_assets.py`：使用核心导出器生成版本化 Release 资产和 SHA-256 清单。
 - `tests/`：资源、浏览器/CDP、应用包和隔离启动验收。
 - `docs/skin-manager/PRODUCT_PRINCIPLES.md`：产品判断与体验原则。
 - `docs/skin-manager/ARCHITECTURE.md`：安全边界、切换流程和模板契约。
@@ -89,4 +108,4 @@ npm run test:e2e
 
 产品方向不是复制某个“世界最好产品”的外观，而是采用 Apple 的可预测与可逆、Raycast 的低摩擦任务路径，以及 VS Code 的预览后确认思维。详见 [产品原则](docs/skin-manager/PRODUCT_PRINCIPLES.md)。
 
-代码采用 MIT License。内置皮肤素材遵循各自 `LICENSES/assets.txt` 和 `rights.json`，不随代码许可自动获得公开分发权。
+代码采用 MIT License。内置皮肤素材不属于 MIT 代码许可；它们只允许在保留各自 `LICENSES/assets.txt` 的前提下，随本皮肤包进行非商用公开分发。相关角色、作品名、商标和其他第三方权利仍归各自权利人所有。

@@ -1,5 +1,7 @@
 # Codex Skin Manager Implementation Plan
 
+> Historical implementation plan. Its original private-only asset assumptions were superseded by the versioned `1.0.1` public non-commercial release contract in `docs/skin-manager/ARCHITECTURE.md`.
+
 > **For Claude:** Use `${SUPERPOWERS_SKILLS_ROOT}/skills/collaboration/executing-plans/SKILL.md` to implement this plan task-by-task.
 
 **Goal:** Build and install a native macOS SwiftUI app that safely imports, previews, applies, switches, restores, deletes, and exports declarative `.codexskin` packages without modifying the official Codex app.

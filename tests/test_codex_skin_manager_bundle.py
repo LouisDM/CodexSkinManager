@@ -49,6 +49,8 @@ def inspect_bundle(app: Path) -> None:
         plist = plistlib.load(handle)
     assert plist["CFBundleIdentifier"] == "com.opcspace.codex-skin-manager"
     assert plist["CFBundleExecutable"] == "CodexSkinManager"
+    assert plist["CFBundleShortVersionString"] == "1.0.1"
+    assert plist["CFBundleVersion"] == "2"
     assert plist["CFBundleIconFile"] == "AppIcon"
     assert plist["LSMinimumSystemVersion"] == "13.0"
     assert plist["NSHighResolutionCapable"] is True

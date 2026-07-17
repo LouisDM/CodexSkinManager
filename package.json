@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npm run test:swift && npm run test:engine && npm run test:resources",
+    "test": "npm run test:swift && npm run test:engine && npm run test:resources && npm run test:release",
     "test:swift": "cd skin-manager && swift test",
     "test:engine": "node --test tests/test_skin_manager_cdp_engine.mjs",
     "test:resources": "python3 tests/test_builtin_skin_packages.py",
+    "test:release": "python3 tests/test_public_release_assets.py",
     "test:bundle": "python3 tests/test_codex_skin_manager_bundle.py --installed",
     "test:e2e": "python3 tests/test_skin_manager_end_to_end.py",
-    "build:install": "python3 scripts/build_codex_skin_manager_app.py --install"
+    "build:install": "python3 scripts/build_codex_skin_manager_app.py --install",
+    "build:release": "python3 scripts/build_release_assets.py"
   },
   "devDependencies": {
     "playwright": "^1.61.1"

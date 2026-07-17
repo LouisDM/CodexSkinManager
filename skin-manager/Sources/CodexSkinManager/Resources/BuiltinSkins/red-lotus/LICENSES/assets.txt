@@ -1,5 +1,7 @@
-Red Lotus Media Usage Boundary
+Red Lotus Public Non-Commercial Fan-Skin Notice
 
-The portrait and background are local prototype assets created for a fan-made Meng Chuan Red Lotus interface. They are provided only for private preview and evaluation and are not licensed for public redistribution, promotion, or commercial use.
+To the extent OPCspace controls rights in these AI-assisted original raster images, permission is granted to copy and redistribute the unmodified images only as part of this Codex skin package, for non-commercial fan use, with this notice retained.
 
-This package is unofficial and does not imply endorsement by OpenAI, Cang Yuan Tu, or any related rights holder. Confirm all character, reference-image, trademark, adaptation, and publishing rights before sharing it publicly.
+This permission does not grant rights to the Meng Chuan character, Cang Yuan Tu, associated names, trademarks, adaptation rights, or any other third-party material. Those rights remain with their respective owners, and downstream users are responsible for complying with applicable law and platform rules.
+
+The package is fan-made, unofficial, and not endorsed by OpenAI, Cang Yuan Tu, or any related rights holder. Commercial use, standalone resale of the images, and removal of this notice are not permitted.
