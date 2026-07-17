@@ -33,6 +33,8 @@
 ## 构建与安装
 
 ```bash
+git clone git@github.com:LouisDM/CodexSkinManager.git
+cd CodexSkinManager
 npm install
 python3 scripts/build_codex_skin_manager_app.py --install
 ```
