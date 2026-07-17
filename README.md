@@ -61,6 +61,18 @@ python3 scripts/build_private_liu_qiyue_skin.py \
 
 然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器只打包两张 PNG、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。输出包是本机私用版本，管理器会禁用公开导出。
 
+## 制作新皮肤
+
+新皮肤不需要先创建 `.command`、独立端口或注入运行时。准备一个包含 `skin.json`、图片和 `LICENSES/*.txt` 的源目录，然后直接生成管理器格式：
+
+```bash
+npm run build:skin -- \
+  --source "/绝对路径/my-skin" \
+  --output "/绝对路径/my-skin-1.0.0.codexskin"
+```
+
+打包器会生成 manifest、文件哈希和确定性 store-only ZIP，并排除 CSS、JavaScript、Shell 和其他主动内容。完整字段、模板、令牌、新模板与旧启动器迁移说明见 [`.codexskin` 制作规范](docs/skin-manager/AUTHORING.md)。
+
 ## 构建与安装
 
 ```bash
@@ -99,8 +111,10 @@ npm run build:release
 
 - `skin-manager/`：Swift Package、SwiftUI 应用、核心库与单元测试。
 - `scripts/`：应用构建、签名和原子安装脚本。
+- `scripts/build_codexskin.py`：从声明式源目录生成可直接导入的确定性 `.codexskin`。
 - `scripts/build_release_assets.py`：使用核心导出器生成版本化 Release 资产和 SHA-256 清单。
 - `tests/`：资源、浏览器/CDP、应用包和隔离启动验收。
+- `docs/skin-manager/AUTHORING.md`：新皮肤的数据契约、打包、导入和模板扩展流程。
 - `docs/skin-manager/PRODUCT_PRINCIPLES.md`：产品判断与体验原则。
 - `docs/skin-manager/ARCHITECTURE.md`：安全边界、切换流程和模板契约。
 - `.ai-context/当前进度.md`：跨设备 AI 接手时应首先读取的当前状态。

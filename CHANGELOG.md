@@ -2,6 +2,14 @@
 
 ## 1.1.0 — 未发布
 
+### 皮肤制作流程
+
+- 新增通用 `build_codexskin.py`，从一份 `skin.json + assets + LICENSES` 源目录直接生成 `.codexskin`，不再要求先制作 `.command`。
+- 打包器严格校验字段、模板、令牌、素材路径、图片文件头、许可和权利声明，并自动生成 manifest、字节数与 SHA-256。
+- 输出为确定性 data-only store ZIP；未引用文件、CSS、JavaScript、Shell 和其他主动内容不会进入包。
+- 新增 Python 打包契约测试和 Swift 导入器跨语言兼容测试。
+- 新增 `.codexskin` 作者规范，说明现有模板、新模板扩展和旧启动器迁移边界。
+
 ### 本机私有皮肤迁移
 
 - 新增管理器签名模板 `undying-phoenix-v1`，用于“柳七月 · 不死凰焰”。
