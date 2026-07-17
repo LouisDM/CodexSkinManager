@@ -208,9 +208,24 @@ git diff --cached --name-status
 
 模板 CSS 由管理器持有，不能进入 `.codexskin`。Swift、Node 和打包器的模板允许列表必须一致。
 
-## 旧 `.command` 迁移
+## 非 `.codexskin` 皮肤转换
 
-`.command` 不能直接导入。迁移时只提取图片与许可数据，把旧 CSS 映射或审核迁移到管理器模板，再建立标准源目录并运行通用打包器。旧端口、守护进程、JS、CSS、PID 和日志配置都不进入新包。
+CodexUI 仓库提供 `$convert-to-codexskin` Skill，可只读检查 `.command`、CSS+图片目录、ZIP、旧主题 JSON 和复制出来的运行时。
+
+```text
+使用 $convert-to-codexskin，把“/我的皮肤路径”转换为 Codex Skin Manager 可导入的 .codexskin。先只读检查，不执行任何旧脚本；先给我迁移摘要，我确认后再打包和测试。
+```
+
+转换时：
+
+- 保留原输入不变；
+- 只复制获准使用的 PNG/JPEG 与许可文本；
+- 其他图片先生成 PNG/JPEG 衍生文件；
+- 把旧 CSS 映射或审核迁移为管理器模板；
+- 不复制或执行旧 `.command`、Shell、JavaScript、Python、二进制、端口、PID 或守护进程配置；
+- 权利不明时固定使用 `redistributionAllowed: false`。
+
+建立标准源目录后再运行通用打包器。现有模板无法表达布局时，先新增允许列表模板与测试，不能把 CSS/脚本放进包或降低导入器校验。
 
 ## 测试
 

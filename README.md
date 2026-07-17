@@ -97,6 +97,27 @@ npm run build:skin -- \
 
 打包器会生成 manifest、文件哈希和确定性 store-only ZIP，并排除 CSS、JavaScript、Shell 和其他主动内容。完整字段、模板、令牌、新模板与旧启动器迁移说明见 [`.codexskin` 制作规范](docs/skin-manager/AUTHORING.md)。
 
+## 转换已有的其他格式皮肤
+
+如果用户已经有自己的皮肤，但它是 `.command`、CSS+图片目录、ZIP、旧主题 JSON 或复制出来的运行时，使用 CodexUI 仓库提供的 [`$convert-to-codexskin`](https://github.com/opcspace/CodexUI/tree/main/skills/convert-to-codexskin) Skill。
+
+提示词：
+
+```text
+使用 $convert-to-codexskin，把“/我的皮肤路径”转换为 Codex Skin Manager 可导入的 .codexskin。先只读检查，不执行任何旧脚本；先告诉我可复用素材、需要转换的图片、模板映射、权利缺口和会被排除的文件，我确认后再打包、导入和测试。
+```
+
+Skill 会先识别输入：
+
+- PNG/JPEG 和旧 JSON 可映射到新的声明式源目录；
+- WebP/GIF/SVG/HEIC 需要保留原件并生成 PNG/JPEG 衍生素材；
+- CSS 只作为视觉参考，不能放进皮肤包；
+- `.command`、Shell、JavaScript、Python 和二进制只读清点，绝不执行；
+- ZIP 只在内存中检查，不解压到仓库；
+- 没有明确许可的素材只能生成不可公开分发的本地版本。
+
+任意旧 CSS 无法安全地自动原样导入。现有模板无法表达布局时，需要新增管理器模板并完成测试，而不是关闭包校验。完整转换方法见 [制作指南的非 `.codexskin` 转换章节](https://github.com/opcspace/CodexUI/blob/main/docs/codex-cdp-skin-launcher.md#9-已有非-codexskin-皮肤的转换)。
+
 ## 构建与安装
 
 ```bash
