@@ -10,7 +10,6 @@ struct ContentView: View {
 
     var body: some View {
         workspace
-        .navigationSplitViewStyle(.balanced)
         .frame(minWidth: 980, minHeight: 640)
         .background(Color(nsColor: .windowBackgroundColor))
         .toolbar {
@@ -67,58 +66,23 @@ struct ContentView: View {
         }
     }
 
+    @ViewBuilder
     private var workspace: some View {
-        NavigationSplitView {
-            sidebar
-                .navigationSplitViewColumnWidth(min: 190, ideal: 220, max: 260)
-        } detail: {
+        if isDetailPresented {
             HSplitView {
-                SkinLibraryView()
-                    .frame(minWidth: 420, maxWidth: .infinity, maxHeight: .infinity)
-                if isDetailPresented {
-                    SkinDetailView()
-                        .frame(
-                            minWidth: SkinDetailLayout.minimumPaneWidth,
-                            idealWidth: SkinDetailLayout.idealPaneWidth,
-                            maxWidth: SkinDetailLayout.maximumPaneWidth,
-                            maxHeight: .infinity
-                        )
-                }
+                SkinLibraryView(layout: .navigator, onImport: presentImportPanel)
+                    .frame(minWidth: 300, idealWidth: 340, maxWidth: 410, maxHeight: .infinity)
+                SkinDetailView()
+                    .frame(minWidth: 500, idealWidth: 760, maxWidth: .infinity, maxHeight: .infinity)
             }
+        } else {
+            SkinLibraryView(layout: .gallery, onImport: presentImportPanel)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
     private var detailVisibility: SkinDetailVisibilityPresentation {
         SkinDetailVisibilityPresentation(isPresented: isDetailPresented)
-    }
-
-    private var sidebar: some View {
-        VStack(spacing: 0) {
-            List(SkinLibraryFilter.allCases, selection: $model.filter) { filter in
-                Label(filter.title, systemImage: filter.systemImage)
-                    .tag(filter)
-            }
-            .listStyle(.sidebar)
-
-            VStack(alignment: .leading, spacing: 12) {
-                Divider()
-                Label(model.inspectionPresentation.statusLabel, systemImage: model.inspection?.canApply == true ? "checkmark.shield" : "exclamationmark.triangle")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(model.inspection?.canApply == true ? Color.green : Color.orange)
-                    .lineLimit(2)
-                Button {
-                    presentImportPanel()
-                } label: {
-                    Label("导入 .codexskin", systemImage: "square.and.arrow.down")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .buttonStyle(.borderedProminent)
-                .disabled(!model.actions.canImport)
-                .accessibilityHint("选择或拖入受限的 Codex 皮肤包")
-            }
-            .padding(14)
-        }
-        .navigationTitle("皮肤资料库")
     }
 
     private func presentImportPanel() {

@@ -63,6 +63,45 @@ public enum SkinLibraryInventory {
     }
 }
 
+public struct SkinLibrarySummaryPresentation: Equatable, Sendable {
+    public let title: String
+    public let countLabel: String
+
+    public init(filter: SkinLibraryFilter, visibleCount: Int, totalCount: Int) {
+        title = filter == .all ? "皮肤" : filter.title
+        countLabel = filter == .all
+            ? "\(totalCount) 套皮肤"
+            : "\(visibleCount) / \(totalCount) 套皮肤"
+    }
+}
+
+public struct SkinNavigatorItemPresentation: Equatable, Sendable {
+    public let title: String
+    public let metadata: String
+    public let rightsLabel: String
+    public let rightsSystemImage: String
+    public let activityLabel: String?
+    public let accessibilityLabel: String
+
+    public init(_ skin: InstalledSkin, activityLabel: String?) {
+        let rights = SkinRightsPresentation(skin.rights)
+        title = skin.name
+        metadata = "\(skin.author.name) · v\(skin.version)"
+        rightsLabel = rights.label
+        rightsSystemImage = rights.systemImage
+        self.activityLabel = activityLabel
+        accessibilityLabel = [
+            skin.name,
+            "作者 \(skin.author.name)",
+            "版本 \(skin.version)",
+            rights.label,
+            activityLabel,
+        ]
+        .compactMap { $0 }
+        .joined(separator: "，")
+    }
+}
+
 public enum SkinDetailLayout {
     public static let previewAspectRatio: CGFloat = 16 / 10
     public static let badgeMinimumWidth: CGFloat = 210

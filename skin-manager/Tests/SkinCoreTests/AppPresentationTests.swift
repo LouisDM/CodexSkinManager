@@ -3,7 +3,7 @@ import XCTest
 @testable import SkinCore
 
 final class AppPresentationTests: XCTestCase {
-    func testSidebarFiltersCoverLibraryAndSafetyStates() {
+    func testLibraryFiltersCoverInventoryAndSafetyStates() {
         XCTAssertEqual(SkinLibraryFilter.allCases, [.all, .active, .privateOnly, .unverified])
         XCTAssertEqual(SkinLibraryFilter.all.title, "全部皮肤")
         XCTAssertEqual(SkinLibraryFilter.active.title, "最近使用")
@@ -42,6 +42,35 @@ final class AppPresentationTests: XCTestCase {
         let previouslyUsed = ActiveSkinRecord(id: latest.id, version: "1.0.0")
 
         XCTAssertTrue(SkinLibraryFilter.active.includes(latest, active: previouslyUsed))
+    }
+
+    func testLibrarySummaryMakesFilteringAndTotalInventoryVisible() {
+        let all = SkinLibrarySummaryPresentation(filter: .all, visibleCount: 3, totalCount: 3)
+        let privateOnly = SkinLibrarySummaryPresentation(filter: .privateOnly, visibleCount: 1, totalCount: 3)
+
+        XCTAssertEqual(all.title, "皮肤")
+        XCTAssertEqual(all.countLabel, "3 套皮肤")
+        XCTAssertEqual(privateOnly.title, "仅限本机")
+        XCTAssertEqual(privateOnly.countLabel, "1 / 3 套皮肤")
+    }
+
+    func testNavigatorItemProvidesCompactDecisionInformation() {
+        let skin = installed(
+            id: "meng-chuan-red-lotus",
+            name: "孟川 · 红莲业火",
+            author: "OPCspace",
+            version: "1.0.1",
+            rights: rights(redistributionAllowed: true)
+        )
+
+        let item = SkinNavigatorItemPresentation(skin, activityLabel: "已验证生效")
+
+        XCTAssertEqual(item.title, "孟川 · 红莲业火")
+        XCTAssertEqual(item.metadata, "OPCspace · v1.0.1")
+        XCTAssertEqual(item.rightsLabel, "允许导出")
+        XCTAssertEqual(item.activityLabel, "已验证生效")
+        XCTAssertTrue(item.accessibilityLabel.contains("孟川 · 红莲业火"))
+        XCTAssertTrue(item.accessibilityLabel.contains("已验证生效"))
     }
 
     func testDetailLayoutDefinesFlexiblePreviewAndResizablePaneBounds() {
