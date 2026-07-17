@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the manager-owned templates and built-in private skin packages."""
+"""Validate manager-owned templates and public non-commercial built-in skins."""
 
 from __future__ import annotations
 
@@ -41,15 +41,15 @@ def validate_package(directory: Path, expected_id: str, expected_template: str) 
 
     assert manifest["schemaVersion"] == 1
     assert manifest["id"] == expected_id
-    assert manifest["version"] == "1.0.0"
+    assert manifest["version"] == "1.0.1"
     assert manifest["template"] == expected_template
     assert manifest["publisherPublicKey"] is None
-    assert rights["redistributionAllowed"] is False
+    assert rights["redistributionAllowed"] is True
     assert rights["commercialUse"] is False
     assert rights["fanMade"] is True
     assert rights["unofficial"] is True
     assert rights["noEndorsement"] is True
-    assert "private" in rights["notice"].lower()
+    assert "non-commercial" in rights["notice"].lower()
 
     declared = {item["path"]: item for item in manifest["files"]}
     actual = {
@@ -98,7 +98,7 @@ def main() -> int:
 
     validate_package(BUILTINS / "nightblade", "meng-chuan-nightblade", "nightblade-v1")
     validate_package(BUILTINS / "red-lotus", "meng-chuan-red-lotus", "red-lotus-v1")
-    print("Built-in skin packages are valid and private-only")
+    print("Built-in skin packages are valid for public non-commercial distribution")
     return 0
 
 

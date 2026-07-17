@@ -1,5 +1,7 @@
-Nightblade Media Usage Boundary
+Nightblade Public Non-Commercial Fan-Skin Notice
 
-These AI-generated raster images are included only for private preview and evaluation. They are not covered by the repository MIT License and do not grant any license to the Meng Chuan character, Cang Yuan Tu, associated trademarks, or adaptation rights.
+To the extent OPCspace controls rights in these AI-assisted original raster images, permission is granted to copy and redistribute the unmodified images only as part of this Codex skin package, for non-commercial fan use, with this notice retained.
 
-The package is fan-made, unofficial, and not endorsed by the relevant rights holders. Obtain character and publishing permission before redistribution, promotion, or commercial use.
+This permission does not grant rights to the Meng Chuan character, Cang Yuan Tu, associated names, trademarks, adaptation rights, or any other third-party material. Those rights remain with their respective owners, and downstream users are responsible for complying with applicable law and platform rules.
+
+The package is fan-made, unofficial, and not endorsed by OpenAI, Cang Yuan Tu, or any related rights holder. Commercial use, standalone resale of the images, and removal of this notice are not permitted.

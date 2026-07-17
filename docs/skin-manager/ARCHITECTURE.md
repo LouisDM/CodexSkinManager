@@ -7,6 +7,7 @@
 - `skin-manager/Sources/CodexSkinManager/Resources/Templates/`：经过允许列表限制的内置 CSS 模板。
 - `skin-manager/Sources/CodexSkinManager/Resources/BuiltinSkins/`：内置皮肤数据、预览、图片和权利声明。
 - `scripts/build_codex_skin_manager_app.py`：构建、临时签名并原子安装 macOS `.app`。
+- `scripts/build_release_assets.py`：调用 `SkinReleasePackager` 与核心导出器，生成确定性的公开皮肤包、应用 ZIP 和 SHA-256 清单。
 - `tests/`：资源、浏览器/CDP、应用包和隔离启动验收。
 
 ## 安全边界
@@ -31,6 +32,14 @@
 - 应用启动时不得从 `active.json` 直接推导 `SkinApplicationState.active`。
 - “最近使用”和“已验证生效”必须在 UI 中使用不同文案与图标。
 
+## 公开发行契约
+
+- 公开包的皮肤版本为 `1.0.1`；不得覆盖内容不同的私用 `1.0.0`。
+- `.codexskin` 必须由 `SkinPackageExporter` 生成，使用项目支持的 stored ZIP v1，不允许另行手工压缩。
+- `rights.json` 必须声明允许重新分发、禁止商业使用、同人、非官方和无背书。
+- `LICENSES/assets.txt` 必须随包保留；公开许可只覆盖 OPCspace 可控制的 AI 辅助原创图像，不授予底层角色、作品名、商标或第三方权利。
+- 每个 Release 必须包含 `SHA256SUMS.txt`，并通过两次构建字节一致性测试。
+
 ## 模板契约
 
 模板根类由通用引擎生成：
@@ -44,10 +53,11 @@
 
 ```bash
 cd skin-manager && swift test && swift build -c release
-cd .. && npm run test:manager
+cd .. && npm test
 python3 scripts/build_codex_skin_manager_app.py --install
 python3 tests/test_codex_skin_manager_bundle.py --installed
 python3 tests/test_skin_manager_end_to_end.py
+python3 scripts/build_release_assets.py
 ```
 
 浏览器/CDP 测试默认使用本机 Google Chrome；也可通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` 指定 Chromium 可执行文件。
