@@ -47,6 +47,12 @@ final class SkinPackageModelsTests: XCTestCase {
         }
     }
 
+    func testUndyingPhoenixTemplateIsSupported() throws {
+        let manifest = try decodeManifest(replacing: "nightblade-v1", with: "undying-phoenix-v1")
+
+        XCTAssertNoThrow(try SkinPackageContract.validate(manifest: manifest))
+    }
+
     func testManifestRejectsUnsafeOrMalformedFiles() throws {
         let unsafePaths = ["/tmp/hero.png", "../hero.png", "assets\\hero.png", "assets//hero.png", "./hero.png"]
         for path in unsafePaths {

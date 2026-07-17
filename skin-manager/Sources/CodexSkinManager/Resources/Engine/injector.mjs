@@ -50,6 +50,14 @@ const TEMPLATE_CATALOG = Object.freeze({
       background: "./meng-chuan-hero-background.png",
     }),
   }),
+  "undying-phoenix-v1": Object.freeze({
+    file: "undying-phoenix-v1.css",
+    rootClass: "codex-skin-template-undying-phoenix-v1",
+    assetReferences: Object.freeze({
+      hero: "./hero-character.png",
+      background: "./hero-background.png",
+    }),
+  }),
 });
 
 const TOKEN_PROPERTIES = Object.freeze({

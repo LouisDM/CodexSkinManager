@@ -84,6 +84,7 @@ def validate_package(directory: Path, expected_id: str, expected_template: str) 
 def main() -> int:
     nightblade_template = (TEMPLATES / "nightblade-v1.css").read_text(encoding="utf-8")
     red_lotus_template = (TEMPLATES / "red-lotus-v1.css").read_text(encoding="utf-8")
+    undying_phoenix_template = (TEMPLATES / "undying-phoenix-v1.css").read_text(encoding="utf-8")
     assert "玄刃夜行" in nightblade_template
     assert ":root.codex-skin-template-nightblade-v1" in nightblade_template
     assert "--codex-skin-template-active: nightblade-v1" in nightblade_template
@@ -94,7 +95,12 @@ def main() -> int:
     assert "--codex-skin-template-active: red-lotus-v1" in red_lotus_template
     assert "url(\"./hero-character.png\")" in nightblade_template
     assert "url(\"./meng-chuan-portrait.png\")" in red_lotus_template
-    assert "@import" not in nightblade_template + red_lotus_template
+    assert "柳七月  ·  不死凰焰" in undying_phoenix_template
+    assert ":root.codex-skin-template-undying-phoenix-v1" in undying_phoenix_template
+    assert "--codex-skin-template-active: undying-phoenix-v1" in undying_phoenix_template
+    assert "url(\"./hero-character.png\")" in undying_phoenix_template
+    assert "url(\"./hero-background.png\")" in undying_phoenix_template
+    assert "@import" not in nightblade_template + red_lotus_template + undying_phoenix_template
 
     validate_package(BUILTINS / "nightblade", "meng-chuan-nightblade", "nightblade-v1")
     validate_package(BUILTINS / "red-lotus", "meng-chuan-red-lotus", "red-lotus-v1")

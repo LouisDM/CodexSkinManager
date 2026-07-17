@@ -45,9 +45,14 @@
 模板根类由通用引擎生成：
 
 - 玄刃夜行：`codex-skin-template-nightblade-v1`
-- 赤莲业火：`codex-skin-template-red-lotus-v1`
+- 红莲业火：`codex-skin-template-red-lotus-v1`
+- 柳七月 · 不死凰焰：`codex-skin-template-undying-phoenix-v1`
 
 模板装饰节点必须使用通用 ID `codex-skin-manager-chrome`。不得重新引入旧启动器专属的 `codex-meng-chuan-*` 根类或节点 ID。
+
+## 旧启动器迁移边界
+
+旧 `.command` 不能作为皮肤包导入或执行。迁移器只从已知运行时目录读取声明过的 PNG 与许可文本，生成 `redistributionAllowed: false` 的数据包；旧 CSS、JavaScript、启动脚本和其他主动内容一律不进入归档。柳七月素材只保存在用户本机，不进入公开仓库、内置资源或 Release。
 
 ## 验证命令
 

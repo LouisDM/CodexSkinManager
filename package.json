@@ -1,13 +1,14 @@
 {
   "name": "codex-skin-manager",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "npm run test:swift && npm run test:engine && npm run test:resources && npm run test:release",
+    "test": "npm run test:swift && npm run test:engine && npm run test:resources && npm run test:private-builder && npm run test:release",
     "test:swift": "cd skin-manager && swift test",
     "test:engine": "node --test tests/test_skin_manager_cdp_engine.mjs",
     "test:resources": "python3 tests/test_builtin_skin_packages.py",
+    "test:private-builder": "python3 tests/test_private_liu_qiyue_package_builder.py",
     "test:release": "python3 tests/test_public_release_assets.py",
     "test:bundle": "python3 tests/test_codex_skin_manager_bundle.py --installed",
     "test:e2e": "python3 tests/test_skin_manager_end_to_end.py",

@@ -116,6 +116,18 @@ test("payload uses only an allowlisted manager template and local declared raste
   assert.ok(!payload.css.includes('url("./'), "template retained a relative asset URL");
   assert.doesNotMatch(payload.css, /https?:|file:|@import/i);
 
+  const undyingPhoenix = await createSkin(temporary, {
+    id: "liu-qiyue-undying-phoenix",
+    template: "undying-phoenix-v1",
+  });
+  const phoenixPayload = await module.buildPayload(undyingPhoenix, TEMPLATES);
+  assert.equal(phoenixPayload.rootClass, "codex-skin-template-undying-phoenix-v1");
+  assert.match(phoenixPayload.css, /--codex-skin-template-active:\s*undying-phoenix-v1/);
+  assert.match(phoenixPayload.css, /柳七月\s*·\s*不死凰焰/);
+  assert.ok((phoenixPayload.css.match(/data:image\/png;base64/g) ?? []).length >= 2);
+  assert.ok(!phoenixPayload.css.includes('url("./'), "phoenix template retained a relative asset URL");
+  assert.doesNotMatch(phoenixPayload.css, /https?:|file:|@import/i);
+
   const unknown = await createSkin(temporary, { id: "unknown-template", template: "package-script" });
   await assert.rejects(() => module.buildPayload(unknown, TEMPLATES), /template|allowlist|unsupported/i);
 
@@ -239,6 +251,10 @@ test("generic engine applies, verifies, switches, survives navigation, and resto
     id: "meng-chuan-red-lotus",
     template: "red-lotus-v1",
   });
+  const undyingPhoenix = await createSkin(temporary, {
+    id: "liu-qiyue-undying-phoenix",
+    template: "undying-phoenix-v1",
+  });
   const debugPort = await reservePort();
   const pageServer = createServer((_request, response) => {
     response.setHeader("content-type", "text/html; charset=utf-8");
@@ -308,13 +324,24 @@ test("generic engine applies, verifies, switches, survives navigation, and resto
     "rgb(145 220 255 / 0.95)",
   );
 
-  const restore = spawnSync(process.execPath, [...argsFor(nightblade), "--restore"], { encoding: "utf8" });
+  const switchedToPhoenix = await runProcess(process.execPath, [...argsFor(undyingPhoenix), "--once"]);
+  assert.equal(switchedToPhoenix.status, 0, switchedToPhoenix.stderr || switchedToPhoenix.stdout);
+  assert.equal(await page.locator("html.codex-skin-template-nightblade-v1").count(), 0);
+  assert.equal(await page.locator("html.codex-skin-template-undying-phoenix-v1").count(), 1);
+  assert.equal(await page.evaluate(() => window.__CODEX_SKIN_MANAGER__.skinId), "liu-qiyue-undying-phoenix");
+  assert.equal(
+    await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue("--startup-logo-shimmer-peak").trim()),
+    "rgb(255 212 122 / 0.95)",
+  );
+
+  const restore = spawnSync(process.execPath, [...argsFor(undyingPhoenix), "--restore"], { encoding: "utf8" });
   assert.equal(restore.status, 0, restore.stderr || restore.stdout);
   assert.equal(await page.locator("#codex-skin-manager-style").count(), 0);
   assert.equal(await second.locator("#codex-skin-manager-style").count(), 0);
 
   const reappliedAfterRestore = await runProcess(process.execPath, [...argsFor(redLotus), "--once"]);
   assert.equal(reappliedAfterRestore.status, 0, reappliedAfterRestore.stderr || reappliedAfterRestore.stdout);
+  assert.equal(await page.locator("html.codex-skin-template-undying-phoenix-v1").count(), 0);
   assert.equal(await page.locator("html.codex-skin-template-red-lotus-v1").count(), 1);
   assert.equal(await page.evaluate(() => window.__CODEX_SKIN_MANAGER__.verify()), true);
 
