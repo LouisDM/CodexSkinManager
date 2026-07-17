@@ -1,6 +1,5 @@
 import AppKit
 import SwiftUI
-import UniformTypeIdentifiers
 
 @main
 struct CodexSkinManagerApp: App {
@@ -24,6 +23,11 @@ struct CodexSkinManagerApp: App {
             CommandGroup(replacing: .newItem) {
                 Button("导入皮肤…") { presentImportPanel() }
                     .keyboardShortcut("o", modifiers: .command)
+                    .disabled(!model.actions.canImport)
+                Button("导出所选皮肤…") { presentExportPanel() }
+                    .keyboardShortcut("e", modifiers: [.command, .shift])
+                    .disabled(!model.actions.canExport)
+                Divider()
                 Button(model.actions.applyTitle) { Task { await model.applySelected() } }
                     .keyboardShortcut(.return, modifiers: [.command])
                     .disabled(!model.actions.canApply)
@@ -61,13 +65,15 @@ struct CodexSkinManagerApp: App {
     }
 
     private func presentImportPanel() {
-        let panel = NSOpenPanel()
-        panel.title = "导入 Codex 皮肤"
-        panel.prompt = "导入"
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.allowedContentTypes = [UTType(filenameExtension: "codexskin") ?? .data]
-        guard panel.runModal() == .OK, let url = panel.url else { return }
+        guard let url = SkinFilePanels.chooseImport() else { return }
         Task { await model.importSkin(from: url) }
+    }
+
+    private func presentExportPanel() {
+        guard let skin = model.selectedSkin,
+              model.actions.canExport,
+              let url = SkinFilePanels.chooseExport(for: skin)
+        else { return }
+        Task { await model.exportSelected(to: url) }
     }
 }

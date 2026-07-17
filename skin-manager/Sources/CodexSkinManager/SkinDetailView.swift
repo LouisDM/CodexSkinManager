@@ -1,7 +1,6 @@
 import AppKit
 import SkinCore
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct SkinDetailView: View {
     @EnvironmentObject private var model: AppModel
@@ -186,8 +185,6 @@ struct SkinDetailView: View {
 
     private var moreActionsMenu: some View {
         Menu {
-            Button("导出 .codexskin…") { presentExportPanel() }
-                .disabled(!model.actions.canExport)
             Button("在 Finder 中显示") {
                 if let skin = model.selectedSkin {
                     NSWorkspace.shared.activateFileViewerSelecting([skin.directoryURL])
@@ -202,17 +199,6 @@ struct SkinDetailView: View {
         .menuStyle(.borderlessButton)
         .fixedSize()
         .accessibilityLabel("更多皮肤操作")
-    }
-
-    private func presentExportPanel() {
-        guard let skin = model.selectedSkin, model.actions.canExport else { return }
-        let panel = NSSavePanel()
-        panel.title = "导出 Codex 皮肤"
-        panel.prompt = "导出"
-        panel.nameFieldStringValue = "\(skin.id)-\(skin.version).codexskin"
-        panel.allowedContentTypes = [UTType(filenameExtension: "codexskin") ?? .data]
-        guard panel.runModal() == .OK, let url = panel.url else { return }
-        Task { await model.exportSelected(to: url) }
     }
 }
 

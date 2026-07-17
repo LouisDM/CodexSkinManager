@@ -112,11 +112,11 @@ public actor SkinRepository {
         let destination = skinDirectory(id: package.manifest.id, version: package.manifest.version)
         let originalHash = Self.sha256(package.originalManifestData)
         if fileManager.fileExists(atPath: destination.path) {
-            let receipt = try readReceipt(at: destination)
-            guard receipt.originalManifestSHA256 == originalHash else {
+            let stored = try load(id: package.manifest.id, version: package.manifest.version)
+            guard Self.hasSameContent(package, as: stored) else {
                 throw SkinRepositoryError.versionConflict(id: package.manifest.id, version: package.manifest.version)
             }
-            return .alreadyInstalled(try loadInstalled(at: destination))
+            return .alreadyInstalled(stored.installed)
         }
 
         let stage = stagingURL.appending(path: "import-\(UUID().uuidString)", directoryHint: .isDirectory)
@@ -161,6 +161,23 @@ public actor SkinRepository {
             throw error
         }
         return .installed(try loadInstalled(at: destination))
+    }
+
+    private static func hasSameContent(
+        _ imported: ImportedSkinPackage,
+        as stored: StoredSkinPackage
+    ) -> Bool {
+        let importedManifest = imported.manifest
+        let storedManifest = stored.manifest
+        return importedManifest.schemaVersion == storedManifest.schemaVersion
+            && importedManifest.id == storedManifest.id
+            && importedManifest.name == storedManifest.name
+            && importedManifest.version == storedManifest.version
+            && importedManifest.template == storedManifest.template
+            && importedManifest.minManagerVersion == storedManifest.minManagerVersion
+            && importedManifest.preview == storedManifest.preview
+            && importedManifest.author == storedManifest.author
+            && imported.files == stored.files
     }
 
     public func listInstalled() throws -> [InstalledSkin] {

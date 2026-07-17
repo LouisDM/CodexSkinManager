@@ -11,7 +11,6 @@ struct SkinLibraryView: View {
     @EnvironmentObject private var model: AppModel
 
     let layout: SkinLibraryLayoutMode
-    let onImport: () -> Void
 
     private let columns = [GridItem(.adaptive(minimum: 230, maximum: 330), spacing: 16)]
 
@@ -152,28 +151,17 @@ struct SkinLibraryView: View {
     }
 
     private var libraryFooter: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label(
-                model.inspectionPresentation.statusLabel,
-                systemImage: model.inspection?.canApply == true
-                    ? "checkmark.shield.fill"
-                    : "exclamationmark.triangle.fill"
-            )
-            .font(.caption.weight(.semibold))
-            .foregroundStyle(model.inspection?.canApply == true ? Color.green : Color.orange)
-            .lineLimit(2)
-            .fixedSize(horizontal: false, vertical: true)
-
-            Button(action: onImport) {
-                Label("导入 .codexskin", systemImage: "square.and.arrow.down")
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(!model.actions.canImport)
-            .help("选择皮肤包，也可以把文件拖进窗口")
-            .accessibilityHint("选择或拖入受限的 Codex 皮肤包")
-            .accessibilityIdentifier("import-codexskin")
-        }
+        Label(
+            model.inspectionPresentation.statusLabel,
+            systemImage: model.inspection?.canApply == true
+                ? "checkmark.shield.fill"
+                : "exclamationmark.triangle.fill"
+        )
+        .font(.caption.weight(.semibold))
+        .foregroundStyle(model.inspection?.canApply == true ? Color.green : Color.orange)
+        .lineLimit(2)
+        .fixedSize(horizontal: false, vertical: true)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(layout == .navigator ? 12 : 14)
         .background(Color.primary.opacity(0.025))
     }

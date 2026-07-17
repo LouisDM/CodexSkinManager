@@ -1,7 +1,6 @@
 import AppKit
 import SkinCore
 import SwiftUI
-import UniformTypeIdentifiers
 
 struct ContentView: View {
     @EnvironmentObject private var model: AppModel
@@ -13,6 +12,9 @@ struct ContentView: View {
         .frame(minWidth: 980, minHeight: 640)
         .background(Color(nsColor: .windowBackgroundColor))
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                fileTransferControl
+            }
             ToolbarItem {
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -70,15 +72,41 @@ struct ContentView: View {
     private var workspace: some View {
         if isDetailPresented {
             HSplitView {
-                SkinLibraryView(layout: .navigator, onImport: presentImportPanel)
+                SkinLibraryView(layout: .navigator)
                     .frame(minWidth: 300, idealWidth: 340, maxWidth: 410, maxHeight: .infinity)
                 SkinDetailView()
                     .frame(minWidth: 500, idealWidth: 760, maxWidth: .infinity, maxHeight: .infinity)
             }
         } else {
-            SkinLibraryView(layout: .gallery, onImport: presentImportPanel)
+            SkinLibraryView(layout: .gallery)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+    }
+
+    private var fileTransfer: SkinFileTransferPresentation {
+        SkinFileTransferPresentation(actions: model.actions)
+    }
+
+    private var fileTransferControl: some View {
+        ControlGroup {
+            Button(action: presentImportPanel) {
+                Label(fileTransfer.importTitle, systemImage: fileTransfer.importSystemImage)
+            }
+            .disabled(!fileTransfer.canImport)
+            .help(fileTransfer.importHelp)
+            .accessibilityIdentifier("import-codexskin")
+
+            Button(action: presentExportPanel) {
+                Label(fileTransfer.exportTitle, systemImage: fileTransfer.exportSystemImage)
+            }
+            .disabled(!fileTransfer.canExport)
+            .help(fileTransfer.exportHelp)
+            .accessibilityIdentifier("export-codexskin")
+        }
+        .labelStyle(.titleAndIcon)
+        .fixedSize()
+        .accessibilityLabel("皮肤文件")
+        .accessibilityIdentifier("skin-file-transfer")
     }
 
     private var detailVisibility: SkinDetailVisibilityPresentation {
@@ -86,13 +114,15 @@ struct ContentView: View {
     }
 
     private func presentImportPanel() {
-        let panel = NSOpenPanel()
-        panel.title = "导入 Codex 皮肤"
-        panel.prompt = "导入"
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.allowedContentTypes = [UTType(filenameExtension: "codexskin") ?? .data]
-        guard panel.runModal() == .OK, let url = panel.url else { return }
+        guard let url = SkinFilePanels.chooseImport() else { return }
         Task { await model.importSkin(from: url) }
+    }
+
+    private func presentExportPanel() {
+        guard let skin = model.selectedSkin,
+              fileTransfer.canExport,
+              let url = SkinFilePanels.chooseExport(for: skin)
+        else { return }
+        Task { await model.exportSelected(to: url) }
     }
 }

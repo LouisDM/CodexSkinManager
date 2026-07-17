@@ -90,6 +90,60 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertEqual(hidden.systemImage, "sidebar.trailing")
     }
 
+    func testFileTransferPresentationKeepsImportAndExportAsPeerActions() {
+        let selected = installed(id: "shareable", rights: rights(redistributionAllowed: true))
+        let actions = SkinActionAvailability(
+            selected: selected,
+            active: nil,
+            inspection: inspection(signatureValid: true),
+            state: .idle
+        )
+
+        let transfer = SkinFileTransferPresentation(actions: actions)
+
+        XCTAssertEqual(transfer.importTitle, "导入")
+        XCTAssertEqual(transfer.exportTitle, "导出")
+        XCTAssertEqual(transfer.importSystemImage, "square.and.arrow.down")
+        XCTAssertEqual(transfer.exportSystemImage, "square.and.arrow.up")
+        XCTAssertEqual(transfer.importHelp, "导入 .codexskin，也可以把文件拖进窗口")
+        XCTAssertEqual(transfer.exportHelp, "导出所选皮肤为 .codexskin")
+        XCTAssertTrue(transfer.canImport)
+        XCTAssertTrue(transfer.canExport)
+    }
+
+    func testFileTransferPresentationExplainsPrivateExportRestriction() {
+        let selected = installed(id: "private", rights: rights(redistributionAllowed: false))
+        let actions = SkinActionAvailability(
+            selected: selected,
+            active: nil,
+            inspection: inspection(signatureValid: true),
+            state: .idle
+        )
+
+        let transfer = SkinFileTransferPresentation(actions: actions)
+
+        XCTAssertFalse(transfer.canExport)
+        XCTAssertEqual(transfer.exportSystemImage, "lock.fill")
+        XCTAssertEqual(transfer.exportHelp, "当前素材授权不允许导出共享")
+    }
+
+    func testFileTransferPresentationDoesNotMistakeBusyStateForRightsLock() {
+        let selected = installed(id: "shareable", rights: rights(redistributionAllowed: true))
+        let record = ActiveSkinRecord(id: selected.id, version: selected.version)
+        let actions = SkinActionAvailability(
+            selected: selected,
+            active: nil,
+            inspection: inspection(signatureValid: true),
+            state: .applying(record)
+        )
+
+        let transfer = SkinFileTransferPresentation(actions: actions)
+
+        XCTAssertFalse(transfer.canExport)
+        XCTAssertEqual(transfer.exportSystemImage, "square.and.arrow.up")
+        XCTAssertEqual(transfer.exportHelp, "当前操作完成后可继续")
+    }
+
     func testTrustAndRightsBadgesAreExplicit() {
         XCTAssertEqual(SkinTrustPresentation(.verifiedPublisher(fingerprint: "abc")).label, "发布者已验证")
         XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "签名未知")

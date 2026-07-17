@@ -120,6 +120,24 @@ public struct SkinDetailVisibilityPresentation: Equatable, Sendable {
     }
 }
 
+public struct SkinFileTransferPresentation: Equatable, Sendable {
+    public let importTitle = "导入"
+    public let exportTitle = "导出"
+    public let importSystemImage = "square.and.arrow.down"
+    public let exportSystemImage: String
+    public let importHelp = "导入 .codexskin，也可以把文件拖进窗口"
+    public let exportHelp: String
+    public let canImport: Bool
+    public let canExport: Bool
+
+    public init(actions: SkinActionAvailability) {
+        canImport = actions.canImport
+        canExport = actions.canExport
+        exportSystemImage = actions.exportIsRightsRestricted ? "lock.fill" : "square.and.arrow.up"
+        exportHelp = actions.exportDisabledReason ?? "导出所选皮肤为 .codexskin"
+    }
+}
+
 public struct SkinTrustPresentation: Equatable, Sendable {
     public let label: String
     public let detail: String
@@ -190,6 +208,7 @@ public struct SkinActionAvailability: Equatable, Sendable {
     public let canExport: Bool
     public let canImport: Bool
     public let canCancelWaiting: Bool
+    public let exportIsRightsRestricted: Bool
     public let applyTitle: String
     public let applyDisabledReason: String?
     public let exportDisabledReason: String?
@@ -211,6 +230,7 @@ public struct SkinActionAvailability: Equatable, Sendable {
         canExport = selected?.rights.canExportPublicly == true && !busy
         canImport = !busy
         canCancelWaiting = state == .waitingForQuit
+        exportIsRightsRestricted = selected != nil && selected?.rights.canExportPublicly != true
 
         if case .failed = state {
             applyTitle = "重试切换"

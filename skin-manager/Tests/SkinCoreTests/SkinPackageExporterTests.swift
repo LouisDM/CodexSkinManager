@@ -50,6 +50,26 @@ final class SkinPackageExporterTests: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: destination.appendingPathExtension("tmp").path))
     }
 
+    func testExportedPackageRoundTripsIntoTheSameRepositoryAsAlreadyInstalled() async throws {
+        let rights = Data(#"{"redistributionAllowed":true,"commercialUse":false,"fanMade":true,"unofficial":true,"noEndorsement":true,"notice":"Share with attribution"}"#.utf8)
+        let fixture = try SkinImportFixture.make(id: "round-trip", name: "Round Trip", rightsData: rights)
+        let repository = SkinRepository(rootURL: temporaryRoot())
+        let installed = installedValue(
+            try await repository.install(SkinPackageImporter().importPackage(data: fixture.archive))
+        )
+        let stored = try await repository.load(id: installed.id, version: installed.version)
+        let exported = try SkinPackageExporter().data(for: stored)
+        let reimported = try SkinPackageImporter().importPackage(data: exported)
+
+        let outcome = try await repository.install(reimported)
+
+        guard case let .alreadyInstalled(existing) = outcome else {
+            return XCTFail("语义相同的导出包回导时应识别为已安装")
+        }
+        XCTAssertEqual(existing.id, installed.id)
+        XCTAssertEqual(existing.version, installed.version)
+    }
+
     private func installedValue(_ outcome: SkinInstallOutcome) -> InstalledSkin {
         switch outcome {
         case let .installed(skin), let .alreadyInstalled(skin): skin
