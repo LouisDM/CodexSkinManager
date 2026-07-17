@@ -1,0 +1,439 @@
+/*
+ * Meng Chuan · Red Lotus — local Codex Desktop skin
+ * Fan-made local prototype. Not affiliated with or endorsed by OpenAI or Cang Yuan Tu.
+ */
+
+:root.codex-skin-template-red-lotus-v1 {
+  --codex-skin-template-active: red-lotus-v1;
+}
+
+:root,
+:root.electron-light,
+:root.electron-dark {
+  color-scheme: dark !important;
+  --startup-background: #0b0909 !important;
+  --startup-logo-shimmer-base: rgb(200 154 90 / 0.66) !important;
+  --startup-logo-shimmer-peak: rgb(242 200 120 / 0.96) !important;
+  --startup-logo-shimmer-soft: rgb(200 154 90 / 0.14) !important;
+  --startup-logo-shimmer-tail: rgb(152 38 37 / 0.22) !important;
+
+  --vscode-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans CJK SC", sans-serif !important;
+  --vscode-font-weight: 400 !important;
+  --vscode-foreground: #f4ebdd !important;
+  --vscode-disabledForeground: #796d68 !important;
+  --vscode-descriptionForeground: #b6a69b !important;
+  --vscode-errorForeground: #ef7770 !important;
+  --vscode-focusBorder: #f2c878 !important;
+  --vscode-sideBar-background: #0b0909 !important;
+  --vscode-editor-background: #110e0f !important;
+  --vscode-editor-foreground: #f4ebdd !important;
+  --vscode-editorWidget-background: #1b1516 !important;
+  --vscode-input-background: #1b1516 !important;
+  --vscode-input-foreground: #f4ebdd !important;
+  --vscode-input-border: #493031 !important;
+  --vscode-input-placeholderForeground: #8f7d76 !important;
+  --vscode-dropdown-background: #1b1516 !important;
+  --vscode-dropdown-foreground: #f4ebdd !important;
+  --vscode-button-background: #c89a5a !important;
+  --vscode-button-foreground: #0b0909 !important;
+  --vscode-button-border: #f2c878 !important;
+  --vscode-list-hoverBackground: #241718 !important;
+  --vscode-list-activeSelectionBackground: #35191a !important;
+  --vscode-list-activeSelectionForeground: #f4ebdd !important;
+  --vscode-scrollbarSlider-background: rgb(200 154 90 / 0.18) !important;
+  --vscode-scrollbarSlider-hoverBackground: rgb(200 154 90 / 0.32) !important;
+  --vscode-scrollbarSlider-activeBackground: rgb(242 200 120 / 0.42) !important;
+  --vscode-toolbar-hoverBackground: #2a1b1c !important;
+  --vscode-menu-background: #151112 !important;
+  --vscode-menu-border: #493031 !important;
+  --vscode-menubar-selectionBackground: #2a1b1c !important;
+  --vscode-menubar-selectionForeground: #f4ebdd !important;
+  --vscode-terminal-background: #0d0a0b !important;
+  --vscode-terminal-foreground: #e9dfd3 !important;
+  --vscode-terminal-border: #493031 !important;
+  --vscode-textLink-foreground: #e4b96f !important;
+  --vscode-textLink-activeForeground: #f2c878 !important;
+
+  --color-background-surface: #110e0f !important;
+  --color-background-surface-under: #080707 !important;
+  --color-background-editor-opaque: #110e0f !important;
+  --color-background-elevated-primary: rgb(27 21 22 / 0.97) !important;
+  --color-background-elevated-primary-opaque: #1b1516 !important;
+  --color-background-elevated-secondary: rgb(200 154 90 / 0.06) !important;
+  --color-background-elevated-secondary-opaque: #211718 !important;
+  --color-background-accent: #c89a5a !important;
+  --color-background-accent-hover: #d8aa67 !important;
+  --color-background-accent-active: #b88545 !important;
+  --color-text-foreground: #f4ebdd !important;
+  --color-text-foreground-secondary: #cdbeb2 !important;
+  --color-text-foreground-tertiary: #9f8d84 !important;
+  --color-text-accent: #f2c878 !important;
+  --color-text-on-accent: #0b0909 !important;
+  --color-icon-primary: #f4ebdd !important;
+  --color-icon-secondary: #c89a5a !important;
+  --color-icon-tertiary: #9f8d84 !important;
+
+  --color-token-border: #493031 !important;
+  --color-token-border-default: #493031 !important;
+  --color-token-border-heavy: #684142 !important;
+  --color-token-border-light: #332324 !important;
+  --color-token-foreground: #f4ebdd !important;
+  --color-token-disabled-foreground: #796d68 !important;
+  --color-token-description-foreground: #b6a69b !important;
+  --color-token-text-primary: #f4ebdd !important;
+  --color-token-text-secondary: #cdbeb2 !important;
+  --color-token-text-tertiary: #9f8d84 !important;
+  --color-token-icon-foreground: #e8d8c6 !important;
+  --color-token-focus-border: #f2c878 !important;
+  --color-token-link: #e4b96f !important;
+  --color-token-primary: #c89a5a !important;
+  --color-token-on-accent: #0b0909 !important;
+  --color-token-button-background: #c89a5a !important;
+  --color-token-button-foreground: #0b0909 !important;
+  --color-token-button-border: #f2c878 !important;
+  --color-token-button-secondary-hover-background: #2a1b1c !important;
+  --color-token-input-background: #1b1516 !important;
+  --color-token-input-foreground: #f4ebdd !important;
+  --color-token-input-border: #493031 !important;
+  --color-token-input-placeholder-foreground: #8f7d76 !important;
+  --color-token-dropdown-background: #1b1516 !important;
+  --color-token-dropdown-foreground: #f4ebdd !important;
+  --color-token-list-hover-background: #241718 !important;
+  --color-token-list-active-selection-background: #35191a !important;
+  --color-token-list-active-selection-foreground: #f4ebdd !important;
+  --color-token-list-active-selection-icon-foreground: #f2c878 !important;
+  --color-token-side-bar-background: #0b0909 !important;
+  --color-token-bg-primary: #0b0909 !important;
+  --color-token-bg-secondary: #151112 !important;
+  --color-token-bg-tertiary: #1b1516 !important;
+  --color-token-bg-appshot: rgb(11 9 9 / 0.9) !important;
+  --color-token-bg-fog: rgb(200 154 90 / 0.035) !important;
+  --color-token-main-surface-primary: #110e0f !important;
+  --color-token-editor-background: #110e0f !important;
+  --color-token-editor-foreground: #f4ebdd !important;
+  --color-token-editor-widget-background: #1b1516 !important;
+  --color-token-text-preformat-background: #1b1516 !important;
+  --color-token-text-code-block-background: #0d0a0b !important;
+  --color-token-toolbar-hover-background: #2a1b1c !important;
+  --color-token-menu-background: #151112 !important;
+  --color-token-menu-border: #493031 !important;
+  --color-token-scrollbar-slider-background: rgb(200 154 90 / 0.18) !important;
+  --color-token-scrollbar-slider-hover-background: rgb(200 154 90 / 0.32) !important;
+  --color-token-scrollbar-slider-active-background: rgb(242 200 120 / 0.42) !important;
+  --color-token-terminal-background: #0d0a0b !important;
+  --color-token-terminal-foreground: #e9dfd3 !important;
+  --color-token-terminal-border: #493031 !important;
+  --color-token-charts-red: #de5b54 !important;
+  --color-token-charts-orange: #d89755 !important;
+  --color-token-charts-yellow: #e6bd69 !important;
+  --color-token-charts-green: #7fa66c !important;
+  --color-token-charts-blue: #7496b8 !important;
+  --color-token-charts-purple: #a985ad !important;
+  --codex-base-accent: #c89a5a !important;
+  --radius-token-composer-single-line: 14px !important;
+  --radius-token-row: 8px !important;
+  --elevation-prominent: 0 0 0 1px rgb(104 65 66 / 0.52), 0 18px 48px rgb(0 0 0 / 0.38) !important;
+  --elevation-sidebar: inset -1px 0 0 rgb(200 154 90 / 0.18) !important;
+}
+
+html,
+body,
+#root {
+  background: #0b0909 !important;
+}
+
+body {
+  color: #f4ebdd !important;
+  background-image:
+    radial-gradient(circle at 78% 8%, rgb(126 30 29 / 0.13), transparent 35%),
+    linear-gradient(135deg, #0b0909 0%, #110e0f 56%, #0b0909 100%) !important;
+}
+
+::selection {
+  color: #0b0909;
+  background: #e4b96f;
+}
+
+.main-surface,
+.browser-main-surface {
+  border-color: rgb(200 154 90 / 0.24) !important;
+  background:
+    linear-gradient(rgb(17 14 15 / 0.97), rgb(17 14 15 / 0.97)),
+    url("./meng-chuan-hero-background.png") 68% 45% / cover no-repeat !important;
+}
+
+/* Sidebar identity plate. This uses the stable navigation landmark. */
+nav.sidebar-foreground-muted {
+  border-right: 1px solid rgb(200 154 90 / 0.17);
+  background:
+    radial-gradient(circle at 8% 3%, rgb(152 38 37 / 0.18), transparent 25%),
+    linear-gradient(180deg, #0b0909, #0d0a0b 72%, #110d0e);
+}
+
+nav.sidebar-foreground-muted::before {
+  content: "Codex";
+  display: block;
+  flex: 0 0 auto;
+  margin: 3px 9px 8px;
+  padding: 7px 8px 10px;
+  border-bottom: 1px solid rgb(200 154 90 / 0.25);
+  color: #e4b96f;
+  font-family: Georgia, "Songti SC", "STSong", serif;
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-shadow: 0 0 24px rgb(200 154 90 / 0.22);
+}
+
+nav.sidebar-foreground-muted::after {
+  content: "孟川  ·  红莲业火";
+  display: block;
+  flex: 0 0 auto;
+  margin: 8px 12px 10px;
+  color: #9f8d84;
+  font-family: "Songti SC", "STSong", Georgia, serif;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+nav.sidebar-foreground-muted [aria-current="page"],
+nav.sidebar-foreground-muted .bg-token-list-hover-background {
+  box-shadow: inset 2px 0 #c89a5a;
+  background: linear-gradient(90deg, rgb(152 38 37 / 0.28), rgb(53 25 26 / 0.72)) !important;
+}
+
+nav.sidebar-foreground-muted button,
+nav.sidebar-foreground-muted a {
+  transition: color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+nav.sidebar-foreground-muted button:hover,
+nav.sidebar-foreground-muted a:hover {
+  color: #f2c878 !important;
+}
+
+/* Home hero. The selector is tied to Codex's stable home container marker. */
+div[role="main"][class*="container-name:home-main-content"] {
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, rgb(11 9 9 / 0.94) 0%, rgb(11 9 9 / 0.7) 46%, rgb(11 9 9 / 0.08) 73%),
+    url("./meng-chuan-hero-background.png") 66% center / cover no-repeat;
+}
+
+div[role="main"][class*="container-name:home-main-content"]::before,
+div[role="main"][class*="container-name:home-main-content"]::after {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+}
+
+div[role="main"][class*="container-name:home-main-content"]::before {
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(200 154 90 / 0.16) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 24% 72%, rgb(190 49 45 / 0.2) 0 1px, transparent 1.7px),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgb(200 154 90 / 0.025) 48px);
+  background-size: 89px 97px, 117px 133px, 48px 100%;
+  opacity: 0.65;
+  mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.6) 62%, transparent);
+}
+
+div[role="main"][class*="container-name:home-main-content"]::after {
+  top: 2%;
+  right: clamp(-72px, 0vw, 20px);
+  bottom: 2%;
+  width: min(45vw, 620px);
+  background: url("./meng-chuan-portrait.png") right center / contain no-repeat;
+  filter: drop-shadow(-24px 20px 38px rgb(0 0 0 / 0.62)) saturate(0.94) contrast(1.03);
+  opacity: 0.9;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 78%, transparent 100%);
+}
+
+div[role="main"][class*="container-name:home-main-content"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+div[role="main"][class*="container-name:home-main-content"] h1 {
+  max-width: 680px;
+  color: #f4ebdd !important;
+  font-family: Georgia, "Songti SC", "STSong", serif !important;
+  font-size: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.035em !important;
+  text-align: left !important;
+  text-wrap: balance;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.66);
+}
+
+div[role="main"][class*="container-name:home-main-content"] h1::before {
+  content: "红 莲 业 火  ·  CODEX EDITION";
+  display: block;
+  margin-bottom: 13px;
+  color: #d6a45f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0.22em;
+}
+
+div[role="main"][class*="container-name:home-main-content"] h1::after {
+  content: "今日，先斩哪一道难题？";
+  display: block;
+  font-size: clamp(34px, 4.35vw, 68px);
+}
+
+/* Current Codex Desktop renders the electron hero as this stable feature node. */
+div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding-left: clamp(18px, 4vw, 56px);
+  color: #f4ebdd !important;
+  font-family: Georgia, "Songti SC", "STSong", serif !important;
+  font-size: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.035em !important;
+  text-align: left !important;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.7);
+}
+
+div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::before {
+  content: "红 莲 业 火  ·  CODEX EDITION";
+  display: block;
+  margin-bottom: 12px;
+  color: #d6a45f;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0.22em;
+}
+
+div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+  content: "今日，先斩哪一道难题？";
+  display: block;
+  max-width: 680px;
+  font-size: clamp(34px, 4.35vw, 62px);
+  text-wrap: balance;
+}
+
+div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] > span {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+div[role="main"][class*="container-name:home-main-content"] h1,
+div[role="main"][class*="container-name:home-main-content"] [class*="text-center"] {
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+div[role="main"][class*="container-name:home-main-content"] [data-home-ambient-suggestions],
+div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] {
+  backdrop-filter: blur(14px);
+}
+
+div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] > div:last-child > div > * {
+  border: 1px solid rgb(200 154 90 / 0.28);
+  background: linear-gradient(145deg, rgb(27 21 22 / 0.94), rgb(17 14 15 / 0.86)) !important;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.24);
+}
+
+/* Composer: forged command surface, while retaining all native controls. */
+[class~="composer-surface-chrome"] {
+  border: 1px solid rgb(200 154 90 / 0.48) !important;
+  background:
+    linear-gradient(145deg, rgb(27 21 22 / 0.98), rgb(17 14 15 / 0.98)) !important;
+  box-shadow:
+    inset 0 1px 0 rgb(242 200 120 / 0.06),
+    0 18px 46px rgb(0 0 0 / 0.36) !important;
+}
+
+[class~="composer-surface-chrome"]:focus-within {
+  border-color: #c89a5a !important;
+  box-shadow:
+    0 0 0 1px rgb(200 154 90 / 0.14),
+    0 20px 54px rgb(0 0 0 / 0.42) !important;
+}
+
+[class~="composer-surface-chrome"] textarea::placeholder,
+textarea::placeholder {
+  color: #8f7d76 !important;
+}
+
+button:not(:disabled):has(svg),
+[role="button"]:not([aria-disabled="true"]) {
+  transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease, transform 140ms ease;
+}
+
+button:not(:disabled):active,
+[role="button"]:not([aria-disabled="true"]):active {
+  transform: translateY(1px);
+}
+
+dialog,
+[role="dialog"],
+[data-radix-popper-content-wrapper] > * {
+  border-color: rgb(200 154 90 / 0.34) !important;
+}
+
+@media (max-width: 900px) {
+  div[role="main"][class*="container-name:home-main-content"] {
+    background-position: 70% center;
+  }
+
+  div[role="main"][class*="container-name:home-main-content"]::after {
+    right: -110px;
+    width: min(58vw, 500px);
+    opacity: 0.48;
+  }
+
+  div[role="main"][class*="container-name:home-main-content"] h1::after {
+    font-size: clamp(30px, 6vw, 50px);
+  }
+}
+
+@media (max-width: 640px) {
+  nav.sidebar-foreground-muted::before {
+    content: "孟";
+    margin-inline: 4px;
+    padding-inline: 0;
+    text-align: center;
+  }
+
+  nav.sidebar-foreground-muted::after {
+    display: none;
+  }
+
+  div[role="main"][class*="container-name:home-main-content"] {
+    background-position: center;
+  }
+
+  div[role="main"][class*="container-name:home-main-content"]::after {
+    right: -150px;
+    width: 520px;
+    opacity: 0.28;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

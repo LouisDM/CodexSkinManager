@@ -1,0 +1,30 @@
+{
+  "assets": {
+    "background": "assets/background.png",
+    "hero": "assets/hero.png"
+  },
+  "focalPoints": {
+    "background": {
+      "x": 0.68,
+      "y": 0.45
+    },
+    "hero": {
+      "x": 0.72,
+      "y": 0.36
+    }
+  },
+  "tokens": {
+    "accent": "#9E2F28",
+    "accentStrong": "#C9473E",
+    "canvas": "#080D15",
+    "controlRadius": "14",
+    "focus": "#6EB6E8",
+    "ink": "#E8EDF4",
+    "line": "#263241",
+    "motionDuration": "180",
+    "mutedInk": "#9EACBC",
+    "panelRadius": "18",
+    "surface": "#0D141E",
+    "surfaceRaised": "#151F2B"
+  }
+}
