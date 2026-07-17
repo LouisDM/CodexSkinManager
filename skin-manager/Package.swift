@@ -10,6 +10,7 @@ let package = Package(
     products: [
         .library(name: "SkinCore", targets: ["SkinCore"]),
         .executable(name: "CodexSkinManager", targets: ["CodexSkinManager"]),
+        .executable(name: "SkinReleasePackager", targets: ["SkinReleasePackager"]),
     ],
     targets: [
         .target(name: "SkinCore"),
@@ -18,6 +19,7 @@ let package = Package(
             dependencies: ["SkinCore"],
             exclude: ["Resources"]
         ),
+        .executableTarget(name: "SkinReleasePackager", dependencies: ["SkinCore"]),
         .testTarget(name: "SkinCoreTests", dependencies: ["SkinCore"]),
     ]
 )

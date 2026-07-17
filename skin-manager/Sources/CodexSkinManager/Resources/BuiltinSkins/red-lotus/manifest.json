@@ -5,10 +5,10 @@
   },
   "files": [
     {
-      "byteCount": 505,
+      "byteCount": 810,
       "mime": "text/plain",
       "path": "LICENSES/assets.txt",
-      "sha256": "b64baae1b265c18cd1f80ae5acfe6829ac92d042e781b63424f874e1a0aced47"
+      "sha256": "a1ad1796c6dd29162e30b24b536401c016c25e8f170da848a37a5a2ec24be691"
     },
     {
       "byteCount": 2223425,
@@ -29,10 +29,10 @@
       "sha256": "a5ca4db8b00d5f0773cc2b9441c32ce92a453493a64f80c7ece32baa49d08364"
     },
     {
-      "byteCount": 249,
+      "byteCount": 279,
       "mime": "application/json",
       "path": "rights.json",
-      "sha256": "b5c0f845fbf3ec352093bf6b3d0e9ee3e6eb9f3756cff442a87b3c342115e808"
+      "sha256": "efa090463209e6548597a1d9a44658dfaa3a3dae6d85099695567cdb5a17b570"
     },
     {
       "byteCount": 562,
@@ -48,5 +48,5 @@
   "publisherPublicKey": null,
   "schemaVersion": 1,
   "template": "red-lotus-v1",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

@@ -5,10 +5,10 @@
   },
   "files": [
     {
-      "byteCount": 471,
+      "byteCount": 811,
       "mime": "text/plain",
       "path": "LICENSES/assets.txt",
-      "sha256": "93b4f2380ca79e92c71e2b12487ee3066580296957f0e2054d7371fe79ba17e0"
+      "sha256": "52a3887605706d8496f47abdf9d01f968bccf1a91db43dad8ed77c952cedd9fd"
     },
     {
       "byteCount": 1687897,
@@ -29,10 +29,10 @@
       "sha256": "659ef65d2628a2382986849fa056afb064c90e3c96e932d6eee180ac713451aa"
     },
     {
-      "byteCount": 237,
+      "byteCount": 279,
       "mime": "application/json",
       "path": "rights.json",
-      "sha256": "9efacdd03112dda06f0830ca654f3290c89359bb470a00057c57e59d0ba15ec6"
+      "sha256": "efa090463209e6548597a1d9a44658dfaa3a3dae6d85099695567cdb5a17b570"
     },
     {
       "byteCount": 566,
@@ -48,5 +48,5 @@
   "publisherPublicKey": null,
   "schemaVersion": 1,
   "template": "nightblade-v1",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

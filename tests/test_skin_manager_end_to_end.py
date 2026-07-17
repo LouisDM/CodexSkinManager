@@ -17,8 +17,8 @@ EXECUTABLE = APP / "Contents" / "MacOS" / "CodexSkinManager"
 OFFICIAL_EXECUTABLE = Path("/Applications/ChatGPT.app/Contents/MacOS/ChatGPT")
 REAL_STATE = Path.home() / "Library" / "Application Support" / "CodexSkinManager"
 EXPECTED = {
-    "meng-chuan-nightblade": "nightblade-v1",
-    "meng-chuan-red-lotus": "red-lotus-v1",
+    "meng-chuan-nightblade": ("1.0.1", "nightblade-v1"),
+    "meng-chuan-red-lotus": ("1.0.1", "red-lotus-v1"),
 }
 
 
@@ -54,7 +54,7 @@ def validate_installed_skin(directory: Path, expected_template: str) -> None:
     rights = json.loads((directory / "rights.json").read_text())
     receipt = json.loads((directory / "installation.json").read_text())
     assert manifest["template"] == expected_template
-    assert rights["redistributionAllowed"] is False
+    assert rights["redistributionAllowed"] is True
     assert rights["fanMade"] is True and rights["unofficial"] is True
     assert receipt["schemaVersion"] == 1
     assert receipt["trust"]["kind"] == "unsigned"
@@ -92,15 +92,15 @@ def main() -> int:
             wait_until(marker.is_file, timeout=15, label="SwiftUI window marker")
             marker_data = json.loads(marker.read_text())
             assert marker_data == {"pid": process.pid, "visible": True}
-            for skin_id in EXPECTED:
+            for skin_id, (version, _) in EXPECTED.items():
                 wait_until(
-                    (root / "skins" / skin_id / "1.0.0" / "installation.json").is_file,
+                    (root / "skins" / skin_id / version / "installation.json").is_file,
                     timeout=20,
                     label=f"bundled skin {skin_id}",
                 )
             assert process.poll() is None, "manager exited during bootstrap"
-            for skin_id, template in EXPECTED.items():
-                validate_installed_skin(root / "skins" / skin_id / "1.0.0", template)
+            for skin_id, (version, template) in EXPECTED.items():
+                validate_installed_skin(root / "skins" / skin_id / version, template)
             assert not (root / "active.json").exists()
             assert not (root / "runtime" / "injector.pid").exists()
             time.sleep(1)
