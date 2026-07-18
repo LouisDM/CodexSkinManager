@@ -2,4 +2,4 @@ Assets are original raster illustrations generated for this repository with Code
 
 The skin is a warm cat-companion interpretation of the Hakimi meme for Codex Skin Manager validation. It avoids harmful, abusive, or black-humor contexts sometimes associated with the broader meme. It does not include third-party logos, official artwork, photographs, endorsements, remote assets, scripts, CSS, or executable content.
 
-Redistribution is allowed for non-commercial Codex Skin Manager validation and documentation with this notice preserved.
+Public non-commercial redistribution is allowed for Codex Skin Manager validation and documentation with this notice preserved.

@@ -15,8 +15,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BUILDER = ROOT / "scripts" / "build_release_assets.py"
 EXPECTED = {
-    "Meng-Chuan-Nightblade-1.0.1.codexskin": "meng-chuan-nightblade",
-    "Meng-Chuan-Red-Lotus-1.0.1.codexskin": "meng-chuan-red-lotus",
+    "Hakimi-Paw-Atelier-1.0.2.codexskin": ("hakimi-paw-atelier", "1.0.2"),
+    "Meng-Chuan-Nightblade-1.0.1.codexskin": ("meng-chuan-nightblade", "1.0.1"),
+    "Meng-Chuan-Red-Lotus-1.0.1.codexskin": ("meng-chuan-red-lotus", "1.0.1"),
 }
 
 
@@ -35,7 +36,7 @@ def build(output: Path) -> None:
     )
 
 
-def validate_package(path: Path, expected_id: str) -> None:
+def validate_package(path: Path, expected_id: str, expected_version: str) -> None:
     with zipfile.ZipFile(path) as archive:
         infos = archive.infolist()
         assert infos and all(info.compress_type == zipfile.ZIP_STORED for info in infos)
@@ -47,10 +48,10 @@ def validate_package(path: Path, expected_id: str) -> None:
         license_text = archive.read("LICENSES/assets.txt").decode("utf-8")
 
         assert manifest["id"] == expected_id
-        assert manifest["version"] == "1.0.1"
+        assert manifest["version"] == expected_version
         assert rights["redistributionAllowed"] is True
         assert rights["commercialUse"] is False
-        assert rights["fanMade"] is True
+        assert isinstance(rights["fanMade"], bool)
         assert rights["unofficial"] is True
         assert rights["noEndorsement"] is True
         assert "non-commercial" in rights["notice"].lower()
@@ -72,10 +73,10 @@ def main() -> int:
         build(second)
 
         assert {path.name for path in first.glob("*.codexskin")} == set(EXPECTED)
-        for filename, skin_id in EXPECTED.items():
+        for filename, (skin_id, version) in EXPECTED.items():
             first_package = first / filename
             second_package = second / filename
-            validate_package(first_package, skin_id)
+            validate_package(first_package, skin_id, version)
             assert first_package.read_bytes() == second_package.read_bytes(), filename
 
         checksum_lines = (first / "SHA256SUMS.txt").read_text(encoding="utf-8").splitlines()

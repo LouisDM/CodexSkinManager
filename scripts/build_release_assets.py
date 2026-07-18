@@ -18,13 +18,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / "skin-manager"
 BUILTINS = PACKAGE / "Sources" / "CodexSkinManager" / "Resources" / "BuiltinSkins"
+SKINS = ROOT / "skins"
 APP_BUILDER = ROOT / "scripts" / "build_codex_skin_manager_app.py"
+AUTHORING_PACKAGER = ROOT / "scripts" / "build_codexskin.py"
 APP_NAME = "Codex 皮肤管理器.app"
-SKINS = (
+BUILTIN_RELEASE_SKINS = (
     ("nightblade", "Meng-Chuan-Nightblade"),
     ("red-lotus", "Meng-Chuan-Red-Lotus"),
 )
-
 
 def run(command: list[str], *, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, cwd=cwd, check=True, text=True, capture_output=True)
@@ -34,8 +35,28 @@ def project_version() -> str:
     return json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
 
 
-def skin_version(directory: Path) -> str:
+def manifest_version(directory: Path) -> str:
     return json.loads((directory / "manifest.json").read_text(encoding="utf-8"))["version"]
+
+
+def source_skin_metadata(directory: Path) -> dict:
+    return json.loads((directory / "skin.json").read_text(encoding="utf-8"))
+
+
+def source_release_name(directory: Path) -> str:
+    return "-".join(part.capitalize() for part in directory.name.split("-"))
+
+
+def redistributable_source_skins() -> list[Path]:
+    if not SKINS.is_dir():
+        return []
+    sources: list[Path] = []
+    for skin_json in sorted(SKINS.glob("*/skin.json")):
+        source = skin_json.parent
+        metadata = source_skin_metadata(source)
+        if metadata.get("rights", {}).get("redistributionAllowed") is True:
+            sources.append(source)
+    return sources
 
 
 def replace_directory(source: Path, destination: Path) -> None:
@@ -59,7 +80,7 @@ def replace_directory(source: Path, destination: Path) -> None:
         shutil.rmtree(backup)
 
 
-def build_skin(source: Path, destination: Path) -> None:
+def build_builtin_skin(source: Path, destination: Path) -> None:
     run(
         [
             "/usr/bin/swift",
@@ -73,6 +94,23 @@ def build_skin(source: Path, destination: Path) -> None:
             str(destination),
         ],
         cwd=PACKAGE,
+    )
+
+
+def build_source_skin(source: Path, destination: Path) -> None:
+    metadata = source_skin_metadata(source)
+    if metadata.get("rights", {}).get("redistributionAllowed") is not True:
+        raise ValueError(f"{source} is not marked as redistributable and cannot be published")
+    run(
+        [
+            sys.executable,
+            str(AUTHORING_PACKAGER),
+            "--source",
+            str(source),
+            "--output",
+            str(destination),
+        ],
+        cwd=ROOT,
     )
 
 
@@ -111,9 +149,13 @@ def main() -> int:
     with tempfile.TemporaryDirectory(prefix="codex-skin-release-stage-", dir=output.parent) as temporary:
         stage = Path(temporary) / output.name
         stage.mkdir()
-        for directory_name, release_name in SKINS:
+        for directory_name, release_name in BUILTIN_RELEASE_SKINS:
             source = BUILTINS / directory_name
-            build_skin(source, stage / f"{release_name}-{skin_version(source)}.codexskin")
+            build_builtin_skin(source, stage / f"{release_name}-{manifest_version(source)}.codexskin")
+        for source in redistributable_source_skins():
+            release_name = source_release_name(source)
+            version = source_skin_metadata(source)["version"]
+            build_source_skin(source, stage / f"{release_name}-{version}.codexskin")
         if not args.skins_only:
             build_app_archive(stage, project_version())
         write_checksums(stage)

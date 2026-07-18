@@ -2,13 +2,16 @@
 
 一款原生 macOS Codex 皮肤管理器，支持安全导入、预览、切换、重新应用、恢复和受权导出 `.codexskin` 包。
 
-当前管理器已验证可使用三套皮肤：
+当前管理器已验证可使用这些皮肤：
 
 - 孟川 · 红莲业火：公开非商用同人皮肤。
 - 孟川 · 玄刃夜行：公开非商用同人皮肤。
+- 哈基米 · 爪印工坊：公开非商用验证皮肤。
 - 柳七月 · 不死凰焰：仅限本机私用的迁移皮肤。
+- 蔡徐坤 · 舞台校验：仅限本机私用的真实公众人物验证皮肤。
+- 蒂法 · Seventh Heaven Flow：仅限本机私用的第三方角色验证皮肤。
 
-GitHub Release 只公开前两套。柳七月素材授权不允许公开再分发，因此不会放入仓库、内置资源或 GitHub Release；源码版 `1.1.0` 提供本机私有迁移工具。
+GitHub Release 只公开权利允许再分发的皮肤包：孟川两套和哈基米。柳七月、蔡徐坤、蒂法相关素材或人物/角色权利不允许公开再分发，因此不会作为 `.codexskin` 上传到 GitHub Release；源码版 `1.1.0` 保留本机私用迁移、导入和流程验证能力。
 
 > 本项目为非官方本地工具，与 OpenAI 或《沧元图》官方无隶属或背书关系。内置素材只允许按各自 `LICENSES/assets.txt` 随皮肤包进行非商用公开分发；这不授予任何角色、作品名、商标或其他第三方权利。
 
@@ -46,14 +49,15 @@ GitHub Release 只公开前两套。柳七月素材授权不允许公开再分�
 
 ## 直接下载
 
-前往 [GitHub Releases](https://github.com/LouisDM/CodexSkinManager/releases) 下载：
+前往 [GitHub Releases](https://github.com/LouisDM/CodexSkinManager/releases) 下载当前版本。`v1.0.1` 是历史发布，只包含当时已有的两套孟川公开皮肤；当前 `v1.1.0` 发布产物应包含：
 
-- `Codex-Skin-Manager-v1.0.1-macOS.zip`：管理器应用，已内置两套皮肤。
+- `Codex-Skin-Manager-v1.1.0-macOS.zip`：管理器应用，已内置两套孟川皮肤，并支持导入源码目录生成的验证皮肤。
+- `Hakimi-Paw-Atelier-1.0.2.codexskin`：哈基米 · 爪印工坊。
 - `Meng-Chuan-Nightblade-1.0.1.codexskin`：孟川 · 玄刃夜行。
 - `Meng-Chuan-Red-Lotus-1.0.1.codexskin`：孟川 · 红莲业火。
 - `SHA256SUMS.txt`：下载文件完整性校验。
 
-解压管理器并移动到 `~/Applications`。应用目前使用 ad-hoc 本地签名而非 Apple Developer ID 公证；首次打开如被 macOS 阻止，请在 Finder 中右键应用并选择“打开”。安装管理器后，双击下载的 `.codexskin` 即可导入，也可以直接使用应用内置版本。
+解压管理器并移动到 `~/Applications`。应用目前使用 ad-hoc 本地签名而非 Apple Developer ID 公证；首次打开如被 macOS 阻止，请在 Finder 中右键应用并选择“打开”。安装管理器后，双击下载的 `.codexskin` 即可导入，也可以直接使用应用内置版本。蔡徐坤和蒂法皮肤只用于本机导入流程验证，不进入公开 Release。
 
 ## 旧启动器皮肤迁移（本机私有）
 
