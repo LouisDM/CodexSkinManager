@@ -73,7 +73,38 @@ GitHub Release 公开五个可下载皮肤包：孟川两套、哈基米、蔡�
 - `Tifa-Seventh-Heaven-Flow-1.0.1.codexskin`：蒂法 · Seventh Heaven Flow。
 - `SHA256SUMS.txt`：下载文件完整性校验。
 
-解压管理器并移动到 `~/Applications`。应用目前使用 ad-hoc 本地签名而非 Apple Developer ID 公证；首次打开如被 macOS 阻止，请在 Finder 中右键应用并选择“打开”。安装管理器后，双击下载的 `.codexskin` 即可导入，也可以直接使用应用内置版本。
+解压管理器并移动到 `~/Applications`。应用目前使用 ad-hoc 本地签名而非 Apple Developer ID 公证；首次打开如被 macOS 阻止，请按下面的 Gatekeeper 说明放行。安装管理器后，双击下载的 `.codexskin` 即可导入，也可以直接使用应用内置版本。
+
+### Apple 无法验证应用时
+
+如果首次打开时看到：
+
+```text
+Apple 无法验证“Codex 皮肤管理器”是否包含可能危害 Mac 安全或泄漏隐私的恶意软件。
+```
+
+这是因为当前 Release 还没有 Apple Developer ID 公证。请先确认文件来自本仓库的 GitHub Release，并校验下载完整性：
+
+```bash
+cd ~/Downloads
+shasum -a 256 -c SHA256SUMS.txt
+```
+
+校验通过后，推荐用系统方式放行：
+
+1. 在 Finder 中打开 `~/Applications`。
+2. 按住 `Control` 并点按 `Codex 皮肤管理器.app`，选择“打开”。
+3. 在弹窗中再次选择“打开”。
+
+如果仍然被拦截，打开“系统设置” → “隐私与安全性”，在页面底部找到被拦截的 `Codex 皮肤管理器`，点击“仍要打开”。
+
+高级用户也可以只对这个 App 清除下载隔离标记：
+
+```bash
+xattr -dr com.apple.quarantine "$HOME/Applications/Codex 皮肤管理器.app"
+```
+
+不要关闭 Gatekeeper，也不要对不明来源的 App 执行这条命令。
 
 ## 旧启动器皮肤迁移（本机私有）
 
