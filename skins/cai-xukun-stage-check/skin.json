@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "cai-xukun-stage-check",
+  "name": "蔡徐坤 · 舞台练习室",
+  "version": "1.0.1",
+  "template": "stage-check-v1",
+  "minManagerVersion": "1.1.0",
+  "preview": "preview.png",
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "theme": {
+    "tokens": {
+      "accent": "#D250A0",
+      "accentStrong": "#ECC35C",
+      "canvas": "#0B0812",
+      "controlRadius": "14",
+      "focus": "#ECC35C",
+      "ink": "#F4F2F7",
+      "line": "#5A315D",
+      "motionDuration": "170",
+      "mutedInk": "#C9BCD5",
+      "panelRadius": "8",
+      "surface": "#17101F",
+      "surfaceRaised": "#251833"
+    },
+    "assets": {
+      "background": "assets/background.png",
+      "hero": "assets/hero.png"
+    },
+    "focalPoints": {
+      "background": {
+        "x": 0.66,
+        "y": 0.42
+      },
+      "hero": {
+        "x": 0.52,
+        "y": 0.44
+      }
+    }
+  },
+  "rights": {
+    "redistributionAllowed": false,
+    "commercialUse": false,
+    "fanMade": true,
+    "unofficial": true,
+    "noEndorsement": true,
+    "notice": "Private local validation fan-made concept only. It uses an original generated stage portrait asset and does not include official photos, logos, lyrics, signatures, or endorsement. Redistribution and commercial use are not permitted."
+  }
+}

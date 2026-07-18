@@ -53,6 +53,24 @@ final class SkinPackageModelsTests: XCTestCase {
         XCTAssertNoThrow(try SkinPackageContract.validate(manifest: manifest))
     }
 
+    func testPawAtelierTemplateIsSupported() throws {
+        let manifest = try decodeManifest(replacing: "nightblade-v1", with: "paw-atelier-v1")
+
+        XCTAssertNoThrow(try SkinPackageContract.validate(manifest: manifest))
+    }
+
+    func testStageCheckTemplateIsSupported() throws {
+        let manifest = try decodeManifest(replacing: "nightblade-v1", with: "stage-check-v1")
+
+        XCTAssertNoThrow(try SkinPackageContract.validate(manifest: manifest))
+    }
+
+    func testSeventhHeavenTemplateIsSupported() throws {
+        let manifest = try decodeManifest(replacing: "nightblade-v1", with: "seventh-heaven-v1")
+
+        XCTAssertNoThrow(try SkinPackageContract.validate(manifest: manifest))
+    }
+
     func testManifestRejectsUnsafeOrMalformedFiles() throws {
         let unsafePaths = ["/tmp/hero.png", "../hero.png", "assets\\hero.png", "assets//hero.png", "./hero.png"]
         for path in unsafePaths {

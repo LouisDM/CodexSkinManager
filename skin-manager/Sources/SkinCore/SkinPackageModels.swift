@@ -163,7 +163,10 @@ public enum SkinContractError: Error, Equatable, LocalizedError, Sendable {
 public enum SkinPackageContract {
     public static let supportedTemplates: Set<String> = [
         "nightblade-v1",
+        "paw-atelier-v1",
         "red-lotus-v1",
+        "seventh-heaven-v1",
+        "stage-check-v1",
         "undying-phoenix-v1",
     ]
 

@@ -83,24 +83,53 @@ def validate_package(directory: Path, expected_id: str, expected_template: str) 
 
 def main() -> int:
     nightblade_template = (TEMPLATES / "nightblade-v1.css").read_text(encoding="utf-8")
+    paw_atelier_template = (TEMPLATES / "paw-atelier-v1.css").read_text(encoding="utf-8")
     red_lotus_template = (TEMPLATES / "red-lotus-v1.css").read_text(encoding="utf-8")
+    seventh_heaven_template = (TEMPLATES / "seventh-heaven-v1.css").read_text(encoding="utf-8")
+    stage_check_template = (TEMPLATES / "stage-check-v1.css").read_text(encoding="utf-8")
     undying_phoenix_template = (TEMPLATES / "undying-phoenix-v1.css").read_text(encoding="utf-8")
     assert "玄刃夜行" in nightblade_template
     assert ":root.codex-skin-template-nightblade-v1" in nightblade_template
     assert "--codex-skin-template-active: nightblade-v1" in nightblade_template
     assert "#codex-skin-manager-chrome::before" in nightblade_template
     assert "codex-meng-chuan-nightblade" not in nightblade_template
+    assert "哈基米  ·  爪印工坊" in paw_atelier_template
+    assert ":root.codex-skin-template-paw-atelier-v1" in paw_atelier_template
+    assert "--codex-skin-template-active: paw-atelier-v1" in paw_atelier_template
+    assert "url(\"./hero-character.png\")" in paw_atelier_template
+    assert "url(\"./hero-background.png\")" in paw_atelier_template
+    assert "孟川" not in paw_atelier_template
     assert "Red Lotus" in red_lotus_template
     assert ":root.codex-skin-template-red-lotus-v1" in red_lotus_template
     assert "--codex-skin-template-active: red-lotus-v1" in red_lotus_template
     assert "url(\"./hero-character.png\")" in nightblade_template
     assert "url(\"./meng-chuan-portrait.png\")" in red_lotus_template
+    assert "蔡徐坤  ·  舞台练习室" in stage_check_template
+    assert ":root.codex-skin-template-stage-check-v1" in stage_check_template
+    assert "--codex-skin-template-active: stage-check-v1" in stage_check_template
+    assert "url(\"./hero-character.png\")" in stage_check_template
+    assert "url(\"./hero-background.png\")" in stage_check_template
+    assert "凰焰" not in stage_check_template
+    assert "蒂法  ·  第七天堂练习场" in seventh_heaven_template
+    assert ":root.codex-skin-template-seventh-heaven-v1" in seventh_heaven_template
+    assert "--codex-skin-template-active: seventh-heaven-v1" in seventh_heaven_template
+    assert "url(\"./hero-character.png\")" in seventh_heaven_template
+    assert "url(\"./hero-background.png\")" in seventh_heaven_template
+    assert "孟川" not in seventh_heaven_template
+    assert "红莲" not in seventh_heaven_template
     assert "柳七月  ·  不死凰焰" in undying_phoenix_template
     assert ":root.codex-skin-template-undying-phoenix-v1" in undying_phoenix_template
     assert "--codex-skin-template-active: undying-phoenix-v1" in undying_phoenix_template
     assert "url(\"./hero-character.png\")" in undying_phoenix_template
     assert "url(\"./hero-background.png\")" in undying_phoenix_template
-    assert "@import" not in nightblade_template + red_lotus_template + undying_phoenix_template
+    assert "@import" not in (
+        nightblade_template
+        + paw_atelier_template
+        + red_lotus_template
+        + seventh_heaven_template
+        + stage_check_template
+        + undying_phoenix_template
+    )
 
     validate_package(BUILTINS / "nightblade", "meng-chuan-nightblade", "nightblade-v1")
     validate_package(BUILTINS / "red-lotus", "meng-chuan-red-lotus", "red-lotus-v1")

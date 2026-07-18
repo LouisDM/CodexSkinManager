@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "tifa-seventh-heaven-flow",
+  "name": "蒂法 · 第七天堂练习场",
+  "version": "1.0.1",
+  "template": "seventh-heaven-v1",
+  "minManagerVersion": "1.1.0",
+  "preview": "preview.png",
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "theme": {
+    "tokens": {
+      "accent": "#AC2E3A",
+      "accentStrong": "#57AEB8",
+      "canvas": "#120A0C",
+      "controlRadius": "13",
+      "focus": "#57AEB8",
+      "ink": "#F3EADD",
+      "line": "#6B3039",
+      "motionDuration": "165",
+      "mutedInk": "#D2B9B0",
+      "panelRadius": "7",
+      "surface": "#1D1113",
+      "surfaceRaised": "#2D1A1E"
+    },
+    "assets": {
+      "background": "assets/background.png",
+      "hero": "assets/hero.png"
+    },
+    "focalPoints": {
+      "background": {
+        "x": 0.64,
+        "y": 0.5
+      },
+      "hero": {
+        "x": 0.5,
+        "y": 0.48
+      }
+    }
+  },
+  "rights": {
+    "redistributionAllowed": false,
+    "commercialUse": false,
+    "fanMade": true,
+    "unofficial": true,
+    "noEndorsement": true,
+    "notice": "Private local validation fan-made concept only. It uses an original generated fan-art character asset and does not include official character artwork, logos, screenshots, or endorsement. Redistribution and commercial use are not permitted."
+  }
+}

@@ -31,7 +31,10 @@ ID_PATTERN = re.compile(
 
 SUPPORTED_TEMPLATES = {
     "nightblade-v1",
+    "paw-atelier-v1",
     "red-lotus-v1",
+    "seventh-heaven-v1",
+    "stage-check-v1",
     "undying-phoenix-v1",
 }
 COLOR_TOKENS = {

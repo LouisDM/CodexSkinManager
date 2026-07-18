@@ -128,6 +128,45 @@ test("payload uses only an allowlisted manager template and local declared raste
   assert.ok(!phoenixPayload.css.includes('url("./'), "phoenix template retained a relative asset URL");
   assert.doesNotMatch(phoenixPayload.css, /https?:|file:|@import/i);
 
+  const hakimi = await createSkin(temporary, {
+    id: "hakimi-paw-atelier",
+    template: "paw-atelier-v1",
+  });
+  const hakimiPayload = await module.buildPayload(hakimi, TEMPLATES);
+  assert.equal(hakimiPayload.rootClass, "codex-skin-template-paw-atelier-v1");
+  assert.match(hakimiPayload.css, /--codex-skin-template-active:\s*paw-atelier-v1/);
+  assert.match(hakimiPayload.css, /哈基米\s*·\s*爪印工坊/);
+  assert.doesNotMatch(hakimiPayload.css, /孟川|玄刃夜行/);
+  assert.ok((hakimiPayload.css.match(/data:image\/png;base64/g) ?? []).length >= 2);
+  assert.ok(!hakimiPayload.css.includes('url("./'), "paw atelier template retained a relative asset URL");
+  assert.doesNotMatch(hakimiPayload.css, /https?:|file:|@import/i);
+
+  const stageCheck = await createSkin(temporary, {
+    id: "cai-xukun-stage-check",
+    template: "stage-check-v1",
+  });
+  const stagePayload = await module.buildPayload(stageCheck, TEMPLATES);
+  assert.equal(stagePayload.rootClass, "codex-skin-template-stage-check-v1");
+  assert.match(stagePayload.css, /--codex-skin-template-active:\s*stage-check-v1/);
+  assert.match(stagePayload.css, /蔡徐坤\s*·\s*舞台练习室/);
+  assert.doesNotMatch(stagePayload.css, /柳七月|不死凰焰|凰焰未熄/);
+  assert.ok((stagePayload.css.match(/data:image\/png;base64/g) ?? []).length >= 2);
+  assert.ok(!stagePayload.css.includes('url("./'), "stage check template retained a relative asset URL");
+  assert.doesNotMatch(stagePayload.css, /https?:|file:|@import/i);
+
+  const seventhHeaven = await createSkin(temporary, {
+    id: "tifa-seventh-heaven-flow",
+    template: "seventh-heaven-v1",
+  });
+  const seventhPayload = await module.buildPayload(seventhHeaven, TEMPLATES);
+  assert.equal(seventhPayload.rootClass, "codex-skin-template-seventh-heaven-v1");
+  assert.match(seventhPayload.css, /--codex-skin-template-active:\s*seventh-heaven-v1/);
+  assert.match(seventhPayload.css, /蒂法\s*·\s*第七天堂练习场/);
+  assert.doesNotMatch(seventhPayload.css, /孟川|红莲业火/);
+  assert.ok((seventhPayload.css.match(/data:image\/png;base64/g) ?? []).length >= 2);
+  assert.ok(!seventhPayload.css.includes('url("./'), "seventh heaven template retained a relative asset URL");
+  assert.doesNotMatch(seventhPayload.css, /https?:|file:|@import/i);
+
   const unknown = await createSkin(temporary, { id: "unknown-template", template: "package-script" });
   await assert.rejects(() => module.buildPayload(unknown, TEMPLATES), /template|allowlist|unsupported/i);
 
@@ -167,6 +206,18 @@ test("all templates place sidebar identity before native sidebar content", {
     await createSkin(temporary, {
       id: "sidebar-undying-phoenix",
       template: "undying-phoenix-v1",
+    }),
+    await createSkin(temporary, {
+      id: "sidebar-paw-atelier",
+      template: "paw-atelier-v1",
+    }),
+    await createSkin(temporary, {
+      id: "sidebar-stage-check",
+      template: "stage-check-v1",
+    }),
+    await createSkin(temporary, {
+      id: "sidebar-seventh-heaven",
+      template: "seventh-heaven-v1",
     }),
   ];
 

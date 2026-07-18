@@ -42,12 +42,36 @@ const TEMPLATE_CATALOG = Object.freeze({
       background: "./hero-background.png",
     }),
   }),
+  "paw-atelier-v1": Object.freeze({
+    file: "paw-atelier-v1.css",
+    rootClass: "codex-skin-template-paw-atelier-v1",
+    assetReferences: Object.freeze({
+      hero: "./hero-character.png",
+      background: "./hero-background.png",
+    }),
+  }),
   "red-lotus-v1": Object.freeze({
     file: "red-lotus-v1.css",
     rootClass: "codex-skin-template-red-lotus-v1",
     assetReferences: Object.freeze({
       hero: "./meng-chuan-portrait.png",
       background: "./meng-chuan-hero-background.png",
+    }),
+  }),
+  "seventh-heaven-v1": Object.freeze({
+    file: "seventh-heaven-v1.css",
+    rootClass: "codex-skin-template-seventh-heaven-v1",
+    assetReferences: Object.freeze({
+      hero: "./hero-character.png",
+      background: "./hero-background.png",
+    }),
+  }),
+  "stage-check-v1": Object.freeze({
+    file: "stage-check-v1.css",
+    rootClass: "codex-skin-template-stage-check-v1",
+    assetReferences: Object.freeze({
+      hero: "./hero-character.png",
+      background: "./hero-background.png",
     }),
   }),
   "undying-phoenix-v1": Object.freeze({

@@ -1,0 +1,486 @@
+/*
+ * Hakimi · Paw Atelier — local Codex Desktop skin
+ * Fan-made local prototype. Not affiliated with or endorsed by OpenAI or the Hakimi meme or any third party.
+ */
+
+:root.codex-skin-template-paw-atelier-v1 {
+  color-scheme: dark !important;
+  --codex-skin-template-active: paw-atelier-v1;
+  --startup-background: #05080d !important;
+  --startup-logo-shimmer-base: rgb(78 182 232 / 0.58) !important;
+  --startup-logo-shimmer-peak: rgb(145 220 255 / 0.95) !important;
+  --startup-logo-shimmer-soft: rgb(78 182 232 / 0.12) !important;
+  --startup-logo-shimmer-tail: rgb(165 74 60 / 0.18) !important;
+
+  --vscode-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans CJK SC", sans-serif !important;
+  --vscode-font-weight: 400 !important;
+  --vscode-foreground: #f1f5f7 !important;
+  --vscode-disabledForeground: #667587 !important;
+  --vscode-descriptionForeground: #9aaabc !important;
+  --vscode-errorForeground: #e08378 !important;
+  --vscode-focusBorder: #91dcff !important;
+  --vscode-sideBar-background: #05080d !important;
+  --vscode-editor-background: #0b111a !important;
+  --vscode-editor-foreground: #eaf1f5 !important;
+  --vscode-editorWidget-background: #111e2b !important;
+  --vscode-input-background: #101a25 !important;
+  --vscode-input-foreground: #f1f5f7 !important;
+  --vscode-input-border: #284050 !important;
+  --vscode-input-placeholderForeground: #75879a !important;
+  --vscode-dropdown-background: #101a25 !important;
+  --vscode-dropdown-foreground: #f1f5f7 !important;
+  --vscode-button-background: #4eb6e8 !important;
+  --vscode-button-foreground: #05080d !important;
+  --vscode-button-border: #91dcff !important;
+  --vscode-list-hoverBackground: #122536 !important;
+  --vscode-list-activeSelectionBackground: #15394d !important;
+  --vscode-list-activeSelectionForeground: #f1f5f7 !important;
+  --vscode-scrollbarSlider-background: rgb(78 182 232 / 0.16) !important;
+  --vscode-scrollbarSlider-hoverBackground: rgb(78 182 232 / 0.3) !important;
+  --vscode-scrollbarSlider-activeBackground: rgb(145 220 255 / 0.42) !important;
+  --vscode-toolbar-hoverBackground: #122536 !important;
+  --vscode-menu-background: #0d1520 !important;
+  --vscode-menu-border: #284050 !important;
+  --vscode-menubar-selectionBackground: #122536 !important;
+  --vscode-menubar-selectionForeground: #f1f5f7 !important;
+  --vscode-terminal-background: #070b12 !important;
+  --vscode-terminal-foreground: #dce8ee !important;
+  --vscode-terminal-border: #284050 !important;
+  --vscode-textLink-foreground: #6dc9f1 !important;
+  --vscode-textLink-activeForeground: #91dcff !important;
+
+  --color-background-surface: #0b111a !important;
+  --color-background-surface-under: #05080d !important;
+  --color-background-editor-opaque: #0b111a !important;
+  --color-background-elevated-primary: rgb(17 30 43 / 0.97) !important;
+  --color-background-elevated-primary-opaque: #111e2b !important;
+  --color-background-elevated-secondary: rgb(78 182 232 / 0.055) !important;
+  --color-background-elevated-secondary-opaque: #10202d !important;
+  --color-background-accent: #4eb6e8 !important;
+  --color-background-accent-hover: #67c6ef !important;
+  --color-background-accent-active: #359dce !important;
+  --color-text-foreground: #f1f5f7 !important;
+  --color-text-foreground-secondary: #bbc9d3 !important;
+  --color-text-foreground-tertiary: #8597a9 !important;
+  --color-text-accent: #91dcff !important;
+  --color-text-on-accent: #05080d !important;
+  --color-icon-primary: #f1f5f7 !important;
+  --color-icon-secondary: #4eb6e8 !important;
+  --color-icon-tertiary: #8597a9 !important;
+
+  --color-token-border: #284050 !important;
+  --color-token-border-default: #284050 !important;
+  --color-token-border-heavy: #36566a !important;
+  --color-token-border-light: #1a2c3a !important;
+  --color-token-foreground: #f1f5f7 !important;
+  --color-token-disabled-foreground: #667587 !important;
+  --color-token-description-foreground: #9aaabc !important;
+  --color-token-text-primary: #f1f5f7 !important;
+  --color-token-text-secondary: #bbc9d3 !important;
+  --color-token-text-tertiary: #8597a9 !important;
+  --color-token-icon-foreground: #d7e6ed !important;
+  --color-token-focus-border: #91dcff !important;
+  --color-token-link: #6dc9f1 !important;
+  --color-token-primary: #4eb6e8 !important;
+  --color-token-on-accent: #05080d !important;
+  --color-token-button-background: #4eb6e8 !important;
+  --color-token-button-foreground: #05080d !important;
+  --color-token-button-border: #91dcff !important;
+  --color-token-button-secondary-hover-background: #122536 !important;
+  --color-token-input-background: #101a25 !important;
+  --color-token-input-foreground: #f1f5f7 !important;
+  --color-token-input-border: #284050 !important;
+  --color-token-input-placeholder-foreground: #75879a !important;
+  --color-token-dropdown-background: #101a25 !important;
+  --color-token-dropdown-foreground: #f1f5f7 !important;
+  --color-token-list-hover-background: #122536 !important;
+  --color-token-list-active-selection-background: #15394d !important;
+  --color-token-list-active-selection-foreground: #f1f5f7 !important;
+  --color-token-list-active-selection-icon-foreground: #91dcff !important;
+  --color-token-side-bar-background: #05080d !important;
+  --color-token-bg-primary: #05080d !important;
+  --color-token-bg-secondary: #0d1520 !important;
+  --color-token-bg-tertiary: #111e2b !important;
+  --color-token-bg-appshot: rgb(5 8 13 / 0.9) !important;
+  --color-token-bg-fog: rgb(78 182 232 / 0.035) !important;
+  --color-token-main-surface-primary: #0b111a !important;
+  --color-token-editor-background: #0b111a !important;
+  --color-token-editor-foreground: #eaf1f5 !important;
+  --color-token-editor-widget-background: #111e2b !important;
+  --color-token-text-preformat-background: #111e2b !important;
+  --color-token-text-code-block-background: #070b12 !important;
+  --color-token-toolbar-hover-background: #122536 !important;
+  --color-token-menu-background: #0d1520 !important;
+  --color-token-menu-border: #284050 !important;
+  --color-token-scrollbar-slider-background: rgb(78 182 232 / 0.16) !important;
+  --color-token-scrollbar-slider-hover-background: rgb(78 182 232 / 0.3) !important;
+  --color-token-scrollbar-slider-active-background: rgb(145 220 255 / 0.42) !important;
+  --color-token-terminal-background: #070b12 !important;
+  --color-token-terminal-foreground: #dce8ee !important;
+  --color-token-terminal-border: #284050 !important;
+  --color-token-charts-red: #d86f65 !important;
+  --color-token-charts-orange: #c59162 !important;
+  --color-token-charts-yellow: #cfb66f !important;
+  --color-token-charts-green: #72a78d !important;
+  --color-token-charts-blue: #4eb6e8 !important;
+  --color-token-charts-purple: #9185bd !important;
+  --codex-base-accent: #4eb6e8 !important;
+  --radius-token-composer-single-line: 12px !important;
+  --radius-token-row: 7px !important;
+  --elevation-prominent: 0 0 0 1px rgb(40 64 80 / 0.62), 0 18px 48px rgb(0 0 0 / 0.42) !important;
+  --elevation-sidebar: inset -1px 0 0 rgb(78 182 232 / 0.16) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1,
+html.codex-skin-template-paw-atelier-v1 body,
+html.codex-skin-template-paw-atelier-v1 #root {
+  max-width: 100%;
+  overflow-x: hidden;
+  color: #f1f5f7 !important;
+  background: #05080d !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 body {
+  background-image:
+    radial-gradient(circle at 78% 10%, rgb(21 57 77 / 0.34), transparent 36%),
+    linear-gradient(135deg, #05080d 0%, #0b111a 58%, #05080d 100%) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 ::selection {
+  color: #05080d;
+  background: #91dcff;
+}
+
+html.codex-skin-template-paw-atelier-v1 .main-surface,
+html.codex-skin-template-paw-atelier-v1 .browser-main-surface {
+  border-color: rgb(78 182 232 / 0.2) !important;
+  background:
+    linear-gradient(rgb(11 17 26 / 0.965), rgb(11 17 26 / 0.965)),
+    url("./hero-background.png") 68% 45% / cover no-repeat !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted {
+  border-right: 1px solid rgb(78 182 232 / 0.16);
+  background:
+    radial-gradient(circle at 10% 4%, rgb(21 57 77 / 0.42), transparent 28%),
+    linear-gradient(180deg, #05080d, #070d14 72%, #09121c);
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted::before {
+  content: "Codex";
+  display: block;
+  flex: 0 0 auto;
+  order: -2;
+  margin: 3px 9px 8px;
+  padding: 7px 8px 10px;
+  border-bottom: 1px solid rgb(78 182 232 / 0.24);
+  color: #91dcff;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-shadow: 0 0 24px rgb(78 182 232 / 0.23);
+  pointer-events: none;
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted::after {
+  content: "哈基米  ·  爪印工坊";
+  display: block;
+  flex: 0 0 auto;
+  order: -1;
+  margin: 8px 12px 10px;
+  color: #8498aa;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  pointer-events: none;
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted [aria-current="page"],
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted .bg-token-list-hover-background {
+  box-shadow: inset 2px 0 #4eb6e8;
+  background: linear-gradient(90deg, rgb(21 57 77 / 0.88), rgb(17 30 43 / 0.58)) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted button,
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted a {
+  transition: color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted button:hover,
+html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted a:hover {
+  color: #91dcff !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgb(5 8 13 / 0.97) 0%, rgb(5 8 13 / 0.84) 38%, rgb(5 8 13 / 0.3) 65%, rgb(5 8 13 / 0.07) 100%),
+    url("./hero-background.png") 68% center / cover no-repeat;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::before,
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+  position: absolute;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::before {
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(145 220 255 / 0.15) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 24% 72%, rgb(165 74 60 / 0.18) 0 1px, transparent 1.7px),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgb(78 182 232 / 0.024) 48px);
+  background-size: 89px 97px, 117px 133px, 48px 100%;
+  opacity: 0.58;
+  mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.55) 60%, transparent);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+  top: 1%;
+  right: clamp(-68px, 0vw, 16px);
+  bottom: 1%;
+  width: min(44vw, 610px);
+  background: url("./hero-character.png") right center / contain no-repeat;
+  filter: drop-shadow(-24px 22px 38px rgb(0 0 0 / 0.66)) saturate(0.94) contrast(1.04);
+  opacity: 0.94;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 82%, transparent 100%);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1 {
+  max-width: 680px;
+  color: #f1f5f7 !important;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif !important;
+  font-size: 0 !important;
+  font-weight: 750 !important;
+  line-height: 1.07 !important;
+  letter-spacing: -0.035em !important;
+  text-align: left !important;
+  text-wrap: balance;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.72);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1::before {
+  content: "哈 基 米  ·  PAW ATELIER";
+  display: block;
+  margin-bottom: 13px;
+  padding-left: 10px;
+  border-left: 3px solid #a54a3c;
+  color: #91dcff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1::after {
+  content: "小猫在岗。今天先陪你解哪一个问题？";
+  display: block;
+  max-width: 680px;
+  font-size: clamp(34px, 4.2vw, 64px);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding-left: clamp(18px, 4vw, 56px);
+  color: #f1f5f7 !important;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif !important;
+  font-size: 0 !important;
+  font-weight: 750 !important;
+  line-height: 1.07 !important;
+  text-align: left !important;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.72);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::before {
+  content: "哈 基 米  ·  PAW ATELIER";
+  display: block;
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 3px solid #a54a3c;
+  color: #91dcff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+  content: "小猫在岗。今天先陪你解哪一个问题？";
+  display: block;
+  max-width: 680px;
+  font-size: clamp(34px, 4.2vw, 60px);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] > span {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1,
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [class*="text-center"] {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-home-ambient-suggestions],
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] {
+  backdrop-filter: blur(14px);
+}
+
+html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] > div:last-child > div > * {
+  border: 1px solid rgb(78 182 232 / 0.27);
+  border-radius: 8px !important;
+  background: linear-gradient(145deg, rgb(17 30 43 / 0.93), rgb(11 17 26 / 0.87)) !important;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+}
+
+html.codex-skin-template-paw-atelier-v1 [class~="composer-surface-chrome"] {
+  border: 1px solid rgb(78 182 232 / 0.42) !important;
+  background: linear-gradient(145deg, rgb(17 30 43 / 0.985), rgb(11 17 26 / 0.985)) !important;
+  box-shadow: inset 0 1px 0 rgb(145 220 255 / 0.055), 0 18px 46px rgb(0 0 0 / 0.4) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 [class~="composer-surface-chrome"]:focus-within {
+  border-color: #4eb6e8 !important;
+  box-shadow: 0 0 0 1px rgb(78 182 232 / 0.16), 0 20px 54px rgb(0 0 0 / 0.44) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 textarea::placeholder,
+html.codex-skin-template-paw-atelier-v1 input::placeholder {
+  color: #75879a !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 button:not(:disabled),
+html.codex-skin-template-paw-atelier-v1 [role="button"]:not([aria-disabled="true"]),
+html.codex-skin-template-paw-atelier-v1 a {
+  transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease, transform 140ms ease;
+}
+
+html.codex-skin-template-paw-atelier-v1 button:not(:disabled):active,
+html.codex-skin-template-paw-atelier-v1 [role="button"]:not([aria-disabled="true"]):active {
+  transform: translateY(1px);
+}
+
+html.codex-skin-template-paw-atelier-v1 button:focus-visible,
+html.codex-skin-template-paw-atelier-v1 [role="button"]:focus-visible,
+html.codex-skin-template-paw-atelier-v1 a:focus-visible,
+html.codex-skin-template-paw-atelier-v1 textarea:focus-visible,
+html.codex-skin-template-paw-atelier-v1 input:focus-visible,
+html.codex-skin-template-paw-atelier-v1 select:focus-visible {
+  outline: 2px solid #91dcff !important;
+  outline-offset: 2px !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 dialog,
+html.codex-skin-template-paw-atelier-v1 [role="dialog"],
+html.codex-skin-template-paw-atelier-v1 [data-radix-popper-content-wrapper] > * {
+  border-color: rgb(78 182 232 / 0.32) !important;
+  background-color: #0d1520 !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 pre,
+html.codex-skin-template-paw-atelier-v1 code,
+html.codex-skin-template-paw-atelier-v1 [class*="terminal"] {
+  border-color: rgb(78 182 232 / 0.19) !important;
+}
+
+html.codex-skin-template-paw-atelier-v1 [data-testid*="diff"],
+html.codex-skin-template-paw-atelier-v1 [class*="diff-view"] {
+  --vscode-diffEditor-insertedTextBackground: rgb(63 126 104 / 0.25) !important;
+  --vscode-diffEditor-removedTextBackground: rgb(165 74 60 / 0.25) !important;
+}
+
+#codex-skin-manager-chrome::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(78 182 232 / 0.38), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] {
+    background-position: 64% center;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+    right: -94px;
+    width: min(62vw, 520px);
+    opacity: 0.58;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1::after,
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+    max-width: 74%;
+    font-size: clamp(30px, 6vw, 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted::before {
+    content: "喵";
+    margin-inline: 4px;
+    padding-inline: 0;
+    text-align: center;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 nav.sidebar-foreground-muted::after {
+    display: none;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] {
+    min-height: 760px;
+    background-position: 61% center;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+    top: 215px;
+    right: -138px;
+    bottom: 8%;
+    width: min(110vw, 520px);
+    opacity: 0.42;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1::before,
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::before {
+    letter-spacing: 0.14em;
+  }
+
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] h1::after,
+  html.codex-skin-template-paw-atelier-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+    max-width: 92%;
+    font-size: clamp(29px, 8vw, 38px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.codex-skin-template-paw-atelier-v1 *,
+  html.codex-skin-template-paw-atelier-v1 *::before,
+  html.codex-skin-template-paw-atelier-v1 *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

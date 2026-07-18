@@ -1,0 +1,486 @@
+/*
+ * Liu Qiyue · Stage Check — local Codex Desktop skin
+ * Fan-made local prototype. Not affiliated with or endorsed by OpenAI or Cang Yuan Tu.
+ */
+
+:root.codex-skin-template-stage-check-v1 {
+  --codex-skin-template-active: stage-check-v1;
+  color-scheme: dark !important;
+  --startup-background: #090404 !important;
+  --startup-logo-shimmer-base: rgb(242 107 47 / 0.58) !important;
+  --startup-logo-shimmer-peak: rgb(255 212 122 / 0.95) !important;
+  --startup-logo-shimmer-soft: rgb(242 107 47 / 0.12) !important;
+  --startup-logo-shimmer-tail: rgb(216 68 34 / 0.18) !important;
+
+  --vscode-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Noto Sans CJK SC", sans-serif !important;
+  --vscode-font-weight: 400 !important;
+  --vscode-foreground: #fff4df !important;
+  --vscode-disabledForeground: #667587 !important;
+  --vscode-descriptionForeground: #9aaabc !important;
+  --vscode-errorForeground: #e08378 !important;
+  --vscode-focusBorder: #ffd47a !important;
+  --vscode-sideBar-background: #090404 !important;
+  --vscode-editor-background: #140707 !important;
+  --vscode-editor-foreground: #fff0dc !important;
+  --vscode-editorWidget-background: #23100d !important;
+  --vscode-input-background: #1b0d0b !important;
+  --vscode-input-foreground: #fff4df !important;
+  --vscode-input-border: #5b251b !important;
+  --vscode-input-placeholderForeground: #96756f !important;
+  --vscode-dropdown-background: #1b0d0b !important;
+  --vscode-dropdown-foreground: #fff4df !important;
+  --vscode-button-background: #f26b2f !important;
+  --vscode-button-foreground: #090404 !important;
+  --vscode-button-border: #ffd47a !important;
+  --vscode-list-hoverBackground: #2c120e !important;
+  --vscode-list-activeSelectionBackground: #522116 !important;
+  --vscode-list-activeSelectionForeground: #fff4df !important;
+  --vscode-scrollbarSlider-background: rgb(242 107 47 / 0.16) !important;
+  --vscode-scrollbarSlider-hoverBackground: rgb(242 107 47 / 0.3) !important;
+  --vscode-scrollbarSlider-activeBackground: rgb(255 212 122 / 0.42) !important;
+  --vscode-toolbar-hoverBackground: #2c120e !important;
+  --vscode-menu-background: #140908 !important;
+  --vscode-menu-border: #5b251b !important;
+  --vscode-menubar-selectionBackground: #2c120e !important;
+  --vscode-menubar-selectionForeground: #fff4df !important;
+  --vscode-terminal-background: #070303 !important;
+  --vscode-terminal-foreground: #ead5bd !important;
+  --vscode-terminal-border: #5b251b !important;
+  --vscode-textLink-foreground: #ff9a4b !important;
+  --vscode-textLink-activeForeground: #ffd47a !important;
+
+  --color-background-surface: #140707 !important;
+  --color-background-surface-under: #090404 !important;
+  --color-background-editor-opaque: #140707 !important;
+  --color-background-elevated-primary: rgb(35 16 13 / 0.97) !important;
+  --color-background-elevated-primary-opaque: #23100d !important;
+  --color-background-elevated-secondary: rgb(242 107 47 / 0.055) !important;
+  --color-background-elevated-secondary-opaque: #21100d !important;
+  --color-background-accent: #f26b2f !important;
+  --color-background-accent-hover: #ff7f39 !important;
+  --color-background-accent-active: #cc431e !important;
+  --color-text-foreground: #fff4df !important;
+  --color-text-foreground-secondary: #e6c1a2 !important;
+  --color-text-foreground-tertiary: #b08a7d !important;
+  --color-text-accent: #ffd47a !important;
+  --color-text-on-accent: #090404 !important;
+  --color-icon-primary: #fff4df !important;
+  --color-icon-secondary: #f26b2f !important;
+  --color-icon-tertiary: #b08a7d !important;
+
+  --color-token-border: #5b251b !important;
+  --color-token-border-default: #5b251b !important;
+  --color-token-border-heavy: #7a3422 !important;
+  --color-token-border-light: #33140f !important;
+  --color-token-foreground: #fff4df !important;
+  --color-token-disabled-foreground: #667587 !important;
+  --color-token-description-foreground: #9aaabc !important;
+  --color-token-text-primary: #fff4df !important;
+  --color-token-text-secondary: #e6c1a2 !important;
+  --color-token-text-tertiary: #b08a7d !important;
+  --color-token-icon-foreground: #d7e6ed !important;
+  --color-token-focus-border: #ffd47a !important;
+  --color-token-link: #ff9a4b !important;
+  --color-token-primary: #f26b2f !important;
+  --color-token-on-accent: #090404 !important;
+  --color-token-button-background: #f26b2f !important;
+  --color-token-button-foreground: #090404 !important;
+  --color-token-button-border: #ffd47a !important;
+  --color-token-button-secondary-hover-background: #2c120e !important;
+  --color-token-input-background: #1b0d0b !important;
+  --color-token-input-foreground: #fff4df !important;
+  --color-token-input-border: #5b251b !important;
+  --color-token-input-placeholder-foreground: #96756f !important;
+  --color-token-dropdown-background: #1b0d0b !important;
+  --color-token-dropdown-foreground: #fff4df !important;
+  --color-token-list-hover-background: #2c120e !important;
+  --color-token-list-active-selection-background: #522116 !important;
+  --color-token-list-active-selection-foreground: #fff4df !important;
+  --color-token-list-active-selection-icon-foreground: #ffd47a !important;
+  --color-token-side-bar-background: #090404 !important;
+  --color-token-bg-primary: #090404 !important;
+  --color-token-bg-secondary: #140908 !important;
+  --color-token-bg-tertiary: #23100d !important;
+  --color-token-bg-appshot: rgb(9 4 4 / 0.9) !important;
+  --color-token-bg-fog: rgb(242 107 47 / 0.035) !important;
+  --color-token-main-surface-primary: #140707 !important;
+  --color-token-editor-background: #140707 !important;
+  --color-token-editor-foreground: #fff0dc !important;
+  --color-token-editor-widget-background: #23100d !important;
+  --color-token-text-preformat-background: #23100d !important;
+  --color-token-text-code-block-background: #070303 !important;
+  --color-token-toolbar-hover-background: #2c120e !important;
+  --color-token-menu-background: #140908 !important;
+  --color-token-menu-border: #5b251b !important;
+  --color-token-scrollbar-slider-background: rgb(242 107 47 / 0.16) !important;
+  --color-token-scrollbar-slider-hover-background: rgb(242 107 47 / 0.3) !important;
+  --color-token-scrollbar-slider-active-background: rgb(255 212 122 / 0.42) !important;
+  --color-token-terminal-background: #070303 !important;
+  --color-token-terminal-foreground: #ead5bd !important;
+  --color-token-terminal-border: #5b251b !important;
+  --color-token-charts-red: #d86f65 !important;
+  --color-token-charts-orange: #c59162 !important;
+  --color-token-charts-yellow: #cfb66f !important;
+  --color-token-charts-green: #72a78d !important;
+  --color-token-charts-blue: #f26b2f !important;
+  --color-token-charts-purple: #9185bd !important;
+  --codex-base-accent: #f26b2f !important;
+  --radius-token-composer-single-line: 12px !important;
+  --radius-token-row: 7px !important;
+  --elevation-prominent: 0 0 0 1px rgb(91 37 27 / 0.62), 0 18px 48px rgb(0 0 0 / 0.42) !important;
+  --elevation-sidebar: inset -1px 0 0 rgb(242 107 47 / 0.16) !important;
+}
+
+html.codex-skin-template-stage-check-v1,
+html.codex-skin-template-stage-check-v1 body,
+html.codex-skin-template-stage-check-v1 #root {
+  max-width: 100%;
+  overflow-x: hidden;
+  color: #fff4df !important;
+  background: #090404 !important;
+}
+
+html.codex-skin-template-stage-check-v1 body {
+  background-image:
+    radial-gradient(circle at 78% 10%, rgb(117 31 20 / 0.34), transparent 36%),
+    linear-gradient(135deg, #090404 0%, #140707 58%, #090404 100%) !important;
+}
+
+html.codex-skin-template-stage-check-v1 ::selection {
+  color: #090404;
+  background: #ffd47a;
+}
+
+html.codex-skin-template-stage-check-v1 .main-surface,
+html.codex-skin-template-stage-check-v1 .browser-main-surface {
+  border-color: rgb(242 107 47 / 0.2) !important;
+  background:
+    linear-gradient(rgb(20 7 7 / 0.965), rgb(20 7 7 / 0.965)),
+    url("./hero-background.png") 68% 45% / cover no-repeat !important;
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted {
+  border-right: 1px solid rgb(242 107 47 / 0.16);
+  background:
+    radial-gradient(circle at 10% 4%, rgb(117 31 20 / 0.42), transparent 28%),
+    linear-gradient(180deg, #090404, #120606 72%, #1a0907);
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted::before {
+  content: "Codex";
+  display: block;
+  flex: 0 0 auto;
+  order: -2;
+  margin: 3px 9px 8px;
+  padding: 7px 8px 10px;
+  border-bottom: 1px solid rgb(242 107 47 / 0.24);
+  color: #ffd47a;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-shadow: 0 0 24px rgb(242 107 47 / 0.23);
+  pointer-events: none;
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted::after {
+  content: "蔡徐坤  ·  舞台练习室";
+  display: block;
+  flex: 0 0 auto;
+  order: -1;
+  margin: 8px 12px 10px;
+  color: #8498aa;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  pointer-events: none;
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted [aria-current="page"],
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted .bg-token-list-hover-background {
+  box-shadow: inset 2px 0 #f26b2f;
+  background: linear-gradient(90deg, rgb(117 31 20 / 0.88), rgb(35 16 13 / 0.58)) !important;
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted button,
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted a {
+  transition: color 140ms ease, background-color 140ms ease, box-shadow 140ms ease;
+}
+
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted button:hover,
+html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted a:hover {
+  color: #ffd47a !important;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgb(9 4 4 / 0.97) 0%, rgb(9 4 4 / 0.84) 38%, rgb(9 4 4 / 0.3) 65%, rgb(9 4 4 / 0.07) 100%),
+    url("./hero-background.png") 68% center / cover no-repeat;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::before,
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+  position: absolute;
+  z-index: 0;
+  content: "";
+  pointer-events: none;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::before {
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(255 212 122 / 0.15) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 24% 72%, rgb(216 68 34 / 0.18) 0 1px, transparent 1.7px),
+    repeating-linear-gradient(90deg, transparent 0 47px, rgb(242 107 47 / 0.024) 48px);
+  background-size: 89px 97px, 117px 133px, 48px 100%;
+  opacity: 0.58;
+  mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.55) 60%, transparent);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+  top: 1%;
+  right: clamp(-68px, 0vw, 16px);
+  bottom: 1%;
+  width: min(44vw, 610px);
+  background: url("./hero-character.png") right center / contain no-repeat;
+  filter: drop-shadow(-24px 22px 38px rgb(0 0 0 / 0.66)) saturate(0.94) contrast(1.04);
+  opacity: 0.94;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 82%, transparent 100%);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1 {
+  max-width: 680px;
+  color: #fff4df !important;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif !important;
+  font-size: 0 !important;
+  font-weight: 750 !important;
+  line-height: 1.07 !important;
+  letter-spacing: -0.035em !important;
+  text-align: left !important;
+  text-wrap: balance;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.72);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1::before {
+  content: "舞 台 练 习 室  ·  STAGE CHECK";
+  display: block;
+  margin-bottom: 13px;
+  padding-left: 10px;
+  border-left: 3px solid #a54a3c;
+  color: #ffd47a;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1::after {
+  content: "舞台就绪。今天先校准哪一个问题？";
+  display: block;
+  max-width: 680px;
+  font-size: clamp(34px, 4.2vw, 64px);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] {
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  padding-left: clamp(18px, 4vw, 56px);
+  color: #fff4df !important;
+  font-family: "Avenir Next Condensed", "PingFang SC", sans-serif !important;
+  font-size: 0 !important;
+  font-weight: 750 !important;
+  line-height: 1.07 !important;
+  text-align: left !important;
+  text-shadow: 0 12px 42px rgb(0 0 0 / 0.72);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::before {
+  content: "舞 台 练 习 室  ·  STAGE CHECK";
+  display: block;
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 3px solid #a54a3c;
+  color: #ffd47a;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.22em;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+  content: "舞台就绪。今天先校准哪一个问题？";
+  display: block;
+  max-width: 680px;
+  font-size: clamp(34px, 4.2vw, 60px);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"] > span {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1,
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [class*="text-center"] {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-home-ambient-suggestions],
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] {
+  backdrop-filter: blur(14px);
+}
+
+html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [class~="group/home-suggestions"] > div:last-child > div > * {
+  border: 1px solid rgb(242 107 47 / 0.27);
+  border-radius: 8px !important;
+  background: linear-gradient(145deg, rgb(35 16 13 / 0.93), rgb(20 7 7 / 0.87)) !important;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.28);
+}
+
+html.codex-skin-template-stage-check-v1 [class~="composer-surface-chrome"] {
+  border: 1px solid rgb(242 107 47 / 0.42) !important;
+  background: linear-gradient(145deg, rgb(35 16 13 / 0.985), rgb(20 7 7 / 0.985)) !important;
+  box-shadow: inset 0 1px 0 rgb(255 212 122 / 0.055), 0 18px 46px rgb(0 0 0 / 0.4) !important;
+}
+
+html.codex-skin-template-stage-check-v1 [class~="composer-surface-chrome"]:focus-within {
+  border-color: #f26b2f !important;
+  box-shadow: 0 0 0 1px rgb(242 107 47 / 0.16), 0 20px 54px rgb(0 0 0 / 0.44) !important;
+}
+
+html.codex-skin-template-stage-check-v1 textarea::placeholder,
+html.codex-skin-template-stage-check-v1 input::placeholder {
+  color: #96756f !important;
+}
+
+html.codex-skin-template-stage-check-v1 button:not(:disabled),
+html.codex-skin-template-stage-check-v1 [role="button"]:not([aria-disabled="true"]),
+html.codex-skin-template-stage-check-v1 a {
+  transition: border-color 140ms ease, background-color 140ms ease, color 140ms ease, transform 140ms ease;
+}
+
+html.codex-skin-template-stage-check-v1 button:not(:disabled):active,
+html.codex-skin-template-stage-check-v1 [role="button"]:not([aria-disabled="true"]):active {
+  transform: translateY(1px);
+}
+
+html.codex-skin-template-stage-check-v1 button:focus-visible,
+html.codex-skin-template-stage-check-v1 [role="button"]:focus-visible,
+html.codex-skin-template-stage-check-v1 a:focus-visible,
+html.codex-skin-template-stage-check-v1 textarea:focus-visible,
+html.codex-skin-template-stage-check-v1 input:focus-visible,
+html.codex-skin-template-stage-check-v1 select:focus-visible {
+  outline: 2px solid #ffd47a !important;
+  outline-offset: 2px !important;
+}
+
+html.codex-skin-template-stage-check-v1 dialog,
+html.codex-skin-template-stage-check-v1 [role="dialog"],
+html.codex-skin-template-stage-check-v1 [data-radix-popper-content-wrapper] > * {
+  border-color: rgb(242 107 47 / 0.32) !important;
+  background-color: #140908 !important;
+}
+
+html.codex-skin-template-stage-check-v1 pre,
+html.codex-skin-template-stage-check-v1 code,
+html.codex-skin-template-stage-check-v1 [class*="terminal"] {
+  border-color: rgb(242 107 47 / 0.19) !important;
+}
+
+html.codex-skin-template-stage-check-v1 [data-testid*="diff"],
+html.codex-skin-template-stage-check-v1 [class*="diff-view"] {
+  --vscode-diffEditor-insertedTextBackground: rgb(63 126 104 / 0.25) !important;
+  --vscode-diffEditor-removedTextBackground: rgb(216 68 34 / 0.25) !important;
+}
+
+#codex-skin-manager-chrome::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(242 107 47 / 0.38), transparent);
+  content: "";
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] {
+    background-position: 64% center;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+    right: -94px;
+    width: min(62vw, 520px);
+    opacity: 0.58;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1::after,
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+    max-width: 74%;
+    font-size: clamp(30px, 6vw, 48px);
+  }
+}
+
+@media (max-width: 640px) {
+  html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted::before {
+    content: "柳";
+    margin-inline: 4px;
+    padding-inline: 0;
+    text-align: center;
+  }
+
+  html.codex-skin-template-stage-check-v1 nav.sidebar-foreground-muted::after {
+    display: none;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] {
+    min-height: 760px;
+    background-position: 61% center;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"]::after {
+    top: 215px;
+    right: -138px;
+    bottom: 8%;
+    width: min(110vw, 520px);
+    opacity: 0.42;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1::before,
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::before {
+    letter-spacing: 0.14em;
+  }
+
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] h1::after,
+  html.codex-skin-template-stage-check-v1 div[role="main"][class*="container-name:home-main-content"] [data-feature="game-source"]::after {
+    max-width: 92%;
+    font-size: clamp(29px, 8vw, 38px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.codex-skin-template-stage-check-v1 *,
+  html.codex-skin-template-stage-check-v1 *::before,
+  html.codex-skin-template-stage-check-v1 *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

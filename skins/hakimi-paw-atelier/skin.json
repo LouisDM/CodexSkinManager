@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "hakimi-paw-atelier",
+  "name": "哈基米 · 爪印工坊",
+  "version": "1.0.2",
+  "template": "paw-atelier-v1",
+  "minManagerVersion": "1.1.0",
+  "preview": "preview.png",
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "theme": {
+    "tokens": {
+      "accent": "#6ECBB9",
+      "accentStrong": "#F1BE66",
+      "canvas": "#081C21",
+      "controlRadius": "13",
+      "focus": "#F1BE66",
+      "ink": "#F7F2E7",
+      "line": "#2D6C70",
+      "motionDuration": "160",
+      "mutedInk": "#B8D5CD",
+      "panelRadius": "8",
+      "surface": "#0E2A2F",
+      "surfaceRaised": "#143D42"
+    },
+    "assets": {
+      "background": "assets/background.png",
+      "hero": "assets/hero.png"
+    },
+    "focalPoints": {
+      "background": {
+        "x": 0.64,
+        "y": 0.46
+      },
+      "hero": {
+        "x": 0.52,
+        "y": 0.48
+      }
+    }
+  },
+  "rights": {
+    "redistributionAllowed": true,
+    "commercialUse": false,
+    "fanMade": false,
+    "unofficial": true,
+    "noEndorsement": true,
+    "notice": "Original local validation skin generated for Codex Skin Manager import and application testing. It uses a warm cat-companion interpretation of the Hakimi meme and avoids harmful or black-humor contexts. Non-commercial redistribution is allowed with this notice."
+  }
+}
