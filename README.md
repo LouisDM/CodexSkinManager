@@ -4,18 +4,32 @@
 
 当前管理器已验证可使用这些皮肤：
 
-- 孟川 · 红莲业火：公开非商用同人皮肤。
-- 孟川 · 玄刃夜行：公开非商用同人皮肤。
-- 哈基米 · 爪印工坊：公开非商用验证皮肤。
-- 柳七月 · 不死凰焰：仅限本机私用的迁移皮肤。
-- 蔡徐坤 · 舞台校验：仅限本机私用的真实公众人物验证皮肤。
-- 蒂法 · Seventh Heaven Flow：仅限本机私用的第三方角色验证皮肤。
+| 皮肤 | 用途 | 公开 Release |
+| --- | --- | --- |
+| 孟川 · 红莲业火 | 公开非商用同人皮肤 | 是 |
+| 孟川 · 玄刃夜行 | 公开非商用同人皮肤 | 是 |
+| 哈基米 · 爪印工坊 | 公开非商用验证皮肤 | 是 |
+| 柳七月 · 不死凰焰 | 本机私用迁移皮肤 | 否 |
+| 蔡徐坤 · 舞台校验 | 本机私用真实公众人物验证皮肤 | 否 |
+| 蒂法 · Seventh Heaven Flow | 本机私用第三方角色验证皮肤 | 否 |
 
 GitHub Release 只公开权利允许再分发的皮肤包：孟川两套和哈基米。柳七月、蔡徐坤、蒂法相关素材或人物/角色权利不允许公开再分发，因此不会作为 `.codexskin` 上传到 GitHub Release；源码版 `1.1.0` 保留本机私用迁移、导入和流程验证能力。
 
 > 本项目为非官方本地工具，与 OpenAI 或《沧元图》官方无隶属或背书关系。内置素材只允许按各自 `LICENSES/assets.txt` 随皮肤包进行非商用公开分发；这不授予任何角色、作品名、商标或其他第三方权利。
 
 ![Codex 皮肤管理器](docs/screenshots/codex-skin-manager.png)
+
+## 皮肤截图
+
+| 孟川 · 红莲业火 | 孟川 · 玄刃夜行 |
+| --- | --- |
+| <img src="skin-manager/Sources/CodexSkinManager/Resources/BuiltinSkins/red-lotus/preview.png" alt="孟川 · 红莲业火皮肤预览" width="420"> | <img src="skin-manager/Sources/CodexSkinManager/Resources/BuiltinSkins/nightblade/preview.png" alt="孟川 · 玄刃夜行皮肤预览" width="420"> |
+| 公开非商用，可在 Release 下载 `.codexskin`。 | 公开非商用，可在 Release 下载 `.codexskin`。 |
+
+| 哈基米 · 爪印工坊 | 蔡徐坤 · 舞台校验 | 蒂法 · Seventh Heaven Flow |
+| --- | --- | --- |
+| <img src="skins/hakimi-paw-atelier/preview.png" alt="哈基米 · 爪印工坊皮肤预览" width="280"> | <img src="skins/cai-xukun-stage-check/preview.png" alt="蔡徐坤 · 舞台校验皮肤预览" width="280"> | <img src="skins/tifa-seventh-heaven-flow/preview.png" alt="蒂法 · Seventh Heaven Flow 皮肤预览" width="280"> |
+| 公开非商用，可在 Release 下载 `.codexskin`。 | 仅限本机导入流程验证，不公开发布 `.codexskin`。 | 仅限本机导入流程验证，不公开发布 `.codexskin`。 |
 
 ## 主要能力
 
