@@ -3,15 +3,17 @@ import XCTest
 @testable import SkinCore
 
 final class SkinPackageExporterTests: XCTestCase {
-    func testRefusesToExportAPrivateOnlySkin() async throws {
+    func testExportsAnyInstalledSkinRegardlessOfRedistributionFlag() async throws {
         let repository = SkinRepository(rootURL: temporaryRoot())
         let imported = try SkinPackageImporter().importPackage(data: SkinImportFixture.make().archive)
         let installed = installedValue(try await repository.install(imported))
         let stored = try await repository.load(id: installed.id, version: installed.version)
 
-        XCTAssertThrowsError(try SkinPackageExporter().data(for: stored)) { error in
-            XCTAssertEqual(error as? SkinExportError, .redistributionNotAllowed)
-        }
+        let exported = try SkinPackageExporter().data(for: stored)
+        let reimported = try SkinPackageImporter().importPackage(data: exported)
+
+        XCTAssertEqual(reimported.manifest.id, installed.id)
+        XCTAssertFalse(reimported.rights.redistributionAllowed)
     }
 
     func testExportIsDeterministicContainsOnlyDataAndRoundTrips() async throws {

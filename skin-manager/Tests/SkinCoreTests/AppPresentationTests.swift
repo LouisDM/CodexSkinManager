@@ -4,10 +4,9 @@ import XCTest
 
 final class AppPresentationTests: XCTestCase {
     func testLibraryFiltersCoverInventoryAndSafetyStates() {
-        XCTAssertEqual(SkinLibraryFilter.allCases, [.all, .active, .privateOnly, .unverified])
+        XCTAssertEqual(SkinLibraryFilter.allCases, [.all, .active])
         XCTAssertEqual(SkinLibraryFilter.all.title, "全部皮肤")
         XCTAssertEqual(SkinLibraryFilter.active.title, "最近使用")
-        XCTAssertEqual(SkinLibraryFilter.privateOnly.systemImage, "lock.shield")
     }
 
     func testLibraryShowsOnlyTheLatestInstalledVersionForEachSkinIdentity() {
@@ -46,12 +45,9 @@ final class AppPresentationTests: XCTestCase {
 
     func testLibrarySummaryMakesFilteringAndTotalInventoryVisible() {
         let all = SkinLibrarySummaryPresentation(filter: .all, visibleCount: 3, totalCount: 3)
-        let privateOnly = SkinLibrarySummaryPresentation(filter: .privateOnly, visibleCount: 1, totalCount: 3)
 
         XCTAssertEqual(all.title, "皮肤")
         XCTAssertEqual(all.countLabel, "3 套皮肤")
-        XCTAssertEqual(privateOnly.title, "仅限本机")
-        XCTAssertEqual(privateOnly.countLabel, "1 / 3 套皮肤")
     }
 
     func testNavigatorItemProvidesCompactDecisionInformation() {
@@ -67,7 +63,7 @@ final class AppPresentationTests: XCTestCase {
 
         XCTAssertEqual(item.title, "孟川 · 红莲业火")
         XCTAssertEqual(item.metadata, "OPCspace · v1.0.1")
-        XCTAssertEqual(item.rightsLabel, "允许导出")
+        XCTAssertEqual(item.rightsLabel, "允许导入导出")
         XCTAssertEqual(item.activityLabel, "已验证生效")
         XCTAssertTrue(item.accessibilityLabel.contains("孟川 · 红莲业火"))
         XCTAssertTrue(item.accessibilityLabel.contains("已验证生效"))
@@ -111,7 +107,7 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertTrue(transfer.canExport)
     }
 
-    func testFileTransferPresentationExplainsPrivateExportRestriction() {
+    func testFileTransferPresentationAllowsExportRegardlessOfRedistributionFlag() {
         let selected = installed(id: "private", rights: rights(redistributionAllowed: false))
         let actions = SkinActionAvailability(
             selected: selected,
@@ -122,9 +118,9 @@ final class AppPresentationTests: XCTestCase {
 
         let transfer = SkinFileTransferPresentation(actions: actions)
 
-        XCTAssertFalse(transfer.canExport)
-        XCTAssertEqual(transfer.exportSystemImage, "lock.fill")
-        XCTAssertEqual(transfer.exportHelp, "当前素材授权不允许导出共享")
+        XCTAssertTrue(transfer.canExport)
+        XCTAssertEqual(transfer.exportSystemImage, "square.and.arrow.up")
+        XCTAssertEqual(transfer.exportHelp, "导出所选皮肤为 .codexskin")
     }
 
     func testFileTransferPresentationDoesNotMistakeBusyStateForRightsLock() {
@@ -146,17 +142,17 @@ final class AppPresentationTests: XCTestCase {
 
     func testTrustAndRightsBadgesAreExplicit() {
         XCTAssertEqual(SkinTrustPresentation(.verifiedPublisher(fingerprint: "abc")).label, "发布者已验证")
-        XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "签名未知")
-        XCTAssertEqual(SkinTrustPresentation(.unsigned).label, "未签名")
+        XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "包已安全校验")
+        XCTAssertEqual(SkinTrustPresentation(.unsigned).label, "包已安全校验")
 
         let privateRights = rights(redistributionAllowed: false)
         let publicRights = rights(redistributionAllowed: true)
-        XCTAssertEqual(SkinRightsPresentation(privateRights).label, "仅限本机")
-        XCTAssertTrue(SkinRightsPresentation(privateRights).detail.contains("不可导出共享"))
-        XCTAssertEqual(SkinRightsPresentation(publicRights).label, "允许导出")
+        XCTAssertEqual(SkinRightsPresentation(privateRights).label, "允许导入导出")
+        XCTAssertTrue(SkinRightsPresentation(privateRights).detail.contains("自行确认素材权利"))
+        XCTAssertEqual(SkinRightsPresentation(publicRights).label, "允许导入导出")
     }
 
-    func testActionAvailabilityProtectsActiveAndPrivateSkins() {
+    func testActionAvailabilityProtectsActiveSkinButAllowsAnySelectedSkinToExport() {
         let selected = installed(id: "selected", rights: rights(redistributionAllowed: false))
         let other = ActiveSkinRecord(id: "other", version: "1.0.0")
         let ready = inspection(signatureValid: true)
@@ -172,9 +168,9 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertEqual(actions.applyTitle, "切换到此皮肤")
         XCTAssertTrue(actions.canRestore)
         XCTAssertTrue(actions.canDelete)
-        XCTAssertFalse(actions.canExport)
+        XCTAssertTrue(actions.canExport)
         XCTAssertTrue(actions.canImport)
-        XCTAssertEqual(actions.exportDisabledReason, "当前素材授权不允许导出共享")
+        XCTAssertNil(actions.exportDisabledReason)
 
         let activeActions = SkinActionAvailability(
             selected: selected,
@@ -268,7 +264,7 @@ final class AppPresentationTests: XCTestCase {
 
         XCTAssertEqual(card.name, longName)
         XCTAssertEqual(card.author, longAuthor)
-        XCTAssertEqual(card.privateExportMessage, "仅供本机预览与使用，不可导出共享")
+        XCTAssertNil(card.privateExportMessage)
     }
 
     private func inspection(signatureValid: Bool) -> CodexAppInspection {

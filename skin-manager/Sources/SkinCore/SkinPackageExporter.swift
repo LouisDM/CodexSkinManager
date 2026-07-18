@@ -2,14 +2,12 @@ import CryptoKit
 import Foundation
 
 public enum SkinExportError: Error, Equatable, LocalizedError, Sendable {
-    case redistributionNotAllowed
     case invalidDestination
     case fileTooLarge(String)
     case missingFile(String)
 
     public var errorDescription: String? {
         switch self {
-        case .redistributionNotAllowed: "素材许可不允许公开导出此皮肤"
         case .invalidDestination: "导出文件必须使用 .codexskin 扩展名"
         case let .fileTooLarge(path): "导出文件超过 ZIP v1 限制：\(path)"
         case let .missingFile(path): "已安装皮肤缺少文件：\(path)"
@@ -21,9 +19,6 @@ public struct SkinPackageExporter: Sendable {
     public init() {}
 
     public func data(for package: StoredSkinPackage) throws -> Data {
-        guard package.rights.canExportPublicly else {
-            throw SkinExportError.redistributionNotAllowed
-        }
         let originalDescriptors = Dictionary(uniqueKeysWithValues: package.manifest.files.map { ($0.path, $0) })
         var descriptors: [SkinFile] = []
         for path in package.files.keys.sorted() {

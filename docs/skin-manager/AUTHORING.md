@@ -149,7 +149,7 @@ open -a "$HOME/Applications/Codex 皮肤管理器.app" \
   "/绝对路径/sample-night-skin-1.0.0.codexskin"
 ```
 
-管理器会再次执行完整包校验和图片安全解码。通用打包器当前生成未签名包，因此信任状态显示为“未签名”；这不等同于允许公开分发，公开导出仍由 `rights.redistributionAllowed` 控制。
+管理器会再次执行完整包校验和图片安全解码。通用打包器生成的包只要结构、清单和文件内容通过校验，就可以导入、切换和从 App 导出；`rights.redistributionAllowed` 只作为公开分享与 Release 发布前的权利判断依据。
 
 ## 权利边界
 

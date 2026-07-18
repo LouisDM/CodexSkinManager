@@ -6,14 +6,16 @@ public enum SkinLibraryFilter: String, CaseIterable, Identifiable, Sendable {
     case privateOnly
     case unverified
 
+    public static let allCases: [SkinLibraryFilter] = [.all, .active]
+
     public var id: String { rawValue }
 
     public var title: String {
         switch self {
         case .all: "全部皮肤"
         case .active: "最近使用"
-        case .privateOnly: "仅限本机"
-        case .unverified: "未验证来源"
+        case .privateOnly: "受限皮肤"
+        case .unverified: "来源提示"
         }
     }
 
@@ -21,8 +23,8 @@ public enum SkinLibraryFilter: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .all: "square.grid.2x2"
         case .active: "clock.arrow.circlepath"
-        case .privateOnly: "lock.shield"
-        case .unverified: "exclamationmark.shield"
+        case .privateOnly: "tray.full"
+        case .unverified: "checkmark.shield"
         }
     }
 
@@ -30,9 +32,7 @@ public enum SkinLibraryFilter: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .all: true
         case .active: activeRecord?.id == skin.id
-        case .privateOnly: !skin.rights.canExportPublicly
-        case .unverified:
-            if case .verifiedPublisher = skin.trust { false } else { true }
+        case .privateOnly, .unverified: true
         }
     }
 }
@@ -133,7 +133,7 @@ public struct SkinFileTransferPresentation: Equatable, Sendable {
     public init(actions: SkinActionAvailability) {
         canImport = actions.canImport
         canExport = actions.canExport
-        exportSystemImage = actions.exportIsRightsRestricted ? "lock.fill" : "square.and.arrow.up"
+        exportSystemImage = "square.and.arrow.up"
         exportHelp = actions.exportDisabledReason ?? "导出所选皮肤为 .codexskin"
     }
 }
@@ -150,13 +150,13 @@ public struct SkinTrustPresentation: Equatable, Sendable {
             detail = "签名指纹：\(fingerprint)"
             systemImage = "checkmark.seal.fill"
         case let .signedUnknownPublisher(fingerprint):
-            label = "签名未知"
-            detail = "签名有效，但发布者尚未受信任。指纹：\(fingerprint)"
-            systemImage = "questionmark.diamond"
+            label = "包已安全校验"
+            detail = "签名有效；发布者指纹：\(fingerprint)。"
+            systemImage = "checkmark.shield"
         case .unsigned:
-            label = "未签名"
-            detail = "包内容已通过安全校验，但无法确认发布者身份。"
-            systemImage = "exclamationmark.shield"
+            label = "包已安全校验"
+            detail = "包结构、清单和文件内容已通过导入校验。"
+            systemImage = "checkmark.shield"
         }
     }
 }
@@ -167,15 +167,11 @@ public struct SkinRightsPresentation: Equatable, Sendable {
     public let systemImage: String
 
     public init(_ rights: SkinRights) {
-        if rights.canExportPublicly {
-            label = "允许导出"
-            detail = "清单声明素材允许重新分发，可导出为 .codexskin。"
-            systemImage = "square.and.arrow.up"
-        } else {
-            label = "仅限本机"
-            detail = "当前素材授权不可导出共享，只能在本机预览和使用。"
-            systemImage = "lock.shield"
-        }
+        label = "允许导入导出"
+        detail = rights.canExportPublicly
+            ? "清单声明素材允许重新分发，可导出为 .codexskin。"
+            : "管理器允许导入和导出此皮肤；对外分享前请自行确认素材权利。"
+        systemImage = "square.and.arrow.up"
     }
 }
 
@@ -197,7 +193,7 @@ public struct SkinCardPresentation: Equatable, Sendable, Identifiable {
         previewURL = skin.previewURL
         trust = SkinTrustPresentation(skin.trust)
         rights = SkinRightsPresentation(skin.rights)
-        privateExportMessage = skin.rights.canExportPublicly ? nil : "仅供本机预览与使用，不可导出共享"
+        privateExportMessage = nil
     }
 }
 
@@ -227,10 +223,10 @@ public struct SkinActionAvailability: Equatable, Sendable {
         canApply = selected != nil && !busy && appReady
         canRestore = active != nil && !busy
         canDelete = selected != nil && !isSelectedActive && !busy
-        canExport = selected?.rights.canExportPublicly == true && !busy
+        canExport = selected != nil && !busy
         canImport = !busy
         canCancelWaiting = state == .waitingForQuit
-        exportIsRightsRestricted = selected != nil && selected?.rights.canExportPublicly != true
+        exportIsRightsRestricted = false
 
         if case .failed = state {
             applyTitle = "重试切换"
@@ -254,8 +250,6 @@ public struct SkinActionAvailability: Equatable, Sendable {
 
         if selected == nil {
             exportDisabledReason = "请先选择一个皮肤"
-        } else if selected?.rights.canExportPublicly != true {
-            exportDisabledReason = "当前素材授权不允许导出共享"
         } else if busy {
             exportDisabledReason = "当前操作完成后可继续"
         } else {

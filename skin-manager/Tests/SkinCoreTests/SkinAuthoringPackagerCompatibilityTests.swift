@@ -6,7 +6,7 @@ import XCTest
 @testable import SkinCore
 
 final class SkinAuthoringPackagerCompatibilityTests: XCTestCase {
-    func testRepositoryValidationSkinsBuildImportAndRespectExportRights() async throws {
+    func testRepositoryValidationSkinsBuildImportAndExport() async throws {
         let repositoryRoot = URL(fileURLWithPath: #filePath)
             .deletingLastPathComponent()
             .deletingLastPathComponent()
@@ -20,33 +20,34 @@ final class SkinAuthoringPackagerCompatibilityTests: XCTestCase {
         let exporter = SkinPackageExporter()
         defer { try? FileManager.default.removeItem(at: temporaryRoot) }
 
-        let expected: [(id: String, canExport: Bool)] = [
-            ("hakimi-paw-atelier", true),
-            ("cai-xukun-stage-check", false),
-            ("tifa-seventh-heaven-flow", false),
-        ]
+        let expectedIDs = try FileManager.default.contentsOfDirectory(
+            at: sourceRoot,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+        .filter { url in
+            (try? url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true
+                && FileManager.default.fileExists(atPath: url.appending(path: "skin.json").path)
+        }
+        .map(\.lastPathComponent)
+        .sorted()
 
-        for skin in expected {
-            let source = sourceRoot.appending(path: skin.id, directoryHint: .isDirectory)
-            let output = temporaryRoot.appending(path: "\(skin.id).codexskin")
+        XCTAssertFalse(expectedIDs.isEmpty)
+
+        for skinID in expectedIDs {
+            let source = sourceRoot.appending(path: skinID, directoryHint: .isDirectory)
+            let output = temporaryRoot.appending(path: "\(skinID).codexskin")
             try runPackager(builder: builder, source: source, output: output, currentDirectory: repositoryRoot)
 
             let imported = try SkinPackageImporter().importPackage(
                 data: Data(contentsOf: output, options: .mappedIfSafe)
             )
-            XCTAssertEqual(imported.manifest.id, skin.id)
-            XCTAssertEqual(imported.rights.redistributionAllowed, skin.canExport)
+            XCTAssertEqual(imported.manifest.id, skinID)
             XCTAssertEqual(imported.trust, .unsigned)
 
             _ = try await repository.install(imported)
             let stored = try await repository.load(id: imported.manifest.id, version: imported.manifest.version)
-            if skin.canExport {
-                XCTAssertNoThrow(try exporter.data(for: stored))
-            } else {
-                XCTAssertThrowsError(try exporter.data(for: stored)) { error in
-                    XCTAssertEqual(error as? SkinExportError, .redistributionNotAllowed)
-                }
-            }
+            XCTAssertNoThrow(try exporter.data(for: stored))
         }
     }
 
