@@ -11,9 +11,9 @@
 | 哈基米 · 爪印工坊 | 公开非商用验证皮肤 | 是 |
 | 蔡徐坤 · 舞台校验 | 公开非商用真实公众人物验证皮肤 | 是 |
 | 蒂法 · Seventh Heaven Flow | 公开非商用第三方角色验证皮肤 | 是 |
-| 柳七月 · 不死凰焰 | 本机私用迁移皮肤 | 否 |
+| 柳七月 · 不死凰焰 | 公开非商用同人验证皮肤 | 是 |
 
-GitHub Release 公开五个可下载皮肤包：孟川两套、哈基米、蔡徐坤和蒂法。柳七月素材授权不允许公开再分发，因此不会作为 `.codexskin` 上传到 GitHub Release；源码版 `1.1.1` 保留本机私用迁移、导入和流程验证能力。
+GitHub Release 公开六个可下载皮肤包：孟川两套、哈基米、蔡徐坤、蒂法和柳七月。源码版 `1.1.2` 仍保留旧启动器迁移、导入和流程验证能力。
 
 > 本项目为非官方本地工具，与 OpenAI 或《沧元图》官方无隶属或背书关系。内置素材只允许按各自 `LICENSES/assets.txt` 随皮肤包进行非商用公开分发；这不授予任何角色、作品名、商标或其他第三方权利。
 
@@ -30,6 +30,11 @@ GitHub Release 公开五个可下载皮肤包：孟川两套、哈基米、蔡�
 | --- | --- | --- |
 | <img src="skins/hakimi-paw-atelier/preview.png" alt="哈基米 · 爪印工坊皮肤预览" width="280"> | <img src="skins/cai-xukun-stage-check/preview.png" alt="蔡徐坤 · 舞台校验皮肤预览" width="280"> | <img src="skins/tifa-seventh-heaven-flow/preview.png" alt="蒂法 · Seventh Heaven Flow 皮肤预览" width="280"> |
 | 公开非商用，可在 Release 下载 `.codexskin`。 | 公开非商用，可在 Release 下载 `.codexskin`。 | 公开非商用，可在 Release 下载 `.codexskin`。 |
+
+| 柳七月 · 不死凰焰 |
+| --- |
+| <img src="skins/liu-qiyue-undying-phoenix/preview.png" alt="柳七月 · 不死凰焰皮肤预览" width="420"> |
+| 公开非商用，可在 Release 下载 `.codexskin`。 |
 
 ## 主要能力
 
@@ -63,11 +68,12 @@ GitHub Release 公开五个可下载皮肤包：孟川两套、哈基米、蔡�
 
 ## 直接下载
 
-前往 [GitHub Releases](https://github.com/LouisDM/CodexSkinManager/releases) 下载当前版本。`v1.0.1` 是历史发布，只包含当时已有的两套孟川公开皮肤；`v1.1.0` 包含三套公开皮肤；当前 `v1.1.1` 发布产物应包含五套皮肤：
+前往 [GitHub Releases](https://github.com/LouisDM/CodexSkinManager/releases) 下载当前版本。`v1.0.1` 是历史发布，只包含当时已有的两套孟川公开皮肤；`v1.1.0` 包含三套公开皮肤；`v1.1.1` 包含五套公开皮肤；当前 `v1.1.2` 发布产物应包含六套皮肤：
 
-- `Codex-Skin-Manager-v1.1.1-macOS.zip`：管理器应用，已内置两套孟川皮肤，并支持导入源码目录生成的验证皮肤。
+- `Codex-Skin-Manager-v1.1.2-macOS.zip`：管理器应用，已内置两套孟川皮肤，并支持导入源码目录生成的验证皮肤。
 - `Cai-Xukun-Stage-Check-1.0.1.codexskin`：蔡徐坤 · 舞台校验。
 - `Hakimi-Paw-Atelier-1.0.2.codexskin`：哈基米 · 爪印工坊。
+- `Liu-Qiyue-Undying-Phoenix-1.0.2.codexskin`：柳七月 · 不死凰焰。
 - `Meng-Chuan-Nightblade-1.0.1.codexskin`：孟川 · 玄刃夜行。
 - `Meng-Chuan-Red-Lotus-1.0.1.codexskin`：孟川 · 红莲业火。
 - `Tifa-Seventh-Heaven-Flow-1.0.1.codexskin`：蒂法 · Seventh Heaven Flow。
@@ -106,9 +112,9 @@ xattr -dr com.apple.quarantine "$HOME/Applications/Codex 皮肤管理器.app"
 
 不要关闭 Gatekeeper，也不要对不明来源的 App 执行这条命令。
 
-## 旧启动器皮肤迁移（本机私有）
+## 旧启动器皮肤迁移
 
-`.command` 是启动脚本，不能直接导入管理器。若本机已有“柳七月 · 不死凰焰”旧启动器资源，可先构建安全的数据包：
+`.command` 是启动脚本，不能直接导入管理器。当前 Release 已提供公开版 `Liu-Qiyue-Undying-Phoenix-1.0.2.codexskin`。若本机仍有旧启动器资源，也可以先构建本机迁移数据包：
 
 ```bash
 python3 -m pip install "Pillow>=10"
@@ -117,7 +123,7 @@ python3 scripts/build_private_liu_qiyue_skin.py \
   --output "$HOME/Applications/Liu-Qiyue-Undying-Phoenix-1.0.1.codexskin"
 ```
 
-然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器会用原始背景与透明人物层生成一张 16:10 `preview.png`，确保管理器主图与实际皮肤一致；包内仍只有声明式图片、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。输出包是本机私用版本，管理器会禁用公开导出。
+然后双击输出文件，或在管理器中按 `⌘O` 导入。转换器会用原始背景与透明人物层生成一张 16:10 `preview.png`，确保管理器主图与实际皮肤一致；包内仍只有声明式图片、`theme.json`、`rights.json` 和许可文本，不会打包或执行旧启动器中的脚本和 CSS。旧迁移脚本输出的是本机迁移版本；公开下载请使用 Release 中的 `1.0.2` 包。
 
 ## 用 Codex 制作新皮肤
 
@@ -201,7 +207,7 @@ python3 scripts/build_codex_skin_manager_app.py --install
 - `⇧⌘R`：恢复默认
 - `⌥⌘I`：收起或显示右侧皮肤详情
 
-日常使用时，直接在左侧点选皮肤并在右侧确认预览与权利信息；顶部工具栏可直接导入或导出 `.codexskin`。只有清单明确允许重新分发的皮肤可导出，柳七月等“仅限本机”皮肤会保持锁定。需要同时比较多套皮肤时，用 `⌥⌘I` 收起详情进入画廊。顶部筛选菜单仍提供“全部皮肤、最近使用、仅限本机、未验证来源”四种视图。
+日常使用时，直接在左侧点选皮肤并在右侧确认预览与权利信息；顶部工具栏可直接导入或导出 `.codexskin`。只有清单明确允许重新分发的皮肤可导出，仅限本机的迁移包会保持锁定。需要同时比较多套皮肤时，用 `⌥⌘I` 收起详情进入画廊。顶部筛选菜单仍提供“全部皮肤、最近使用、仅限本机、未验证来源”四种视图。
 
 ## 自动化测试
 

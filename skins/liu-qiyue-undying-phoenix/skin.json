@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "id": "liu-qiyue-undying-phoenix",
+  "name": "柳七月 · 不死凰焰",
+  "version": "1.0.2",
+  "template": "undying-phoenix-v1",
+  "minManagerVersion": "1.1.0",
+  "preview": "preview.png",
+  "author": {
+    "name": "OPCspace",
+    "website": null
+  },
+  "theme": {
+    "tokens": {
+      "accent": "#F26B2F",
+      "accentStrong": "#FFD47A",
+      "canvas": "#090404",
+      "controlRadius": "12",
+      "focus": "#FFD47A",
+      "ink": "#FFF4DF",
+      "line": "#5B251B",
+      "motionDuration": "180",
+      "mutedInk": "#9AAABC",
+      "panelRadius": "7",
+      "surface": "#140707",
+      "surfaceRaised": "#23100D"
+    },
+    "assets": {
+      "background": "assets/background.png",
+      "hero": "assets/hero.png"
+    },
+    "focalPoints": {
+      "background": {
+        "x": 0.68,
+        "y": 0.45
+      },
+      "hero": {
+        "x": 0.5,
+        "y": 0.2
+      }
+    }
+  },
+  "rights": {
+    "redistributionAllowed": true,
+    "commercialUse": false,
+    "fanMade": true,
+    "unofficial": true,
+    "noEndorsement": true,
+    "notice": "Public non-commercial fan-made validation skin authorized by the maintainer for GitHub Release distribution. It uses AI-generated prototype assets inspired by Liu Qiyue from Cang Yuan Tu and does not include official artwork, logos, screenshots, or endorsement. Non-commercial redistribution is allowed with this notice preserved."
+  }
+}

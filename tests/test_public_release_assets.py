@@ -17,6 +17,7 @@ BUILDER = ROOT / "scripts" / "build_release_assets.py"
 EXPECTED = {
     "Cai-Xukun-Stage-Check-1.0.1.codexskin": ("cai-xukun-stage-check", "1.0.1"),
     "Hakimi-Paw-Atelier-1.0.2.codexskin": ("hakimi-paw-atelier", "1.0.2"),
+    "Liu-Qiyue-Undying-Phoenix-1.0.2.codexskin": ("liu-qiyue-undying-phoenix", "1.0.2"),
     "Meng-Chuan-Nightblade-1.0.1.codexskin": ("meng-chuan-nightblade", "1.0.1"),
     "Meng-Chuan-Red-Lotus-1.0.1.codexskin": ("meng-chuan-red-lotus", "1.0.1"),
     "Tifa-Seventh-Heaven-Flow-1.0.1.codexskin": ("tifa-seventh-heaven-flow", "1.0.1"),
