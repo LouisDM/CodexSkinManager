@@ -4,9 +4,9 @@
 
 - id：tifa-seventh-heaven-flow
 - version：1.0.1
-- 人物/IP：蒂法武术酒馆人物私用 fan-made 概念
+- 人物/IP：蒂法武术酒馆人物公开非商用 fan-made 概念
 - 作者：OPCspace
-- 使用范围：仅本地预览和流程验证
+- 使用范围：公开非商用预览和流程验证
 - 素材来源：Codex 图像生成 + 本地去绿幕/合成的原创 PNG
 - 目标管理器版本：1.1.0
 
@@ -22,7 +22,7 @@
 ## 模板决策
 
 - template：seventh-heaven-v1
-- 新增理由：独立模板保留厚重暗红和右侧 hero 结构，同时替换红莲业火文案，避免私用验证包应用后混入孟川/红莲信息
+- 新增理由：独立模板保留厚重暗红和右侧 hero 结构，同时替换红莲业火文案，避免验证包应用后混入孟川/红莲信息
 
 ## 资源
 
@@ -40,13 +40,13 @@
 - [x] 打包测试
 - [x] 管理器导入
 - [x] 应用与恢复验证
-- [x] 仅限本机导出锁定验证
+- [x] 公开非商用权利声明
 
 ## 已知问题与下一步
 
 - 2026-07-17：旧 `1.0.0` 视觉质量不达标，已按搜索后的推荐方向重制为高质感武术酒馆人物皮肤。
 - 2026-07-17：继续升级为 `1.0.1`，接入独立 `seventh-heaven-v1` 模板，避免同版本内容冲突和旧红莲业火文案残留。
-- 已生成 `dist/validation-skins/Tifa-Seventh-Heaven-Flow-1.0.1.codexskin`，SHA-256 为 `08fb3c39eb76b1188d389522e0b9d3ca588f935043083c0c4e0b9447ac4d2431`。
+- `dist/v1.1.1/Tifa-Seventh-Heaven-Flow-1.0.1.codexskin` 的 SHA-256 为 `dfdad3d11227342cb420b24463805847885e73b9032b15281e88533f9099af42`。
 - 已通过真实管理器导入到 `~/Library/Application Support/CodexSkinManager/skins/tifa-seventh-heaven-flow/1.0.1`。
 - 已通过 headless CDP fixture 验证应用、校验和恢复流程，运行时模板为 `seventh-heaven-v1`。
-- 因涉及第三方虚构角色名称，保持私用不可分发，不上传公开 Release。
+- 作为公开非商用验证皮肤上传 Release；包内声明非官方、无背书、不含官方角色图、Logo 或截图。

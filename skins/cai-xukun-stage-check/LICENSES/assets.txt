@@ -1,5 +1,5 @@
 Assets are original generated raster illustrations created with Codex image generation and local chroma-key post-processing.
 
-This is a private local validation fan-made stage portrait concept. It does not include official photographs, logos, signatures, quotes, lyrics, remote assets, scripts, CSS, or executable content.
+This is a public non-commercial validation fan-made stage portrait concept. It does not include official photographs, logos, signatures, quotes, lyrics, remote assets, scripts, CSS, or executable content.
 
-Redistribution and commercial use are not permitted. The package is intended to validate private import, application, restore, and export-lock behavior in Codex Skin Manager.
+Public non-commercial redistribution is allowed for Codex Skin Manager validation and documentation with this notice preserved. Commercial use is not permitted.

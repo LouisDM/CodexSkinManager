@@ -41,11 +41,11 @@
     }
   },
   "rights": {
-    "redistributionAllowed": false,
+    "redistributionAllowed": true,
     "commercialUse": false,
     "fanMade": true,
     "unofficial": true,
     "noEndorsement": true,
-    "notice": "Private local validation fan-made concept only. It uses an original generated fan-art character asset and does not include official character artwork, logos, screenshots, or endorsement. Redistribution and commercial use are not permitted."
+    "notice": "Public non-commercial validation fan-made concept only. It uses an original generated fan-art character asset and does not include official character artwork, logos, screenshots, or endorsement. Non-commercial redistribution is allowed with this notice preserved."
   }
 }

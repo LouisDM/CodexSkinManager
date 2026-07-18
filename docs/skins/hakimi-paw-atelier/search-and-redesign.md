@@ -50,5 +50,5 @@
 
 蔡徐坤与蒂法不应继续用粗糙抽象图批量生成。若继续制作：
 
-- 蔡徐坤：只做私用 fan-made，参考官方站点的 Tour / Music / Videos 信息架构，不使用真人照片、姓名背书、签名或歌词。
-- 蒂法：只做私用 fan-made，参考 Seventh Heaven、拳套、格斗训练语义，不使用官方角色图、Logo 或截图。
+- 蔡徐坤：只做公开非商用 fan-made，参考官方站点的 Tour / Music / Videos 信息架构，不使用官方照片、姓名背书、签名或歌词。
+- 蒂法：只做公开非商用 fan-made，参考 Seventh Heaven、拳套、格斗训练语义，不使用官方角色图、Logo 或截图。
