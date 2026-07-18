@@ -7,7 +7,7 @@ struct CodexSkinManagerApp: App {
     @StateObject private var model = AppModel()
 
     var body: some Scene {
-        WindowGroup("Codex 皮肤管理器") {
+        Window("Codex 皮肤管理器", id: "main") {
             ContentView()
                 .environmentObject(model)
                 .task {
