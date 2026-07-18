@@ -78,23 +78,17 @@ public struct SkinLibrarySummaryPresentation: Equatable, Sendable {
 public struct SkinNavigatorItemPresentation: Equatable, Sendable {
     public let title: String
     public let metadata: String
-    public let rightsLabel: String
-    public let rightsSystemImage: String
     public let activityLabel: String?
     public let accessibilityLabel: String
 
     public init(_ skin: InstalledSkin, activityLabel: String?) {
-        let rights = SkinRightsPresentation(skin.rights)
         title = skin.name
         metadata = "\(skin.author.name) · v\(skin.version)"
-        rightsLabel = rights.label
-        rightsSystemImage = rights.systemImage
         self.activityLabel = activityLabel
         accessibilityLabel = [
             skin.name,
             "作者 \(skin.author.name)",
             "版本 \(skin.version)",
-            rights.label,
             activityLabel,
         ]
         .compactMap { $0 }
@@ -104,7 +98,6 @@ public struct SkinNavigatorItemPresentation: Equatable, Sendable {
 
 public enum SkinDetailLayout {
     public static let previewAspectRatio: CGFloat = 16 / 10
-    public static let badgeMinimumWidth: CGFloat = 210
     public static let minimumPaneWidth: CGFloat = 360
     public static let idealPaneWidth: CGFloat = 500
     public static let maximumPaneWidth: CGFloat = 720
@@ -138,52 +131,12 @@ public struct SkinFileTransferPresentation: Equatable, Sendable {
     }
 }
 
-public struct SkinTrustPresentation: Equatable, Sendable {
-    public let label: String
-    public let detail: String
-    public let systemImage: String
-
-    public init(_ trust: SkinTrustState) {
-        switch trust {
-        case let .verifiedPublisher(fingerprint):
-            label = "发布者已验证"
-            detail = "签名指纹：\(fingerprint)"
-            systemImage = "checkmark.seal.fill"
-        case let .signedUnknownPublisher(fingerprint):
-            label = "包已安全校验"
-            detail = "签名有效；发布者指纹：\(fingerprint)。"
-            systemImage = "checkmark.shield"
-        case .unsigned:
-            label = "包已安全校验"
-            detail = "包结构、清单和文件内容已通过导入校验。"
-            systemImage = "checkmark.shield"
-        }
-    }
-}
-
-public struct SkinRightsPresentation: Equatable, Sendable {
-    public let label: String
-    public let detail: String
-    public let systemImage: String
-
-    public init(_ rights: SkinRights) {
-        label = "允许导入导出"
-        detail = rights.canExportPublicly
-            ? "清单声明素材允许重新分发，可导出为 .codexskin。"
-            : "管理器允许导入和导出此皮肤；对外分享前请自行确认素材权利。"
-        systemImage = "square.and.arrow.up"
-    }
-}
-
 public struct SkinCardPresentation: Equatable, Sendable, Identifiable {
     public let id: String
     public let version: String
     public let name: String
     public let author: String
     public let previewURL: URL
-    public let trust: SkinTrustPresentation
-    public let rights: SkinRightsPresentation
-    public let privateExportMessage: String?
 
     public init(_ skin: InstalledSkin) {
         id = skin.id
@@ -191,9 +144,6 @@ public struct SkinCardPresentation: Equatable, Sendable, Identifiable {
         name = skin.name
         author = skin.author.name
         previewURL = skin.previewURL
-        trust = SkinTrustPresentation(skin.trust)
-        rights = SkinRightsPresentation(skin.rights)
-        privateExportMessage = nil
     }
 }
 

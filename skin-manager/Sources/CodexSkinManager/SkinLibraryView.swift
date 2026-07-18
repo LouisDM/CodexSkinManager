@@ -229,17 +229,11 @@ private struct SkinNavigatorRow: View {
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
 
-                    HStack(spacing: 7) {
-                        Label(item.rightsLabel, systemImage: item.rightsSystemImage)
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(.secondary)
+                    if let activityLabel {
+                        Label(activityLabel, systemImage: activityImage)
+                            .font(.caption2.weight(.bold))
+                            .foregroundStyle(activityColor)
                             .lineLimit(1)
-                        if let activityLabel {
-                            Label(activityLabel, systemImage: activityImage)
-                                .font(.caption2.weight(.bold))
-                                .foregroundStyle(activityColor)
-                                .lineLimit(1)
-                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -323,10 +317,6 @@ private struct SkinCard: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
-                    HStack(spacing: 6) {
-                        CompactBadge(label: card.trust.label, image: card.trust.systemImage)
-                        CompactBadge(label: card.rights.label, image: card.rights.systemImage)
-                    }
                 }
                 .padding(13)
             }
@@ -341,7 +331,7 @@ private struct SkinCard: View {
             }
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("\(card.name)，作者 \(card.author)，\(card.rights.label)")
+        .accessibilityLabel("\(card.name)，作者 \(card.author)")
         .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 }
@@ -369,19 +359,5 @@ struct SkinPreviewImage: View {
             }
         }
         .accessibilityHidden(true)
-    }
-}
-
-struct CompactBadge: View {
-    let label: String
-    let image: String
-
-    var body: some View {
-        Label(label, systemImage: image)
-            .font(.caption2.weight(.semibold))
-            .lineLimit(1)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 5)
-            .background(Color.primary.opacity(0.07), in: Capsule())
     }
 }

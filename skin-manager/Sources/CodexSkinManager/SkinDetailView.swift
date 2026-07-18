@@ -13,7 +13,7 @@ struct SkinDetailView: View {
             } else {
                 EmptyLibraryState(
                     title: "选择一个皮肤",
-                    detail: "这里会显示预览、来源、安全状态与可用操作。",
+                    detail: "这里会显示预览、元数据与可用操作。",
                     image: "sidebar.right"
                 )
             }
@@ -29,8 +29,6 @@ struct SkinDetailView: View {
 
     private func detail(for skin: InstalledSkin) -> some View {
         let card = SkinCardPresentation(skin)
-        let trust = SkinTrustPresentation(skin.trust)
-        let rights = SkinRightsPresentation(skin.rights)
         return ScrollView(.vertical) {
             VStack(alignment: .leading, spacing: 22) {
                 if let banner = model.inspectionPresentation.blockingBanner {
@@ -54,25 +52,6 @@ struct SkinDetailView: View {
                         .lineLimit(3)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-
-                LazyVGrid(
-                    columns: [
-                        GridItem(
-                            .adaptive(minimum: SkinDetailLayout.badgeMinimumWidth),
-                            spacing: 10,
-                            alignment: .top
-                        ),
-                    ],
-                    alignment: .leading,
-                    spacing: 10
-                ) {
-                    DetailBadge(title: trust.label, detail: trust.detail, image: trust.systemImage)
-                    DetailBadge(title: rights.label, detail: rights.detail, image: rights.systemImage)
-                }
-
-                if let message = card.privateExportMessage {
-                    SafetyBanner(title: "素材权利限制", message: message, image: "lock.shield.fill", color: .yellow)
-                }
 
                 statusPanel
                 actionBar
@@ -218,32 +197,6 @@ private struct SkinDetailPreview: View {
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .stroke(Color.primary.opacity(0.12), lineWidth: 1)
             }
-    }
-}
-
-private struct DetailBadge: View {
-    let title: String
-    let detail: String
-    let image: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 7) {
-            HStack(spacing: 8) {
-                Image(systemName: image)
-                    .font(.title3)
-                Text(title)
-                    .font(.subheadline.weight(.semibold))
-                Spacer(minLength: 0)
-            }
-            Text(detail)
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .lineLimit(nil)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .padding(12)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.primary.opacity(0.055), in: RoundedRectangle(cornerRadius: 12))
     }
 }
 

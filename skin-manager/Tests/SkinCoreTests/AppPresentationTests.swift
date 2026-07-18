@@ -63,15 +63,14 @@ final class AppPresentationTests: XCTestCase {
 
         XCTAssertEqual(item.title, "孟川 · 红莲业火")
         XCTAssertEqual(item.metadata, "OPCspace · v1.0.1")
-        XCTAssertEqual(item.rightsLabel, "允许导入导出")
         XCTAssertEqual(item.activityLabel, "已验证生效")
         XCTAssertTrue(item.accessibilityLabel.contains("孟川 · 红莲业火"))
         XCTAssertTrue(item.accessibilityLabel.contains("已验证生效"))
+        XCTAssertFalse(item.accessibilityLabel.contains("允许导入导出"))
     }
 
     func testDetailLayoutDefinesFlexiblePreviewAndResizablePaneBounds() {
         XCTAssertEqual(SkinDetailLayout.previewAspectRatio, 1.6)
-        XCTAssertEqual(SkinDetailLayout.badgeMinimumWidth, 210)
         XCTAssertLessThan(SkinDetailLayout.minimumPaneWidth, SkinDetailLayout.idealPaneWidth)
         XCTAssertLessThan(SkinDetailLayout.idealPaneWidth, SkinDetailLayout.maximumPaneWidth)
     }
@@ -138,18 +137,6 @@ final class AppPresentationTests: XCTestCase {
         XCTAssertFalse(transfer.canExport)
         XCTAssertEqual(transfer.exportSystemImage, "square.and.arrow.up")
         XCTAssertEqual(transfer.exportHelp, "当前操作完成后可继续")
-    }
-
-    func testTrustAndRightsBadgesAreExplicit() {
-        XCTAssertEqual(SkinTrustPresentation(.verifiedPublisher(fingerprint: "abc")).label, "发布者已验证")
-        XCTAssertEqual(SkinTrustPresentation(.signedUnknownPublisher(fingerprint: "abc")).label, "包已安全校验")
-        XCTAssertEqual(SkinTrustPresentation(.unsigned).label, "包已安全校验")
-
-        let privateRights = rights(redistributionAllowed: false)
-        let publicRights = rights(redistributionAllowed: true)
-        XCTAssertEqual(SkinRightsPresentation(privateRights).label, "允许导入导出")
-        XCTAssertTrue(SkinRightsPresentation(privateRights).detail.contains("自行确认素材权利"))
-        XCTAssertEqual(SkinRightsPresentation(publicRights).label, "允许导入导出")
     }
 
     func testActionAvailabilityProtectsActiveSkinButAllowsAnySelectedSkinToExport() {
@@ -264,7 +251,6 @@ final class AppPresentationTests: XCTestCase {
 
         XCTAssertEqual(card.name, longName)
         XCTAssertEqual(card.author, longAuthor)
-        XCTAssertNil(card.privateExportMessage)
     }
 
     private func inspection(signatureValid: Bool) -> CodexAppInspection {
